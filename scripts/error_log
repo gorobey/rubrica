@@ -1,0 +1,2 @@
+[18-Jan-2018 23:39:54 Europe/Berlin] PHP Notice:  Undefined index: id_usuario in /home/colegion/public_html/rubrica/scripts/cargar_asignaturas_docente.php on line 6
+[18-Jan-2018 23:39:54 Europe/Berlin] PHP Notice:  Undefined index: id_periodo_lectivo in /home/colegion/public_html/rubrica/scripts/cargar_asignaturas_docente.php on line 7

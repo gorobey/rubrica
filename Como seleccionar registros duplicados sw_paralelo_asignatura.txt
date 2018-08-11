@@ -1,0 +1,13 @@
+SELECT * FROM `sw_paralelo_asignatura` WHERE id_asignatura = 152 AND id_paralelo = 77 AND id_periodo_lectivo = 5
+
+SELECT id_paralelo, id_asignatura, count(*)
+FROM sw_paralelo_asignatura
+WHERE id_periodo_lectivo = 5
+GROUP BY id_paralelo, id_asignatura
+HAVING count(*) > 1
+
+id_paralelo id_asignatura count(*)
+77          32            2
+77          152           2
+78          32            2
+79          30            2

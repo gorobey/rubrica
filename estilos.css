@@ -1,0 +1,633 @@
+/* CSS Document */
+
+body, ul {
+    margin:0px;
+    padding:0px;
+}
+
+img {
+    border: none;
+}
+
+.fecha {
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:12px;
+    color:#fff;
+    text-align:right;
+	padding-top: 2px;
+	padding-right: 2px;
+}
+
+.login {
+	padding-top: 5px;
+	padding-right: 2px;
+	text-align: right;
+}
+
+.login a {
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:12px;
+    color:#fff;
+    text-align:right;
+	text-decoration: none;
+}
+
+.login a:hover {
+	font-size: 14px;
+}
+
+.enlace {
+	padding-left: 2px;
+	display: none;
+}
+
+.enlace a {
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:12px;
+    color:#000;
+    text-align:right;
+	text-decoration: none;
+}
+
+.enlace a:hover {
+	text-decoration: underline;
+}
+
+.boton {
+	padding-left: 4px;
+	display: block;
+}
+
+.boton a {
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:12px;
+    color:#000;
+    text-align:right;
+	text-decoration: underline;
+}
+
+.boton a:hover {
+	color: #f00;
+}
+
+.link_table a {
+	font:8pt helvetica;
+    color:#000;
+    text-align:right;
+	text-decoration: none;
+}
+
+.link_table a:hover {
+	text-decoration: underline;
+}
+
+.link_form a {
+	font:8pt helvetica;
+    color:#000;
+    text-align:right;
+	text-decoration: underline;
+}
+
+.link_form a:hover {
+	color:#FF0000;
+}
+
+.perfil {
+	font-size:12px;
+	color:#fff;
+}
+
+.perfil a {
+	font-size:12px;
+	color: #fff;
+	text-decoration: underline;
+}
+
+.perfil a:hover {
+	color: #FFFF00;
+}
+
+.pie {
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:12px;
+    color:#666666;
+    text-align:center;
+}
+
+.botones {
+    float: right;
+    padding-right: 5px;
+    padding-top: 8px;
+    width:32px;
+    height:32px;
+}
+
+.botones img:hover {
+    margin-left:-1px;
+    width:35px;
+    height:35px;
+}
+
+.actions {
+	text-align:center;
+}
+
+.show {
+	display:block;
+}
+
+.hide {
+	display:none;
+}	
+
+.error {
+	color:#FF0000;
+	text-align:center;
+	font-family:Arial, Helvetica, sans-serif;
+	/*font-size:1.1em;	*/
+}
+
+.msg {
+    margin: 30px auto; 
+    padding: 10px; 
+    border-radius: 5px; 
+    color: #3c763d; 
+    background: #dff0d8; 
+    border: 1px solid #3c763d;
+    width: 50%;
+    text-align: center;
+}
+
+/*****************************************/
+/* clases relativas a contenedores       */
+/*****************************************/
+
+#pagina {
+    background:#fff;
+    font-family: helvetica;
+    font-size:8pt;
+    width:100%;
+}
+
+#titulo_pagina {
+	background:#006633;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #fff;
+	text-align: center;
+	padding: 2px;
+	margin: 2px 0px 2px 0px;
+	text-transform: uppercase;
+}
+
+#barra_principal {
+	background:#f5f5f5;
+	height:24px;
+}
+
+.barra_principal {
+	background:#f5f5f5;
+	height:24px;
+}
+
+#barra_secundaria {
+	background:#f5f5f5;
+	height:24px;
+	margin-top:2px;
+	display:none;
+}
+
+.barra_secundaria {
+	background:#f5f5f5;
+	height:21px;
+    margin-top:2px;
+    padding:5px;
+}
+
+.paginacion {
+	background:#f5f5f5;
+	height:21px;
+	margin-top:2px;
+	padding-top:2px;
+}
+
+.notificacion {
+	padding:4px;
+}
+
+/****************************************/
+.titulo-instalador {
+    font-family: "Times New Roman", Times, serif;
+    font-size:36px;
+    color:#333;
+    text-align:center;
+	font-weight:bold; 
+	padding:1px 0px 2px 0px;
+}
+
+.titulo1 {
+    /*font-family: "Times New Roman", Times, serif;*/
+	font-family:Arial, Helvetica, sans-serif;
+    font-size:36px;
+    color:#fff;
+    text-align:center;
+	font-weight:bold; 
+	padding:1px 0px 2px 0px;
+}
+
+.titulo2 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:18px;
+    color:#fff;
+    text-align:center;
+	font-weight:normal; 
+	padding:1px 0px 2px 0px;
+}
+
+.titulo3 {
+    font-family: Arial, Helvetica, sans-serif;
+	font-size:14px;
+	color:#FFFFFF;
+	text-align:right;
+	font-weight:normal;
+	padding-top:30px;
+}
+
+.titulo_login {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	color: #0066ff;
+}
+
+/*****************************************/
+/* clases relativas a tablas             */
+/*****************************************/
+
+.tabla_cabecera {
+	background: #4682b4; /*#0096d2; */ /*006633;*/
+	margin: 0px;
+	padding: 0px;
+}
+
+.header {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size:8pt;
+    background-color:#990000;
+    color:#fff;
+    text-align:center;
+    font-weight:bold;
+    height:20px;
+    vertical-align:middle;
+    text-transform:uppercase;
+	padding-top:2px;
+}
+
+.header2 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size:8pt;
+    background-color:#0066FF;
+    color:#fff;
+    text-align:center;
+    font-weight:bold;
+	padding-top:3px;
+}
+
+/*****************************************/
+/* clases relativas a la fuente de texto */
+/*****************************************/
+
+.fuente6 {
+    font:6pt helvetica;
+}
+
+.fuente7 {
+    font:7pt helvetica;
+}
+
+.fuente8 {
+    font:8pt helvetica;
+}
+
+.fuente9 {
+    font:9pt helvetica;
+}
+
+/*****************************************/
+/* clases relativas a cajas de texto     */
+/*****************************************/
+
+.cajaPequenia {
+    background-color:#fff;
+    font:8pt helvetica;
+    color:#000;
+    width:75px;
+    border-color:#696969;
+    border-style :solid;
+    border-width :1px;
+    height:12pt;
+}
+
+.cajaMedia {
+    background-color:#fff;
+    font:8pt helvetica;
+    color:#000;
+    width:150px;
+    border-color:#696969;
+    border-style :solid;
+    border-width :1px;
+    height:12pt;
+}
+
+.cajaGrande {
+    background-color:#fff;
+    font:8pt helvetica;
+    color:#000;
+    width:250px;
+    border-color:#696969;
+    border-style :solid;
+    border-width :1px;
+    height:12pt;
+}
+
+.cajaIntermedia {
+    background-color:#fff;
+    font:8pt helvetica;
+    color:#000;
+    width:168px;
+    border-color:#696969;
+    border-style :solid;
+    border-width :1px;
+    height:12pt;
+}
+
+.cajaExtraGrande {
+    background-color:#fff;
+    font:8pt helvetica;
+    color:#000;
+    width:460px;
+    border-color:#696969;
+    border-style :solid;
+    border-width :1px;
+    height:12pt;
+}
+
+textarea {
+	resize: none;
+}
+
+.txtArea {
+    background-color:#fff;
+    font:8pt helvetica;
+    color:#000;
+    width:305px;
+	height:60px;
+    border-color:#696969;
+    border-style :solid;
+    border-width :1px;
+}
+
+.txtAreaGrande {
+    background-color:#fff;
+    font:8pt helvetica;
+    color:#000;
+    width:660px;
+	height:60px;
+    border:1px solid #696969;
+}
+
+.inputPequenio {
+    background-color:#fff;
+    font:9pt helvetica;
+    color:#000;
+    width:50px;
+    border: 1px solid #ccc;
+    height:12pt;
+    text-align: right;
+    text-transform: uppercase;
+}
+
+.inputMedio {
+    background-color:#fff;
+    font:9pt helvetica;
+    text-transform:uppercase;
+    color:#000;
+    width:100px;
+    border-color:#000;
+    border-style :solid;
+    border-width :1px;
+    height:14pt;
+}
+
+.inputGrande {
+    background-color:#fff;
+    font:9pt helvetica;
+    text-transform:uppercase;
+    color:#000;
+    width:170px;
+    border-color:#000;
+    border-style :solid;
+    border-width :1px;
+    height:14pt;
+}
+
+.descripcion {
+    background-color:#fff;
+    font:9pt helvetica;
+    text-transform:uppercase;
+    color:#000;
+    width:170px;
+    height:14pt;
+}
+
+.comboPequenio {
+    background-color:#fff;
+    font:8pt helvetica;
+    color:#000;
+    width:102px;
+    border-color:#696969;
+    border-style :solid;
+    border-width :1px;
+    height:15pt;
+}
+
+.comboMedio {
+    background-color:#fff;
+    font:8pt helvetica;
+    color:#000;
+    width:172px;
+    border-color:#696969;
+    border-style :solid;
+    border-width :1px;
+    height:15pt;
+}
+
+.comboGrande {
+    background-color:#fff;
+    font:8pt helvetica;
+    color:#000;
+    width:250px;
+    border-color:#696969;
+    border-style :solid;
+    border-width :1px;
+    height:15pt;
+}
+
+#ficha {
+    width:32px;
+    height:32px;
+}
+
+#ficha img:hover {
+    margin-left:-1px;
+    width:35px;
+    height:35px;
+}
+
+#lineaResultado {
+    position:relative;
+    top:10%;
+    width:90%;	
+}
+
+#lineaResultadoActivo {
+    position:relative;
+    top:10%;
+    width:100%;
+}
+
+.lineaResultado {
+    margin-left:2%;
+    width:90%;
+}
+
+.mensaje {
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:11px;
+    line-height:13px;
+    text-align:center;
+    color: #000000;
+}
+
+#cabeceraResultado {
+    position:relative;
+    top:11%;
+    width:90%;
+}
+
+.header2 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size:8pt;
+    background-color:#0066FF;
+    color:#fff;
+    text-align:center;
+    font-weight:bold;
+    height:20px;
+    vertical-align:middle;
+}
+
+/*****************************************/
+/* clases relativas a tablas             */
+/*****************************************/
+.cabeceraTabla {
+    background-color:#5f5f5f;
+    color:#fff;
+    font-weight:bold;
+    text-align:center;
+    text-transform:uppercase;
+}
+
+.itemParTabla {
+    background-color:#ccc;
+}
+
+.itemImparTabla {
+    background-color:#f5f5f5;
+}
+
+.itemEncimaTabla {
+    background-color:#FFFFCC;
+}
+
+.itemFilaPresionada {
+    background-color:#6699CC;
+}
+
+.headerTable {
+	font: 8pt helvetica;
+	font-weight: bold;
+}
+
+/****************************************/
+
+#ficha2 {
+    width:32px;
+    height:37px;
+}
+
+#ficha2 img:hover {
+    margin-left:-1px;
+    width:34px;
+    height:39px;
+}
+
+.aCentro {
+    text-align:center;
+}
+
+#formulario_nuevo, 
+#formulario_busqueda,
+#formulario_detalle {
+	display: none;
+}
+
+#frmNuevo, 
+#frmBusqueda, 
+#frmVisor, 
+#frmNuevaRubrica,
+.form_nuevo {
+    position:relative;
+    top:5%;
+    left:0%;
+    width:100%;
+    background-color:#f5f5f5;
+    border-top:solid 1px #dcdcdc;
+    border-left:solid 1px #dcdcdc;
+    border-right:solid 1px #696969;
+    border-bottom:solid 1px #696969;
+	padding-bottom:2px;
+}
+
+/* Estilos para el cuadro de login */
+div.redondo {
+    margin-top: 20px;
+    width: 400px;
+	height: 210px;
+    border: 1px solid #999999;
+	border-radius: 7px;
+}
+
+/* Estilos para columnas */
+.izquierda {
+	padding-top: 10px;
+	width: 145px;
+	float: left;
+	text-align: right;
+}
+
+.derecha {
+	padding-top: 5px;
+	text-align: left;
+}
+
+/* Estilos para alineacion del texto */
+.text-center {
+	text-align: center;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.text-right {
+	text-align: right;
+}

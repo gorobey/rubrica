@@ -1,0 +1,120 @@
+[19-Jul-2017 07:31:17 America/Guayaquil] PHP Fatal error:  Uncaught exception 'PHPExcel_Reader_Exception' with message 'Could not open ../templates/CUADRO FINAL - 9 ASIGNATURAS.xls for reading! File does not exist, or it is not readable.' in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Shared/OLERead.php:80
+Stack trace:
+#0 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Reader/Excel5.php(1165): PHPExcel_Shared_OLERead->read('../templates/CU...')
+#1 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Reader/Excel5.php(612): PHPExcel_Reader_Excel5->_loadOLE('../templates/CU...')
+#2 /home/colegion/public_html/rubrica/php_excel/reporte_cuadro_final.php(91): PHPExcel_Reader_Excel5->load('../templates/CU...')
+#3 {main}
+  thrown in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Shared/OLERead.php on line 80
+[19-Jul-2017 07:37:13 America/Guayaquil] PHP Fatal error:  Uncaught exception 'PHPExcel_Reader_Exception' with message 'Could not open ../templates/CUADRO FINAL - 9 ASIGNATURAS.xls for reading! File does not exist, or it is not readable.' in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Shared/OLERead.php:80
+Stack trace:
+#0 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Reader/Excel5.php(1165): PHPExcel_Shared_OLERead->read('../templates/CU...')
+#1 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Reader/Excel5.php(612): PHPExcel_Reader_Excel5->_loadOLE('../templates/CU...')
+#2 /home/colegion/public_html/rubrica/php_excel/reporte_cuadro_final.php(92): PHPExcel_Reader_Excel5->load('../templates/CU...')
+#3 {main}
+  thrown in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Shared/OLERead.php on line 80
+[19-Jul-2017 07:51:14 America/Guayaquil] PHP Fatal error:  Uncaught exception 'PHPExcel_Reader_Exception' with message 'Could not open ../templates/CUADRO FINAL - 15 ASIGNATURAS.xls for reading! File does not exist, or it is not readable.' in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Shared/OLERead.php:80
+Stack trace:
+#0 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Reader/Excel5.php(1165): PHPExcel_Shared_OLERead->read('../templates/CU...')
+#1 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Reader/Excel5.php(612): PHPExcel_Reader_Excel5->_loadOLE('../templates/CU...')
+#2 /home/colegion/public_html/rubrica/php_excel/reporte_cuadro_final.php(92): PHPExcel_Reader_Excel5->load('../templates/CU...')
+#3 {main}
+  thrown in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Shared/OLERead.php on line 80
+[19-Jul-2017 08:30:09 America/Guayaquil] PHP Fatal error:  Uncaught exception 'PHPExcel_Reader_Exception' with message 'Could not open ../templates/CUADRO FINAL - 16 ASIGNATURAS.xls for reading! File does not exist, or it is not readable.' in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Shared/OLERead.php:80
+Stack trace:
+#0 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Reader/Excel5.php(1165): PHPExcel_Shared_OLERead->read('../templates/CU...')
+#1 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Reader/Excel5.php(612): PHPExcel_Reader_Excel5->_loadOLE('../templates/CU...')
+#2 /home/colegion/public_html/rubrica/php_excel/reporte_cuadro_final.php(93): PHPExcel_Reader_Excel5->load('../templates/CU...')
+#3 {main}
+  thrown in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Shared/OLERead.php on line 80
+[19-Jul-2017 09:18:54 America/Guayaquil] PHP Fatal error:  Uncaught exception 'PHPExcel_Reader_Exception' with message 'Could not open ../templates/CUADRO FINAL - 14 ASIGNATURAS.xls for reading! File does not exist, or it is not readable.' in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Shared/OLERead.php:80
+Stack trace:
+#0 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Reader/Excel5.php(1165): PHPExcel_Shared_OLERead->read('../templates/CU...')
+#1 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Reader/Excel5.php(612): PHPExcel_Reader_Excel5->_loadOLE('../templates/CU...')
+#2 /home/colegion/public_html/rubrica/php_excel/reporte_cuadro_final.php(94): PHPExcel_Reader_Excel5->load('../templates/CU...')
+#3 {main}
+  thrown in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Shared/OLERead.php on line 80
+[20-Jul-2017 09:59:56 America/Guayaquil] PHP Fatal error:  Uncaught exception 'PHPExcel_Reader_Exception' with message 'Could not open ../templates/CUADRO REMEDIAL - 7 ASIGNATURAS.xls for reading! File does not exist, or it is not readable.' in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Shared/OLERead.php:80
+Stack trace:
+#0 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Reader/Excel5.php(1165): PHPExcel_Shared_OLERead->read('../templates/CU...')
+#1 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Reader/Excel5.php(612): PHPExcel_Reader_Excel5->_loadOLE('../templates/CU...')
+#2 /home/colegion/public_html/rubrica/php_excel/reporte_cuadro_remediales.php(95): PHPExcel_Reader_Excel5->load('../templates/CU...')
+#3 {main}
+  thrown in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Shared/OLERead.php on line 80
+[20-Jul-2017 10:05:37 America/Guayaquil] PHP Warning:  mysql_query(): Unable to save result set in /home/colegion/public_html/rubrica/scripts/clases/class.mysql.php on line 17
+[20-Jul-2017 12:58:07 America/Guayaquil] PHP Fatal error:  Uncaught exception 'PHPExcel_Reader_Exception' with message 'Could not open ../templates/CUADRO REMEDIAL - 12 ASIGNATURAS.xls for reading! File does not exist, or it is not readable.' in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Shared/OLERead.php:80
+Stack trace:
+#0 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Reader/Excel5.php(1165): PHPExcel_Shared_OLERead->read('../templates/CU...')
+#1 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Reader/Excel5.php(612): PHPExcel_Reader_Excel5->_loadOLE('../templates/CU...')
+#2 /home/colegion/public_html/rubrica/php_excel/reporte_cuadro_remediales.php(95): PHPExcel_Reader_Excel5->load('../templates/CU...')
+#3 {main}
+  thrown in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Shared/OLERead.php on line 80
+[20-Jul-2017 13:54:47 America/Guayaquil] PHP Fatal error:  Uncaught exception 'PHPExcel_Reader_Exception' with message 'Could not open ../templates/CUADRO REMEDIAL - 9 ASIGNATURAS.xls for reading! File does not exist, or it is not readable.' in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Shared/OLERead.php:80
+Stack trace:
+#0 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Reader/Excel5.php(1165): PHPExcel_Shared_OLERead->read('../templates/CU...')
+#1 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Reader/Excel5.php(612): PHPExcel_Reader_Excel5->_loadOLE('../templates/CU...')
+#2 /home/colegion/public_html/rubrica/php_excel/reporte_cuadro_remediales.php(95): PHPExcel_Reader_Excel5->load('../templates/CU...')
+#3 {main}
+  thrown in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Shared/OLERead.php on line 80
+[20-Jul-2017 14:08:07 America/Guayaquil] PHP Fatal error:  Uncaught exception 'PHPExcel_Reader_Exception' with message 'Could not open ../templates/CUADRO REMEDIAL - 15 ASIGNATURAS.xls for reading! File does not exist, or it is not readable.' in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Shared/OLERead.php:80
+Stack trace:
+#0 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Reader/Excel5.php(1165): PHPExcel_Shared_OLERead->read('../templates/CU...')
+#1 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Reader/Excel5.php(612): PHPExcel_Reader_Excel5->_loadOLE('../templates/CU...')
+#2 /home/colegion/public_html/rubrica/php_excel/reporte_cuadro_remediales.php(95): PHPExcel_Reader_Excel5->load('../templates/CU...')
+#3 {main}
+  thrown in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Shared/OLERead.php on line 80
+[20-Jul-2017 18:51:01 America/Guayaquil] PHP Fatal error:  Uncaught exception 'PHPExcel_Reader_Exception' with message 'Could not open ../templates/CUADRO QUIMESTRAL - 13 ASIGNATURAS.xls for reading! File does not exist, or it is not readable.' in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Shared/OLERead.php:80
+Stack trace:
+#0 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Reader/Excel5.php(1165): PHPExcel_Shared_OLERead->read('../templates/CU...')
+#1 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Reader/Excel5.php(612): PHPExcel_Reader_Excel5->_loadOLE('../templates/CU...')
+#2 /home/colegion/public_html/rubrica/php_excel/reporte_quimestral.php(79): PHPExcel_Reader_Excel5->load('../templates/CU...')
+#3 {main}
+  thrown in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Shared/OLERead.php on line 80
+[25-Aug-2017 18:29:09 America/Guayaquil] PHP Notice:  Undefined variable: colComportamiento in /home/colegion/public_html/rubrica/php_excel/reporte_anual.php on line 202
+[25-Aug-2017 18:29:09 America/Guayaquil] PHP Fatal error:  Uncaught exception 'PHPExcel_Exception' with message 'Invalid cell coordinate 8' in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Cell.php:558
+Stack trace:
+#0 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Worksheet.php(1227): PHPExcel_Cell::coordinateFromString('8')
+#1 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Worksheet.php(1186): PHPExcel_Worksheet->_createNewCell('8')
+#2 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Worksheet.php(1095): PHPExcel_Worksheet->getCell('8')
+#3 /home/colegion/public_html/rubrica/php_excel/reporte_anual.php(202): PHPExcel_Worksheet->setCellValue('8', 'S/N')
+#4 {main}
+  thrown in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Cell.php on line 558
+[25-Aug-2017 18:33:07 America/Guayaquil] PHP Notice:  Undefined variable: colComportamiento in /home/colegion/public_html/rubrica/php_excel/reporte_anual.php on line 202
+[25-Aug-2017 18:33:07 America/Guayaquil] PHP Fatal error:  Uncaught exception 'PHPExcel_Exception' with message 'Invalid cell coordinate 8' in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Cell.php:558
+Stack trace:
+#0 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Worksheet.php(1227): PHPExcel_Cell::coordinateFromString('8')
+#1 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Worksheet.php(1186): PHPExcel_Worksheet->_createNewCell('8')
+#2 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Worksheet.php(1095): PHPExcel_Worksheet->getCell('8')
+#3 /home/colegion/public_html/rubrica/php_excel/reporte_anual.php(202): PHPExcel_Worksheet->setCellValue('8', 'S/N')
+#4 {main}
+  thrown in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Cell.php on line 558
+[25-Aug-2017 18:35:43 America/Guayaquil] PHP Notice:  Undefined variable: colComportamiento in /home/colegion/public_html/rubrica/php_excel/reporte_anual.php on line 202
+[25-Aug-2017 18:35:43 America/Guayaquil] PHP Fatal error:  Uncaught exception 'PHPExcel_Exception' with message 'Invalid cell coordinate 8' in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Cell.php:558
+Stack trace:
+#0 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Worksheet.php(1227): PHPExcel_Cell::coordinateFromString('8')
+#1 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Worksheet.php(1186): PHPExcel_Worksheet->_createNewCell('8')
+#2 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Worksheet.php(1095): PHPExcel_Worksheet->getCell('8')
+#3 /home/colegion/public_html/rubrica/php_excel/reporte_anual.php(202): PHPExcel_Worksheet->setCellValue('8', 'S/N')
+#4 {main}
+  thrown in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Cell.php on line 558
+[28-Aug-2017 06:46:53 America/Guayaquil] PHP Notice:  Undefined index: id_periodo_lectivo in /home/colegion/public_html/rubrica/php_excel/reporte_cuadro_remediales.php on line 63
+[29-Aug-2017 11:07:47 America/Guayaquil] PHP Notice:  Undefined variable: colAsignaturas in /home/colegion/public_html/rubrica/php_excel/reporte_cuadro_de_gracia.php on line 134
+[29-Aug-2017 11:07:47 America/Guayaquil] PHP Fatal error:  Uncaught exception 'PHPExcel_Exception' with message 'Invalid cell coordinate 5' in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Cell.php:558
+Stack trace:
+#0 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Worksheet.php(1227): PHPExcel_Cell::coordinateFromString('5')
+#1 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Worksheet.php(1186): PHPExcel_Worksheet->_createNewCell('5')
+#2 /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Worksheet.php(1095): PHPExcel_Worksheet->getCell('5')
+#3 /home/colegion/public_html/rubrica/php_excel/reporte_cuadro_de_gracia.php(134): PHPExcel_Worksheet->setCellValue('5', 'LENGUA Y LITERA...')
+#4 {main}
+  thrown in /home/colegion/public_html/rubrica/php_excel/Classes/PHPExcel/Cell.php on line 558
+[14-Sep-2017 17:15:57 America/Guayaquil] PHP Notice:  Undefined variable: nombreCurso in /home/colegion/public_html/rubrica/php_excel/reporte_nomina_matriculados.php on line 85
+[14-Sep-2017 17:17:20 America/Guayaquil] PHP Notice:  Undefined variable: nombreCurso in /home/colegion/public_html/rubrica/php_excel/reporte_nomina_matriculados.php on line 85
+[14-Sep-2017 17:17:53 America/Guayaquil] PHP Notice:  Undefined variable: nombreCurso in /home/colegion/public_html/rubrica/php_excel/reporte_nomina_matriculados.php on line 85
+[14-Sep-2017 17:18:23 America/Guayaquil] PHP Notice:  Undefined variable: nombreCurso in /home/colegion/public_html/rubrica/php_excel/reporte_nomina_matriculados.php on line 85
+[14-Sep-2017 17:18:46 America/Guayaquil] PHP Notice:  Undefined variable: nombreCurso in /home/colegion/public_html/rubrica/php_excel/reporte_nomina_matriculados.php on line 85
+[14-Sep-2017 19:44:52 America/Guayaquil] PHP Notice:  Undefined variable: nombreCurso in /home/colegion/public_html/rubrica/php_excel/reporte_nomina_matriculados.php on line 85
+[14-Sep-2017 19:45:08 America/Guayaquil] PHP Notice:  Undefined variable: nombreCurso in /home/colegion/public_html/rubrica/php_excel/reporte_nomina_matriculados.php on line 85
+[14-Sep-2017 19:46:47 America/Guayaquil] PHP Notice:  Undefined variable: nombreCurso in /home/colegion/public_html/rubrica/php_excel/reporte_nomina_matriculados.php on line 85
+[15-Sep-2017 07:46:23 America/Guayaquil] PHP Notice:  Undefined variable: nombreCurso in /home/colegion/public_html/rubrica/php_excel/reporte_nomina_matriculados.php on line 86
+[15-Sep-2017 07:49:22 America/Guayaquil] PHP Notice:  Undefined variable: nombreCurso in /home/colegion/public_html/rubrica/php_excel/reporte_nomina_matriculados.php on line 86
+[15-Sep-2017 07:51:08 America/Guayaquil] PHP Notice:  Undefined variable: nombreCurso in /home/colegion/public_html/rubrica/php_excel/reporte_nomina_matriculados.php on line 87
+[29-Nov-2017 20:15:05 America/Guayaquil] PHP Notice:  Undefined index: id_periodo_lectivo in /home/colegion/public_html/rubrica/php_excel/reporte_por_parcial.php on line 54

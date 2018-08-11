@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dwsync>
+<file name="index.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130684081666746026" remote="130684299000000000" />
+<file name="actualizar_foro.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130675320915244816" remote="130684298400000000" />
+<file name="eliminar_foro.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130675328676528736" remote="130684299000000000" />
+<file name="insertar_foro.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130675382670287003" remote="130684299000000000" />
+<file name="listar_foros.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130682443894660970" remote="130684299000000000" />
+<file name="obtener_foro.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130675322822133884" remote="130684299000000000" />
+<file name="insertar_tema.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130679230365226395" remote="130684299000000000" />
+<file name="listar_temas.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130682163718876272" remote="130684299000000000" />
+<file name="obtener_titulo_foro.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130680890749318590" remote="130684299000000000" />
+<file name="obtener_tema.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130680897449811837" remote="130684299000000000" />
+<file name="actualizar_tema.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130680921940732637" remote="130684298400000000" />
+<file name="obtener_nivel_acceso.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130682340905815371" remote="130684299000000000" />
+<file name="insertar_respuesta.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130683027094529480" remote="130684299000000000" />
+<file name="listar_respuestas.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130684057819932067" remote="130684299000000000" />
+<file name="obtener_titulo_tema.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130684025317903057" remote="130684299000000000" />
+</dwsync>

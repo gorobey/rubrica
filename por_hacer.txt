@@ -1,0 +1,71 @@
+Quito, 12 de febrero del 2015
+1.- Al responder falta desplegar el título del tema y deshabilitarlo.
+2.- Sólo el autor del foro puede eliminarlo.
+3.- Añadir un nuevo perfil: ESTUDIANTE (pe_acceso_login = 0).
+
+Quito, 11 de febrero del 2015
+1.- El autor del tema no puede responder. (hecho 12-02-2015).
+2.- Solo el autor del tema puede eliminarlo. (hecho falta implementación de eliminación).
+3.- Cualquier usuario que no sea el autor del tema puede responder. (hecho 12-02-2015).
+
+Quito, 9 de febrero del 2015
+1.- Implementar la vista para los temas de los foros. (hecho 11-02-2015).
+2.- Implementar las respuestas para los temas de los foros.
+
+Quito, 15 de enero del 2015
+1.- No se pueden editar periodos lectivos "terminados". Verificar.
+2.- Implementar el stored procedure sp_cerrar_periodo_terminado.
+    Este procedimiento debe cerrar todos los periodos de evaluación
+	y dejar el estado del periodo lectivo en "C"errado.
+3.- Bloquear la edición de login y clave en la opción de DOCENTES
+    en SECRETARÍA.
+4.- Revisar el proceso de libretación.
+5.- Cambiar la escala para informes quimestrales y anuales.
+6.- Falta reporte anual para tutores.
+
+Quito, 8 de enero del 2015
+1.- Añadir la posibilidad de enviar tareas a los estudiantes.
+
+Quito, 16 de noviembre del 2014
+1.- Añadir las siguientes tablas al script de instalación:
+	a) sw_club (hecho 8 de diciembre del 2014)
+	CREATE TABLE IF NOT EXISTS `sw_club` (
+	  `id_club` int(11) NOT NULL AUTO_INCREMENT,
+	  `cl_nombre` varchar(32) NOT NULL,
+	  `cl_abreviatura` varchar(6) NOT NULL,
+	  `cl_carga_horaria` int(11) NOT NULL,
+	  PRIMARY KEY (`id_club`)
+	) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+
+	b) sw_club_docente
+	CREATE TABLE IF NOT EXISTS `sw_club_docente` (
+	  `id_club_docente` int(11) NOT NULL AUTO_INCREMENT,
+	  `id_club` int(11) NOT NULL,
+	  `id_usuario` int(11) NOT NULL,
+	  `id_periodo_lectivo` int(11) NOT NULL,
+	  PRIMARY KEY (`id_club_docente`)
+	) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+
+	c) sw_estudiante_club
+	CREATE TABLE IF NOT EXISTS `sw_estudiante_club` (
+	  `id_estudiante` int(11) NOT NULL,
+	  `id_periodo_lectivo` int(11) NOT NULL,
+	  `id_club` int(11) NOT NULL,
+	  `es_retirado` varchar(1) NOT NULL
+	) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+	d) sw_rubrica_club
+	CREATE TABLE IF NOT EXISTS `sw_rubrica_club` (
+	  `id_rubrica_club` int(11) NOT NULL AUTO_INCREMENT,
+	  `id_estudiante` int(11) NOT NULL,
+	  `id_club` int(11) NOT NULL,
+	  `id_rubrica_evaluacion` int(11) NOT NULL,
+	  `rc_calificacion` float NOT NULL,
+	  `rc_fec_entrega` date NOT NULL,
+	  PRIMARY KEY (`id_rubrica_club`)
+	) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+
+2.- Falta crear el reporte de calificaciones de parciales para los clubes.
+
+3.- Modificar el manual de usuario con las nuevas pantallas inherentes a estas 4 
+	tablas nuevas.

@@ -1,0 +1,6 @@
+[01-Jul-2017 00:24:01 Europe/Berlin] PHP Notice:  Undefined index: cu_superior in /home/colegion/public_html/rubrica/cursos/actualizar_curso.php on line 9
+[02-Sep-2017 04:37:03 Europe/Berlin] PHP Notice:  Undefined index: bol_proyectos in /home/colegion/public_html/rubrica/cursos/insertar_curso.php on line 9
+[02-Sep-2017 04:38:38 Europe/Berlin] PHP Notice:  Undefined index: bol_proyectos in /home/colegion/public_html/rubrica/cursos/insertar_curso.php on line 9
+[02-Sep-2017 04:48:06 Europe/Berlin] PHP Notice:  Undefined index: bol_proyectos in /home/colegion/public_html/rubrica/cursos/insertar_curso.php on line 9
+[02-Sep-2017 05:48:48 Europe/Berlin] PHP Notice:  Undefined index: bol_proyectos in /home/colegion/public_html/rubrica/cursos/insertar_curso.php on line 9
+[02-Sep-2017 05:54:36 Europe/Berlin] PHP Notice:  Undefined index: bol_proyectos in /home/colegion/public_html/rubrica/cursos/insertar_curso.php on line 9

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dwsync>
+<file name="crear_tablas.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130589805864032263" remote="130590058200000000" />
+<file name="informe_parciales.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130591456708236296" remote="130591763400000000" />
+<file name="cargar_tipos_asignatura.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130594932268103715" remote="130595184600000000" />
+<file name="cargar_asignaturas.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130599600706690257" remote="130599852600000000" />
+<file name="cargar_clubes.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130600141097882430" remote="130600393200000000" />
+<file name="cargar_clubes_docente.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130601118152522753" remote="130601370000000000" />
+<file name="obtener_escalas_calificaciones.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130713575596305530" remote="130921692000000000" />
+<file name="cargar_tutores.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130893956949384987" remote="130894209000000000" />
+<file name="cargar_inspectores.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130607880383998985" remote="130608132600000000" />
+<file name="cargar_paralelos_inspector.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130608193337542445" remote="130608445200000000" />
+<file name="verificar_login_estudiante.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130621809211527015" remote="130622025000000000" />
+<file name="mostrar_titulos_periodos_evaluacion.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130612067383912458" remote="130616241600000000" />
+<file name="mostrar_titulos_aportes_evaluacion.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130612084342642442" remote="130616241600000000" />
+<file name="mostrar_titulos_rubricas_evaluacion.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130612202601876484" remote="130616242200000000" />
+<file name="obtener_id_paralelo_tutor.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130907636542518224" remote="130907888400000000" />
+<file name="captcha.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130617375717014874" remote="130620176400000000" />
+<file name="listar_mensajes.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130655589200545418" remote="130655915400000000" />
+<file name="insertar_mensaje.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130653821470619787" remote="130654729200000000" />
+<file name="listar_mensajes_docentes.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130655601696210129" remote="130655900400000000" />
+<file name="obtener_mensaje.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130655712003983809" remote="130655928000000000" />
+<file name="actualizar_mensaje.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130656329895875356" remote="130656546000000000" />
+<file name="eliminar_mensaje.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130656340779317853" remote="130656556800000000" />
+<file name="contar_comentarios.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130688653430587987" remote="130688913600000000" />
+<file name="cargar_comentarios.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130688696348300618" remote="130688912400000000" />
+<file name="paginar_comentarios.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130688691599652277" remote="130688913000000000" />
+<file name="informe_quimestral.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130689476830444031" remote="130689699600000000" />
+<file name="listar_comentarios_estudiante.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130689642746042223" remote="130689858600000000" />
+<file name="obtener_nombre_paralelo.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130773004739138788" remote="130773987000000000" />
+<file name="listado_aportes_evaluacion.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130802350335532952" remote="130802602200000000" />
+<file name="cargar_cursos_superiores.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130846555533879909" remote="130846807200000000" />
+<file name="cargar_periodos_lectivos.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130860337640435973" remote="130860589200000000" />
+<file name="mostrar_numero_mensajes.php" server="colegionocturnosalamanca.com/public_html/rubrica/" local="130902803448621307" remote="130903055400000000" />
+</dwsync>

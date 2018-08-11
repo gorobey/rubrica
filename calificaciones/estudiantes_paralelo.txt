@@ -1,0 +1,15 @@
+SELECT e.id_estudiante,
+       pa.id_paralelo, 
+       pa.id_asignatura, 
+	   e.es_apellidos, 
+	   e.es_nombres
+  FROM sw_paralelo_asignatura pa, 
+       sw_estudiante_periodo_lectivo ep, 
+	   sw_estudiante e
+ WHERE pa.id_paralelo = ep.id_paralelo
+   AND pa.id_periodo_lectivo = ep.id_periodo_lectivo
+   AND ep.id_estudiante = e.id_estudiante
+   AND pa.id_paralelo =10
+   AND pa.id_asignatura =14
+ ORDER BY es_apellidos, es_nombres ASC
+ LIMIT 0 , 10

@@ -1,0 +1,35 @@
+﻿Quito, 15 de Junio del 2014
+1. Quitar la opción de eliminar periodos lectivos. (Hecho 15-06-2014)
+2. Diseñar el formulario para crear un nuevo periodo lectivo. (Hecho 16-06-2014)
+3. Al insertar un nuevo periodo lectivo: verificar si existe un periodo lectivo anterior,
+   si es asi, actualizar su estado a T(erminado) y dejar cerrados todos los periodos de
+   evaluacion menos los examenes de gracia. (Hecho 16-06-2014)
+4. Al dar clic en cerrar un periodo lectivo cerrar todos los periodos de evaluacion.
+   -- Cerrar los periodos solamente si el estado del periodo lectivo es T(erminado).
+5. Tambien diseñar el formulario de edicion de periodos lectivos. (Hecho 16-06-2014)
+6. Crear el stored procedure para actualizar periodos lectivos. (Hecho 16-06-2014)
+
+Quito, 16 de Junio del 2014
+1. Crear la opción de administrar docentes para la secretaría.
+2. El administrador no debe definirse por periodo lectivo(NO). Los usuarios no se deben
+   manejar por año lectivo.
+
+Quito, 17 de Junio del 2014
+1. Crear una tabla que guarde el informe de parciales (escala cualitativa, escala cuanti-
+   tativa, porcentaje, recomendaciones, plan de mejora).
+2. Modificar los informes parciales, quimestrales y anuales para que listen los estudiantes
+   por cada rango y que NO CONSIDERE LOS ESTUDIANTES RETIRADOS!!!!
+
+Quito, 27 de Junio del 2014
+1. Crear el reporte en pdf para supletorios expedido por Secretaría.
+2. Para la nueva versión cambiar todo lo posible a stored procedures.
+
+Quito, 24 de Julio del 2014
+1. Crear la búsqueda de estudiantes antiguos y no dejar matricular en un curso superior si 
+   no han sido promocionados. Revisar si el estudiante no ha sido aprobado no dejar 
+   matricularse en un curso superior.
+2. También crear el reporte PDF para remediales para SECRETARÍA. (Hecho 24-07-2014)
+
+Quito, 16 de Agosto del 2014
+1. Crear el ingreso de calificaciones para exámenes de gracia.
+

@@ -1,0 +1,19 @@
+[16-Oct-2017 12:38:58 Europe/Berlin] PHP Fatal error:  Call to undefined method inspectores::existeCalifComportamiento() in /home/colegion/public_html/rubrica/inspeccion/editar_calificacion.php on line 9
+[16-Oct-2017 12:39:07 Europe/Berlin] PHP Fatal error:  Call to undefined method inspectores::existeCalifComportamiento() in /home/colegion/public_html/rubrica/inspeccion/editar_calificacion.php on line 9
+[16-Oct-2017 12:39:39 Europe/Berlin] PHP Fatal error:  Call to undefined method inspectores::existeCalifComportamiento() in /home/colegion/public_html/rubrica/inspeccion/editar_calificacion.php on line 9
+[22-Oct-2017 08:16:58 America/Guayaquil] PHP Fatal error:  Call to a member function equivalencia() on a non-object in /home/colegion/public_html/rubrica/scripts/clases/class.paralelos.php on line 2144
+[22-Oct-2017 08:17:56 America/Guayaquil] PHP Notice:  Undefined index: id_paralelo in /home/colegion/public_html/rubrica/inspeccion/listar_estudiantes_parciales_paralelo.php on line 5
+[22-Oct-2017 08:17:56 America/Guayaquil] PHP Notice:  Undefined index: id_aporte_evaluacion in /home/colegion/public_html/rubrica/inspeccion/listar_estudiantes_parciales_paralelo.php on line 6
+[22-Oct-2017 08:21:47 America/Guayaquil] PHP Fatal error:  Call to a member function equivalencia() on a non-object in /home/colegion/public_html/rubrica/scripts/clases/class.paralelos.php on line 2144
+[22-Oct-2017 08:22:36 America/Guayaquil] PHP Fatal error:  Call to a member function equivalencia() on a non-object in /home/colegion/public_html/rubrica/scripts/clases/class.paralelos.php on line 2144
+[22-Oct-2017 08:23:16 America/Guayaquil] PHP Notice:  Undefined index: id_paralelo in /home/colegion/public_html/rubrica/inspeccion/listar_estudiantes_parciales_paralelo.php on line 5
+[22-Oct-2017 08:23:16 America/Guayaquil] PHP Notice:  Undefined index: id_aporte_evaluacion in /home/colegion/public_html/rubrica/inspeccion/listar_estudiantes_parciales_paralelo.php on line 6
+[27-Oct-2017 15:20:20 America/Guayaquil] PHP Notice:  Undefined variable: id_escala_comportamiento in /home/colegion/public_html/rubrica/scripts/clases/class.inspectores.php on line 267
+[27-Oct-2017 15:20:20 America/Guayaquil] PHP Notice:  Undefined variable: id_escala_comportamiento in /home/colegion/public_html/rubrica/scripts/clases/class.inspectores.php on line 271
+[27-Oct-2017 15:21:06 America/Guayaquil] PHP Notice:  Undefined variable: id_escala_comportamiento in /home/colegion/public_html/rubrica/scripts/clases/class.inspectores.php on line 267
+[27-Oct-2017 15:21:06 America/Guayaquil] PHP Notice:  Undefined variable: id_escala_comportamiento in /home/colegion/public_html/rubrica/scripts/clases/class.inspectores.php on line 271
+[29-Oct-2017 11:08:11 America/Guayaquil] PHP Warning:  mysql_query(): Unable to save result set in /home/colegion/public_html/rubrica/scripts/clases/class.mysql.php on line 17
+[29-Oct-2017 11:51:32 America/Guayaquil] PHP Warning:  mysql_query(): Unable to save result set in /home/colegion/public_html/rubrica/scripts/clases/class.mysql.php on line 17
+[31-Oct-2017 09:54:26 America/Guayaquil] PHP Warning:  mysql_query(): Unable to save result set in /home/colegion/public_html/rubrica/scripts/clases/class.mysql.php on line 17
+[08-Nov-2017 19:23:00 America/Guayaquil] PHP Warning:  mysql_query(): Unable to save result set in /home/colegion/public_html/rubrica/scripts/clases/class.mysql.php on line 17
+[09-Nov-2017 14:14:43 America/Guayaquil] PHP Warning:  mysql_query(): Unable to save result set in /home/colegion/public_html/rubrica/scripts/clases/class.mysql.php on line 17

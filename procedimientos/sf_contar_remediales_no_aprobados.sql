@@ -1,0 +1,48 @@
+CREATE DEFINER=`colegion_1`@`localhost` FUNCTION `contar_remediales_no_aprobados`(`IdPeriodoLectivo` INT, `IdEstudiante` INT, `IdParalelo` INT) RETURNS int(11)
+    NO SQL
+BEGIN
+	DECLARE IdAsignatura INT;
+	DECLARE contador INT DEFAULT 0; 	
+	DECLARE done INT DEFAULT 0;
+	DECLARE promedio FLOAT DEFAULT 0;
+	DECLARE examen_supletorio FLOAT DEFAULT 0;
+	DECLARE examen_remedial FLOAT DEFAULT 0;
+
+	DECLARE cAsignaturas CURSOR FOR
+	SELECT id_asignatura 
+	FROM sw_paralelo_asignatura 
+	WHERE id_paralelo = IdParalelo;
+	
+	DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done = 1;
+
+	OPEN cAsignaturas;
+
+	Lazo: LOOP
+		FETCH cAsignaturas INTO IdAsignatura;
+		IF done THEN
+			CLOSE cAsignaturas;
+			LEAVE Lazo;
+		END IF;
+		SET promedio = (SELECT calcular_promedio_anual(IdPeriodoLectivo,IdEstudiante,IdParalelo,IdAsignatura));
+		IF promedio > 5 AND promedio < 7 THEN 			
+			SET examen_supletorio = (SELECT calcular_examen_supletorio(IdPeriodoLectivo,IdEstudiante,IdParalelo,IdAsignatura,2));
+			IF examen_supletorio < 7 THEN
+				SET examen_remedial = (SELECT calcular_examen_supletorio(IdPeriodoLectivo,IdEstudiante,IdParalelo,IdAsignatura,3));
+				IF examen_remedial < 7 THEN
+					SET contador = contador + 1;
+				END IF;
+			END IF;
+		ELSE 
+			IF promedio > 0 AND promedio < 5 THEN 				
+				
+				SET examen_remedial = (SELECT calcular_examen_supletorio(IdPeriodoLectivo,IdEstudiante,IdParalelo,IdAsignatura,3));
+				IF examen_remedial < 7 THEN
+					SET contador = contador + 1;
+				END IF;
+			END IF;
+		END IF;
+	END LOOP Lazo;
+
+	RETURN contador;
+
+END

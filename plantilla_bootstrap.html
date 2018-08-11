@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device‐width, initial‐scale=1.0">
+	<title>Plantilla básica de Bootstrap en español</title>
+	<!-- CSS de Bootstrap -->
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+	<div class="container" style="border:1px solid #000">
+    	<h1>¡Hola mundo!</h1>
+        <div class="row" style="border:1px dashed #000">
+        	<div class="col-md-4">
+            	<h2>Caja de 4 columnas</h2>
+            </div>
+            
+            <div class="col-md-6 col-md-offset-2" style="border:1px dotted #f00">
+            	<h2>Offset de 2 columnas y caja de 6 columnas</h2>
+            	<div class="row" style="border:1px solid #0f0">
+                	<div class="co-md-8" style="border:1px dashed #00f"><p>Anidado de 4</p></div>
+                    <div class="col-md-4" style="border:1px solid #ff0"><p>Anidado de 2</p></div>
+                </div>
+            </div>
+        </div>
+	</div>
+    
+	<!-- Librería jQuery requerida por los plugins de JavaScript -->
+	<script src="js/jquery-1.9.1.js"></script>
+	<!-- Todos los plugins JavaScript de Bootstrap -->
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

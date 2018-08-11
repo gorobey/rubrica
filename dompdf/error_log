@@ -1,0 +1,341 @@
+[26-Oct-2015 23:26:00 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 14
+[26-Oct-2015 23:26:00 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 15
+[26-Oct-2015 23:26:42 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 14
+[26-Oct-2015 23:26:42 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 15
+[27-Oct-2015 19:44:02 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 14
+[27-Oct-2015 19:44:02 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 15
+[31-Oct-2015 16:17:50 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_periodo.php on line 12
+[31-Oct-2015 16:17:50 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_periodo.php on line 13
+[31-Oct-2015 16:17:50 America/Guayaquil] PHP Notice:  Undefined index: idperiodoevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_periodo.php on line 14
+[03-Nov-2015 23:54:47 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.paralelos.php on line 43
+[03-Nov-2015 23:54:47 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.paralelos.php on line 43
+[03-Nov-2015 23:54:47 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.especialidades.php on line 36
+[03-Nov-2015 23:54:59 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.paralelos.php on line 43
+[03-Nov-2015 23:54:59 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.paralelos.php on line 43
+[03-Nov-2015 23:54:59 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.especialidades.php on line 36
+[03-Nov-2015 23:55:09 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.paralelos.php on line 43
+[03-Nov-2015 23:55:09 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.paralelos.php on line 43
+[03-Nov-2015 23:55:09 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.especialidades.php on line 36
+[03-Nov-2015 23:58:53 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.paralelos.php on line 43
+[03-Nov-2015 23:58:53 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.paralelos.php on line 43
+[03-Nov-2015 23:58:53 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.especialidades.php on line 36
+[09-Nov-2015 20:09:59 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[09-Nov-2015 20:09:59 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[09-Nov-2015 20:09:59 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[16-Nov-2015 19:11:52 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[16-Nov-2015 19:11:52 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[16-Nov-2015 19:11:52 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[16-Nov-2015 20:09:26 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[16-Nov-2015 20:09:26 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[16-Nov-2015 20:09:26 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[20-Nov-2015 06:50:17 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[20-Nov-2015 06:50:17 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[20-Nov-2015 06:50:17 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[30-Nov-2015 10:53:38 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[30-Nov-2015 10:53:38 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[30-Nov-2015 10:53:38 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[08-Dec-2015 16:29:58 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[08-Dec-2015 16:29:58 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[08-Dec-2015 16:29:58 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[14-Dec-2015 16:32:03 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[14-Dec-2015 16:32:03 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[14-Dec-2015 16:32:03 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[15-Dec-2015 09:15:07 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[15-Dec-2015 09:15:07 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[15-Dec-2015 09:15:07 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[15-Dec-2015 09:15:35 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[15-Dec-2015 09:15:35 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[15-Dec-2015 09:15:35 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[18-Dec-2015 17:53:04 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[18-Dec-2015 17:53:04 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[18-Dec-2015 17:53:04 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[10-Feb-2016 00:26:45 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[10-Feb-2016 00:26:45 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[10-Feb-2016 00:26:45 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[12-Feb-2016 11:17:15 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_periodo.php on line 12
+[12-Feb-2016 11:17:15 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_periodo.php on line 13
+[12-Feb-2016 11:17:15 America/Guayaquil] PHP Notice:  Undefined index: idperiodoevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_periodo.php on line 14
+[13-Feb-2016 10:44:50 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[13-Feb-2016 10:44:50 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[13-Feb-2016 10:44:50 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[13-Feb-2016 10:50:23 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[13-Feb-2016 10:50:23 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[13-Feb-2016 10:50:23 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[15-Feb-2016 20:06:19 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_periodo.php on line 12
+[15-Feb-2016 20:06:19 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_periodo.php on line 13
+[15-Feb-2016 20:06:19 America/Guayaquil] PHP Notice:  Undefined index: idperiodoevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_periodo.php on line 14
+[16-Feb-2016 10:23:31 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[16-Feb-2016 10:23:31 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[16-Feb-2016 10:23:31 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[16-Feb-2016 10:23:31 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[16-Feb-2016 10:23:31 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[16-Feb-2016 10:23:31 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[17-Feb-2016 12:13:16 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[17-Feb-2016 12:13:16 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[17-Feb-2016 12:13:16 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[19-Feb-2016 13:35:06 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[19-Feb-2016 13:35:06 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[19-Feb-2016 13:35:06 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[05-Mar-2016 18:39:58 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[05-Mar-2016 18:39:58 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[05-Mar-2016 18:39:58 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[05-Mar-2016 18:39:58 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[05-Mar-2016 18:39:58 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[05-Mar-2016 18:39:58 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[17-Mar-2016 12:09:08 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.paralelos.php on line 43
+[17-Mar-2016 12:09:08 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.paralelos.php on line 43
+[17-Mar-2016 12:09:08 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.especialidades.php on line 36
+[17-Mar-2016 12:10:27 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.paralelos.php on line 43
+[17-Mar-2016 12:10:27 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.paralelos.php on line 43
+[17-Mar-2016 12:10:27 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.especialidades.php on line 36
+[17-Mar-2016 12:14:23 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.paralelos.php on line 43
+[17-Mar-2016 12:14:23 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.paralelos.php on line 43
+[17-Mar-2016 12:14:23 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.especialidades.php on line 36
+[17-Mar-2016 12:14:23 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.paralelos.php on line 43
+[17-Mar-2016 12:14:23 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.paralelos.php on line 43
+[17-Mar-2016 12:14:23 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.especialidades.php on line 36
+[17-Mar-2016 12:16:17 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.paralelos.php on line 43
+[17-Mar-2016 12:16:17 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.paralelos.php on line 43
+[17-Mar-2016 12:16:17 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.especialidades.php on line 36
+[17-Mar-2016 12:18:04 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.paralelos.php on line 43
+[17-Mar-2016 12:18:04 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.paralelos.php on line 43
+[17-Mar-2016 12:18:04 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.especialidades.php on line 36
+[17-Mar-2016 12:19:18 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.paralelos.php on line 43
+[17-Mar-2016 12:19:18 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.paralelos.php on line 43
+[17-Mar-2016 12:19:18 America/Guayaquil] PHP Notice:  Trying to get property of non-object in /home/colegion/public_html/rubrica/scripts/clases/class.especialidades.php on line 36
+[28-Mar-2016 11:06:18 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[28-Mar-2016 11:06:18 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[28-Mar-2016 11:06:18 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[28-Mar-2016 11:07:07 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[28-Mar-2016 11:07:07 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[28-Mar-2016 11:07:07 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[16-Apr-2016 17:02:28 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[16-Apr-2016 17:02:28 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[16-Apr-2016 17:02:28 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[16-Apr-2016 17:02:49 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[16-Apr-2016 17:02:49 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[16-Apr-2016 17:02:49 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[16-Apr-2016 17:09:44 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[16-Apr-2016 17:09:44 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[16-Apr-2016 17:09:44 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[19-Apr-2016 19:08:40 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[19-Apr-2016 19:08:40 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[19-Apr-2016 19:08:40 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[19-Apr-2016 19:15:55 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[19-Apr-2016 19:15:55 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[19-Apr-2016 19:15:55 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[19-Apr-2016 19:18:07 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[19-Apr-2016 19:18:07 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[19-Apr-2016 19:18:07 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[22-Apr-2016 08:45:05 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_periodo.php on line 12
+[22-Apr-2016 08:45:05 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_periodo.php on line 13
+[22-Apr-2016 08:45:05 America/Guayaquil] PHP Notice:  Undefined index: idperiodoevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_periodo.php on line 14
+[29-Apr-2016 11:18:29 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[29-Apr-2016 11:18:29 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[29-Apr-2016 11:18:29 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[29-Apr-2016 11:24:53 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[29-Apr-2016 11:24:53 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[29-Apr-2016 11:24:53 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[13-May-2016 22:14:40 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[13-May-2016 22:14:40 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[13-May-2016 22:14:40 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[15-May-2016 20:41:53 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[15-May-2016 20:41:53 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[15-May-2016 20:41:53 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[17-May-2016 09:55:52 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[17-May-2016 09:55:52 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[17-May-2016 09:55:52 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[29-May-2016 01:11:44 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[29-May-2016 01:11:44 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[29-May-2016 01:11:44 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[29-May-2016 01:14:12 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[29-May-2016 01:14:12 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[29-May-2016 01:14:12 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[06-Jun-2016 07:49:14 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[06-Jun-2016 07:49:14 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[06-Jun-2016 07:49:14 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[08-Jun-2016 10:32:40 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[08-Jun-2016 10:32:40 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[08-Jun-2016 10:32:40 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[08-Jun-2016 23:23:31 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[08-Jun-2016 23:23:31 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[08-Jun-2016 23:23:31 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[14-Jun-2016 09:23:40 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[14-Jun-2016 09:23:40 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[14-Jun-2016 09:23:40 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[15-Jun-2016 19:20:48 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_periodo.php on line 12
+[15-Jun-2016 19:20:48 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_periodo.php on line 13
+[15-Jun-2016 19:20:48 America/Guayaquil] PHP Notice:  Undefined index: idperiodoevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_periodo.php on line 14
+[19-Jun-2016 05:14:44 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[19-Jun-2016 05:14:44 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[19-Jun-2016 05:14:44 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[19-Jun-2016 05:19:04 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[19-Jun-2016 05:19:04 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[19-Jun-2016 05:19:04 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[22-Jun-2016 09:07:00 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 11
+[22-Jun-2016 09:07:00 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 12
+[23-Jun-2016 19:03:05 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_periodo.php on line 12
+[23-Jun-2016 19:03:05 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_periodo.php on line 13
+[23-Jun-2016 19:03:05 America/Guayaquil] PHP Notice:  Undefined index: idperiodoevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_periodo.php on line 14
+[23-Jun-2016 19:04:26 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_periodo.php on line 12
+[23-Jun-2016 19:04:26 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_periodo.php on line 13
+[23-Jun-2016 19:04:26 America/Guayaquil] PHP Notice:  Undefined index: idperiodoevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_periodo.php on line 14
+[23-Jun-2016 19:04:26 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_periodo.php on line 12
+[23-Jun-2016 19:04:26 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_periodo.php on line 13
+[23-Jun-2016 19:04:26 America/Guayaquil] PHP Notice:  Undefined index: idperiodoevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_periodo.php on line 14
+[23-Jun-2016 22:58:47 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[23-Jun-2016 22:58:47 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[23-Jun-2016 22:58:47 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[29-Jun-2016 23:38:48 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[29-Jun-2016 23:38:48 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[29-Jun-2016 23:38:48 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[29-Jun-2016 23:38:48 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[29-Jun-2016 23:38:48 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[29-Jun-2016 23:38:48 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[29-Jun-2016 23:38:49 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[29-Jun-2016 23:38:49 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[29-Jun-2016 23:38:49 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[03-Jul-2016 00:54:13 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[03-Jul-2016 00:54:13 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[03-Jul-2016 00:54:13 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[03-Jul-2016 00:54:22 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[03-Jul-2016 00:54:22 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[03-Jul-2016 00:54:22 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[03-Jul-2016 00:57:44 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[03-Jul-2016 00:57:44 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[03-Jul-2016 00:57:44 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[03-Jul-2016 00:57:45 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[03-Jul-2016 00:57:45 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[03-Jul-2016 00:57:45 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[04-Jul-2016 21:05:34 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 11
+[04-Jul-2016 21:05:34 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 12
+[28-Jul-2016 19:12:28 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[28-Jul-2016 19:12:28 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[28-Jul-2016 19:12:28 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[28-Jul-2016 19:14:30 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[28-Jul-2016 19:14:30 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[28-Jul-2016 19:14:30 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[30-Aug-2016 22:36:21 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 11
+[30-Aug-2016 22:36:21 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 12
+[04-Nov-2016 00:48:07 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[04-Nov-2016 00:48:07 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[04-Nov-2016 00:48:07 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[04-Nov-2016 00:48:21 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[04-Nov-2016 00:48:21 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[04-Nov-2016 00:48:21 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[15-Nov-2016 17:31:00 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[15-Nov-2016 17:31:00 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[15-Nov-2016 17:31:00 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[06-Jan-2017 00:25:41 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[06-Jan-2017 00:25:41 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[06-Jan-2017 00:25:41 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[06-Jan-2017 00:27:20 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[06-Jan-2017 00:27:20 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[06-Jan-2017 00:27:20 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[30-Jan-2017 16:27:06 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[30-Jan-2017 16:27:06 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[30-Jan-2017 16:27:07 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[13-Feb-2017 19:05:29 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[13-Feb-2017 19:05:29 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[13-Feb-2017 19:05:29 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[13-Feb-2017 19:05:37 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[13-Feb-2017 19:05:37 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[13-Feb-2017 19:05:37 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[23-Feb-2017 21:03:07 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[23-Feb-2017 21:03:07 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[23-Feb-2017 21:03:07 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[03-Mar-2017 12:43:23 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[03-Mar-2017 12:43:23 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[03-Mar-2017 12:43:23 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[06-Mar-2017 23:30:45 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[06-Mar-2017 23:30:45 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[06-Mar-2017 23:30:45 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[06-Mar-2017 23:31:00 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[06-Mar-2017 23:31:00 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[06-Mar-2017 23:31:00 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[01-May-2017 13:58:48 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 11
+[01-May-2017 13:58:48 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 12
+[11-May-2017 18:25:06 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[11-May-2017 18:25:06 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[11-May-2017 18:25:06 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[12-May-2017 17:11:10 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[12-May-2017 17:11:10 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[12-May-2017 17:11:10 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[16-May-2017 18:21:36 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[16-May-2017 18:21:36 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[16-May-2017 18:21:36 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[08-Jul-2017 14:47:56 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 11
+[08-Jul-2017 14:47:56 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 12
+[08-Jul-2017 18:47:48 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 11
+[08-Jul-2017 18:47:48 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 12
+[09-Jul-2017 14:40:58 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 11
+[09-Jul-2017 14:40:58 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 12
+[16-Jul-2017 13:35:39 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 11
+[16-Jul-2017 13:35:39 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 12
+[30-Jul-2017 10:27:58 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 11
+[30-Jul-2017 10:27:58 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 12
+[02-Aug-2017 21:29:37 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 11
+[02-Aug-2017 21:29:37 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 12
+[02-Aug-2017 21:29:37 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 13
+[02-Aug-2017 21:34:35 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 11
+[02-Aug-2017 21:34:35 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 12
+[21-Aug-2017 22:03:45 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 11
+[21-Aug-2017 22:03:45 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 12
+[24-Aug-2017 18:09:44 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[24-Aug-2017 22:04:00 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[24-Aug-2017 22:04:24 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[24-Aug-2017 23:31:15 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[24-Aug-2017 23:31:27 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[25-Aug-2017 15:20:24 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[25-Aug-2017 15:26:48 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[25-Aug-2017 17:46:32 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[26-Aug-2017 10:33:32 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[28-Aug-2017 15:43:52 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 15
+[28-Aug-2017 15:43:52 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 16
+[28-Aug-2017 15:43:52 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 17
+[30-Aug-2017 11:17:35 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[31-Aug-2017 16:23:01 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[04-Sep-2017 09:56:03 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[07-Sep-2017 09:45:10 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[08-Sep-2017 12:00:36 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[08-Sep-2017 12:51:34 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[08-Sep-2017 12:52:02 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[08-Sep-2017 14:06:16 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[11-Sep-2017 10:50:08 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[12-Sep-2017 21:44:39 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[12-Sep-2017 21:45:25 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[10-Nov-2017 09:52:08 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[16-Nov-2017 13:47:48 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[23-Nov-2017 14:03:37 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 15
+[23-Nov-2017 14:03:37 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 16
+[23-Nov-2017 14:03:37 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 17
+[23-Nov-2017 21:11:55 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[27-Nov-2017 23:15:09 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[29-Nov-2017 11:44:24 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[03-Dec-2017 21:13:30 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 15
+[03-Dec-2017 21:13:31 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 16
+[03-Dec-2017 21:13:31 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 17
+[03-Dec-2017 21:16:34 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 15
+[03-Dec-2017 21:16:34 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 16
+[03-Dec-2017 21:16:34 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 17
+[03-Dec-2017 21:26:38 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 15
+[03-Dec-2017 21:26:38 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 16
+[20-Dec-2017 11:10:54 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 15
+[20-Dec-2017 11:10:54 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 16
+[20-Dec-2017 11:10:54 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 17
+[03-Jan-2018 18:39:55 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[05-Jan-2018 18:27:39 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[08-Jan-2018 11:33:02 America/Guayaquil] PHP Notice:  Undefined index: idestudiante in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 15
+[08-Jan-2018 11:33:02 America/Guayaquil] PHP Notice:  Undefined index: idperiodolectivo in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 16
+[08-Jan-2018 11:33:02 America/Guayaquil] PHP Notice:  Undefined index: idaporteevaluacion in /home/colegion/public_html/rubrica/dompdf/resumen_aporte.php on line 17
+[08-Jan-2018 17:59:29 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[08-Jan-2018 19:52:52 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[09-Jan-2018 11:59:56 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[09-Jan-2018 14:52:41 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[12-Jan-2018 11:59:41 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[13-Jan-2018 14:53:06 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[13-Jan-2018 14:53:07 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[14-Jan-2018 15:26:48 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[16-Jan-2018 09:37:56 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[16-Jan-2018 18:10:41 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
+[18-Jan-2018 23:17:29 America/Guayaquil] PHP Catchable fatal error:  Object of class DateTime could not be converted to string in /home/colegion/public_html/rubrica/dompdf/resumen_anual.php on line 336
