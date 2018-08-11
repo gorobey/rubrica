@@ -200,7 +200,7 @@
             },
             success: function(response){
                 $("#text_message").html("");
-                $("#id_rubrica_evaluacion").val(id);
+                $("#id_rubrica_evaluacion_club").val(id);
                 var rubrica = jQuery.parseJSON(response);
                 $("#edit_rc_nombre").val(rubrica.rc_nombre);
                 $("#edit_rc_abreviatura").val(rubrica.rc_abreviatura);
@@ -211,38 +211,42 @@
             }
         }); 
     }
-    function updateRubEval() {
-        var id = $("#id_rubrica_evaluacion").val();
+    function updateRubProy() {
+        var id = $("#id_rubrica_evaluacion_club").val();
         var id_aporte = $("#cboApoEval").val();
-        var nombre = $("#edit_ru_nombre").val();
-        var abreviatura = $("#edit_ru_abreviatura").val();
-        var tipo_rubrica = $("#edit_tipo_rubrica").val();
-        $.ajax({
-            url: "rubricas_evaluacion/actualizar_rubrica.php",
-            method: "POST",
-            type: "html",
-            data: {
-                id_rubrica_evaluacion: id,
-                id_aporte_evaluacion: id_aporte,
-                ru_nombre: nombre,
-                ru_abreviatura: abreviatura,
-                tipo_rubrica: tipo_rubrica
-            },
-            success: function(response){
-                $("#text_message").html(response);
-                listarRubricasEvaluacion();
-                $('#editRubEval').modal('hide');
-            },
-            error: function(xhr, status, error) {
-                alert(xhr.responseText);
-            }
-        });
+        var nombre = $("#edit_rc_nombre").val();
+        var abreviatura = $("#edit_rc_abreviatura").val();
+        if (nombre.trim()==""){
+            alert("Debes ingresar el nombre de la rubrica de proyecto...");
+        } else if (abreviatura.trim()==""){
+            alert("Debes ingresar la abreviatura de la rubrica de proyecto...");
+        } else {
+            $.ajax({
+                url: "rubricas_proyecto/actualizar_rubrica.php",
+                method: "POST",
+                type: "html",
+                data: {
+                    id_rubrica_evaluacion: id,
+                    id_aporte_evaluacion: id_aporte,
+                    rc_nombre: nombre,
+                    rc_abreviatura: abreviatura
+                },
+                success: function(response){
+                    $("#text_message").html(response);
+                    listarRubricasEvaluacion();
+                    $('#editRubProy').modal('hide');
+                },
+                error: function(xhr, status, error) {
+                    alert(xhr.responseText);
+                }
+            });
+        }
     }
-    function deleteRubEval(id){
+    function deleteRubProy(id){
         //Elimino la rubrica de evaluacion mediante AJAX
         $("#text_message").html("<img src='imagenes/ajax-loader.gif' alt='Cargando...'>");
         $.ajax({
-            url: "rubricas_evaluacion/eliminar_rubrica_evaluacion.php",
+            url: "rubricas_proyecto/eliminar_rubrica.php",
             method: "POST",
             type: "html",
             data: {

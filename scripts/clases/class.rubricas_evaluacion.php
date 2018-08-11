@@ -266,6 +266,20 @@ class rubricas_evaluacion extends MySQL
 		return $mensaje;
 	}
 
+	function actualizarRubricaProyecto()
+	{
+		$qry = "UPDATE sw_rubrica_evaluacion_club SET ";
+		$qry .= "id_aporte_evaluacion = " . $this->id_aporte_evaluacion . ",";
+		$qry .= "rc_nombre = '" . $this->rc_nombre . "',";
+		$qry .= "rc_abreviatura = '" . $this->rc_abreviatura . "'";
+		$qry .= " WHERE id_rubrica_evaluacion_club = " . $this->code;
+		$consulta = parent::consulta($qry);
+		$mensaje = "R&uacute;brica de Proyecto " . $this->rc_nombre . " actualizada exitosamente...";
+		if (!$consulta)
+			$mensaje = "No se pudo actualizar la R&uacute;brica de Proyecto...Error: " . mysql_error();
+		return $mensaje;
+	}
+
 	function eliminarRubricaEvaluacion()
 	{
 		$qry = "SELECT id_rubrica_estudiante FROM sw_rubrica_estudiante WHERE id_rubrica_personalizada = " .$this->code;
@@ -278,6 +292,22 @@ class rubricas_evaluacion extends MySQL
 			$mensaje = "R&uacute;brica de Evaluacion eliminada exitosamente...";
 			if (!$consulta)
 				$mensaje = "No se pudo eliminar la R&uacute;brica de Evaluacion...Error: " . mysql_error();
+		}
+		return $mensaje;
+	}
+
+	function eliminarRubricaProyecto()
+	{
+		$qry = "SELECT id_rubrica_club FROM sw_rubrica_club WHERE id_rubrica_evaluacion = " .$this->code;
+		$consulta = parent::consulta($qry);
+		if (parent::num_rows($consulta) > 0){
+			$mensaje = "No se puede eliminar la R&uacute;brica de Proyecto porque tiene calificaciones asociadas...";
+		} else {
+			$qry = "DELETE FROM sw_rubrica_evaluacion_club WHERE id_rubrica_evaluacion_club = ". $this->code;
+			$consulta = parent::consulta($qry);
+			$mensaje = "R&uacute;brica de Proyecto eliminada exitosamente...";
+			if (!$consulta)
+				$mensaje = "No se pudo eliminar la R&uacute;brica de Proyecto...Error: " . mysql_error();
 		}
 		return $mensaje;
 	}
