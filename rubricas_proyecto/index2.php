@@ -72,7 +72,7 @@
     </div>
 </div>
 <!-- Edit Menu Modal -->
-<div class="modal fade" id="editRubEval" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="editRubProy" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -188,11 +188,11 @@
             );
         }
     }
-    function editRubEval(id){
-        //Obtengo los datos de la rubrica de evaluación seleccionada
+    function editRubProy(id){
+        //Obtengo los datos de la rubrica de proyecto seleccionada
         $("#text_message").html("<img src='./imagenes/ajax-loader.gif' alt='procesando'>");
         $.ajax({
-            url: "rubricas_evaluacion/obtener_rubrica.php",
+            url: "rubricas_proyecto/obtener_rubrica.php",
             method: "POST",
             type: "html",
             data: {
@@ -202,20 +202,9 @@
                 $("#text_message").html("");
                 $("#id_rubrica_evaluacion").val(id);
                 var rubrica = jQuery.parseJSON(response);
-                $("#edit_ru_nombre").val(rubrica.ru_nombre);
-                $("#edit_ru_abreviatura").val(rubrica.ru_abreviatura);
-                var tipo_rubrica = rubrica.id_tipo_rubrica;
-                document.getElementById("edit_tipo_rubrica").length = 0;
-                var html0 = '<option value="0">Seleccione...</option>';
-                var html1 = '<option value="1"';
-                var selected = (tipo_rubrica == 1)? ' selected': '';
-                var html2 = '>OBLIGATORIO</option>';
-                $('#edit_tipo_rubrica').append(html0+html1+selected+html2);
-                var html1 = '<option value="2"';
-                var selected = (tipo_rubrica == 2)? ' selected': '';
-                var html2 = '>OPCIONAL</option>';
-                $('#edit_tipo_rubrica').append(html1+selected+html2);
-                $('#editRubEval').modal('show');
+                $("#edit_rc_nombre").val(rubrica.rc_nombre);
+                $("#edit_rc_abreviatura").val(rubrica.rc_abreviatura);
+                $('#editRubProy').modal('show');
             },
             error: function(xhr, status, error) {
                 alert(xhr.responseText);

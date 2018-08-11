@@ -93,6 +93,12 @@ class rubricas_evaluacion extends MySQL
 		return json_encode(parent::fetch_assoc($consulta));
 	}
 
+	function obtenerRubricaProyecto()
+	{
+		$consulta = parent::consulta("SELECT * FROM sw_rubrica_evaluacion_club WHERE id_rubrica_evaluacion_club = " . $this->code);
+		return json_encode(parent::fetch_assoc($consulta));
+	}
+
 	function listarRubricasEvaluacion()
 	{
 		$consulta = parent::consulta("SELECT * FROM sw_rubrica_evaluacion WHERE id_aporte_evaluacion = " . $this->id_aporte_evaluacion . " ORDER BY id_rubrica_evaluacion ASC");
