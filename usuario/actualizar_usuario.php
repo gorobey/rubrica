@@ -3,15 +3,16 @@
 	session_start();
 	include("../scripts/clases/class.mysql.php");
 	include("../scripts/clases/class.usuarios.php");
-	$usuarios = new usuarios();
-	$usuarios->code = $_POST["id_usuario"];
-	$usuarios->id_periodo_lectivo = $_SESSION['id_periodo_lectivo'];
-	$usuarios->id_perfil = $_POST["id_perfil"];
-	$usuarios->us_titulo = $_POST["us_titulo"];
-	$usuarios->us_apellidos = $_POST["us_apellidos"];
-	$usuarios->us_nombres = $_POST["us_nombres"];
-	$usuarios->us_fullname = $_POST["us_fullname"];
-	$usuarios->us_login = $_POST["us_login"];
-	$usuarios->us_password = $_POST["us_password"];
-	echo $usuarios->actualizarUsuario();
+	$usuario = new usuarios();
+	$usuario->code = $_POST["id_usuario"];
+	$usuario->id_periodo_lectivo = $_SESSION['id_periodo_lectivo'];
+	$usuario->id_perfil = $_POST["id_perfil"];
+	$usuario->us_titulo = $_POST["us_titulo"];
+	$usuario->us_apellidos = $_POST["us_apellidos"];
+	$usuario->us_nombres = $_POST["us_nombres"];
+	$usuario->us_fullname = $usuario->us_apellidos . " " . $usuario->us_nombres;
+	$usuario->us_login = $_POST["us_login"];
+	$usuario->us_password = $_POST["us_password"];
+	$usuario->us_activo = $_POST["us_activo"];
+	echo $usuario->actualizarUsuario();
 ?>

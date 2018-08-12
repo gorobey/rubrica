@@ -9,7 +9,7 @@ class usuarios extends MySQL
 	var $clave_actual = "";
 	var $id_periodo_lectivo = "";
 	var $id_perfil = "";
-        var $id_usuario = "";
+    var $id_usuario = "";
 	var $us_titulo = "";
 	var $us_apellidos = "";
 	var $us_nombres = "";
@@ -76,7 +76,7 @@ class usuarios extends MySQL
 
 	function obtenerDatosUsuario()
 	{
-		$consulta = parent::consulta("SELECT id_usuario, us_titulo, us_apellidos, us_nombres, us_fullname, us_login, us_password, us_foto, us_alias FROM sw_usuario WHERE id_usuario = " . $this->code);
+		$consulta = parent::consulta("SELECT * FROM sw_usuario WHERE id_usuario = " . $this->code);
 		$usuario = parent::fetch_assoc($consulta);
 		$usuario["us_password"] = encrypter::decrypt($usuario["us_password"]);
 		return json_encode($usuario);
@@ -149,8 +149,7 @@ class usuarios extends MySQL
 										. "       sw_usuario_perfil up"
 										. " WHERE u.id_usuario = up.id_usuario "
 										. "   AND p.id_perfil = up.id_perfil "
-										. "   AND up.id_perfil = " . $this->id_perfil
-										. "   AND us_activo = 1" 
+										. "   AND up.id_perfil = " . $this->id_perfil 
 										. " ORDER BY us_apellidos, us_nombres ASC");
 			$num_total_registros = parent::num_rows($consulta);
 			$cadena = "<table class=\"fuente8\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
@@ -268,7 +267,8 @@ class usuarios extends MySQL
 		$qry .= "'" . $this->us_fullname . "',";
 		$qry .= "'" . $this->us_login . "',";
 		$clave = encrypter::encrypt($this->us_password);
-		$qry .= "'" . $clave ."')"; 
+		$qry .= "'" . $clave ."',";
+		$qry .= $this->us_activo . ")";
 		$consulta = parent::consulta($qry);
 		$mensaje = "Usuario actualizado exitosamente...";
 		if (!$consulta)
