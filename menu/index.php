@@ -297,7 +297,6 @@
                         }
                         else
                         {
-                            //console.log(resultado);
                             $("#menus").html(resultado);
                         }
                     }
@@ -532,6 +531,40 @@
                 });			
             }	
         }
+        function subirSubmenu(id_menu, mnu_padre)
+        {
+            if (id_menu == "" || mnu_padre == "") {
+                document.getElementById("text_message").innerHTML = "No se han pasado correctamente los par&aacute;metros id_menu e mnu_padre...";
+            } else {
+                $("#text_message2").html("<img src='imagenes/ajax-loader.gif' alt='procesando...' />");
+                $.ajax({
+                        type: "POST",
+                        url: "menu/subir_submenu.php",
+                        data: "id_menu="+id_menu+"&mnu_padre="+mnu_padre,
+                        success: function(resultado){
+                            $("#text_message2").html(resultado);
+                            listarSubmenus(mnu_padre);
+                    }
+                });			
+            }	
+        }
+        function bajarSubmenu(id_menu, mnu_padre)
+        {
+            if (id_menu == "" || mnu_padre == "") {
+                document.getElementById("text_message").innerHTML = "No se han pasado correctamente los par&aacute;metros id_menu e mnu_padre...";
+            } else {
+                $("#text_message2").html("<img src='imagenes/ajax-loader.gif' alt='procesando...' />");
+                $.ajax({
+                        type: "POST",
+                        url: "menu/bajar_submenu.php",
+                        data: "id_menu="+id_menu+"&mnu_padre="+mnu_padre,
+                        success: function(resultado){
+                            $("#text_message2").html(resultado);
+                            listarSubmenus(mnu_padre);
+                    }
+                });			
+            }	
+        }
         function bajarMenu(id_menu, id_perfil)
         {
             if (id_menu == "" || id_perfil == "") {
@@ -568,7 +601,6 @@
                         }
                         else
                         {
-                            //console.log(resultado);
                             $("#submenus").html(resultado);
                         }
                     }

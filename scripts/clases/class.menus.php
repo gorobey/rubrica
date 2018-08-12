@@ -290,7 +290,59 @@ class menus extends MySQL
 			$mensaje = "No se pudo \"subir\" el Menu...Error: " . mysql_error();
 		
 		return $mensaje;
-	}	
+	}
+
+	function subirSubmenu()
+	{
+		// Primero obtengo el "orden" del submenu actual
+		$qry = "SELECT mnu_orden AS orden FROM sw_menu WHERE id_menu = " . $this->code;
+		$orden = parent::fetch_object(parent::consulta($qry))->orden;
+
+		// Ahora obtengo el id del registro que tiene el orden anterior
+		$qry = "SELECT id_menu AS id FROM sw_menu WHERE mnu_orden = $orden - 1 AND mnu_padre = " . $this->mnu_padre;
+		$id = parent::fetch_object(parent::consulta($qry))->id;
+
+		// Se actualiza el orden (decrementar en uno) del registro actual...
+		$qry = "UPDATE sw_menu SET mnu_orden = mnu_orden - 1 WHERE id_menu = " . $this->code;
+		$consulta = parent::consulta($qry);
+
+		// Luego se actualiza el orden (incrementar en uno) del registro anterior al actual...
+		$qry = "UPDATE sw_menu SET mnu_orden = mnu_orden + 1 WHERE id_menu = $id";
+		$consulta = parent::consulta($qry);
+
+		$mensaje = "Submenu \"subido\" exitosamente...";
+
+		if (!$consulta)
+			$mensaje = "No se pudo \"subir\" del Submenu...Error: " . mysql_error();
+
+		return $mensaje;
+	}
+
+	function bajarSubmenu()
+	{
+		// Primero obtengo el "orden" del submenu actual
+		$qry = "SELECT mnu_orden AS orden FROM sw_menu WHERE id_menu = " . $this->code;
+		$orden = parent::fetch_object(parent::consulta($qry))->orden;
+
+		// Ahora obtengo el id del registro que tiene el orden anterior
+		$qry = "SELECT id_menu AS id FROM sw_menu WHERE mnu_orden = $orden + 1 AND mnu_padre = " . $this->mnu_padre;
+		$id = parent::fetch_object(parent::consulta($qry))->id;
+
+		// Se actualiza el orden (incrementar en uno) del registro actual...
+		$qry = "UPDATE sw_menu SET mnu_orden = mnu_orden + 1 WHERE id_menu = " . $this->code;
+		$consulta = parent::consulta($qry);
+
+		// Luego se actualiza el orden (decrementar en uno) del registro anterior al actual...
+		$qry = "UPDATE sw_menu SET mnu_orden = mnu_orden - 1 WHERE id_menu = $id";
+		$consulta = parent::consulta($qry);
+
+		$mensaje = "Submenu \"subido\" exitosamente...";
+
+		if (!$consulta)
+			$mensaje = "No se pudo \"subir\" del Submenu...Error: " . mysql_error();
+
+		return $mensaje;
+	}
 
 	function bajarMenuPerfil()
 	{
