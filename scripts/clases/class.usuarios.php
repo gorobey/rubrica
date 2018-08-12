@@ -46,7 +46,8 @@ class usuarios extends MySQL
                                             . "  AND p.id_perfil = up.id_perfil "
                                             . "  AND us_login = '$login' "
                                             . "  AND us_password = '$clave' "
-                                            . "  AND p.id_perfil = $id_perfil");
+											. "  AND p.id_perfil = $id_perfil"
+											. "  AND us_activo = 1");
 		$num_total_registros = parent::num_rows($consulta);
 		if($num_total_registros > 0)
 		{
