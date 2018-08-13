@@ -71,6 +71,34 @@ class tipos_educacion extends MySQL
 		return $cadena;
 	}
 
+	function cargar_tipos_educacion()
+	{
+		$consulta = parent::consulta("SELECT * FROM sw_tipo_educacion WHERE id_periodo_lectivo = " . $this->code . " ORDER BY te_orden");
+		$num_total_registros = parent::num_rows($consulta);
+		$cadena = "";
+		if($num_total_registros>0)
+		{
+			while($tipos_educacion = parent::fetch_assoc($consulta))
+			{
+				$cadena .= "<tr>\n";
+				$id = $tipos_educacion["id_tipo_educacion"];
+				$name = $tipos_educacion["te_nombre"];
+				$cadena .= "<td>$id</td>\n";	
+				$cadena .= "<td>$name</td>\n";
+				$cadena .= "<td><button onclick='editNivelEducacion(".$id.")' class='btn btn-block btn-warning'>Editar</button></td>";
+                $cadena .= "<td><button onclick='deleteNivelEducacion(".$id.")' class='btn btn-block btn-danger'>Eliminar</button></td>";
+				$cadena .= "</tr>\n";	
+			}
+		}
+		else {
+			$cadena .= "<tr>\n";	
+			$cadena .= "<td>No se han definido Tipos de Educaci&oacute;n en este Per&iacute;odo Lectivo...</td>\n";
+			$cadena .= "</tr>\n";	
+		}
+		$cadena .= "</table>";	
+		return $cadena;
+	}
+
 	function insertarTipoEducacion()
 	{
 		$qry = "INSERT INTO sw_tipo_educacion (id_periodo_lectivo, te_nombre) VALUES (";
