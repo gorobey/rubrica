@@ -280,6 +280,7 @@
         function listarMenus()
         {
             var id_perfil = $("#cboPerfiles").val();
+            $("#submenus").html("<tr><td colspan='6' align='center'>Debes seleccionar un menú...</td></tr>");
             if(id_perfil==0){
                 $("#menus").html("<tr><td colspan='7' align='center'>Debes seleccionar un perfil...</td></tr>");
                 $("#btn-new").attr("disabled",true);
