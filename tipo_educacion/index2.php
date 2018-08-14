@@ -1,13 +1,13 @@
     <div class="container">
         <div id="tipoEducacionApp" class="col-sm-9 col-sm-offset-1">
             <h2>Niveles de Educación</h2>
+            <input type="hidden" id="id_tipo_educacion">
             <!-- form -->
             <div class="panel panel-default">
-                <h4 id="subtitulo" class="text-center">Añade un nuevo Nivel de Educación</h4>
                 <form id="form_tipos_educacion" action="" class="app-form">
-                    <input type="hidden" id="id_tipo_educacion">
-                    <input type="text" class="form-control" id="tipo_educacion" autofocus>
-                    <input id="enviar" type="submit" value="Añadir" class="btn btn-block btn-primary">
+                    <button id="btn-new" type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addnew">
+                        Nuevo Nivel de Educación
+                    </button>
                 </form>
                 <!-- message -->
                 <div id="text_message" class="fuente9 text-center"></div>
@@ -24,6 +24,44 @@
                         <!-- Aqui desplegamos el contenido de la base de datos -->
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+    <!-- New Nivel Modal -->
+    <div class="modal fade" id="addnew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <center><h4 class="modal-title" id="myModalLabel">Nuevo Nivel de Educaci&oacute;n</h4></center>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <label class="control-label" style="position:relative; top:7px;">Nombre:</label>
+                        </div>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="new_te_nombre" value="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <label class="control-label" style="position:relative; top:7px;">¿Es Bachillerato?:</label>
+                        </div>
+                        <div class="col-lg-10">
+                            <select class="form-control" id="new_te_bachillerato">
+                                <option value="1">Sí</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="addNivelEducacion()"><span class="glyphicon glyphicon-floppy-disk"></span> Añadir</a>
+                </div>
             </div>
         </div>
     </div>
