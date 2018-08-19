@@ -67,7 +67,6 @@
 				},
 				function(resultado)
 				{
-                    console.log(resultado);
 					$("#horario_docente").html(resultado);
 				}
 			);

@@ -6,6 +6,7 @@ class tipos_educacion extends MySQL
 	var $code = "";
 	var $id_periodo_lectivo = "";
 	var $te_nombre = "";
+	var $te_bachillerato = "";
 	
 	function existeTipoEducacion($nombre)
 	{
@@ -123,13 +124,34 @@ class tipos_educacion extends MySQL
 		return $mensaje;
 	}
 
+	function actualizarNivelEducacion()
+	{
+		$qry = "UPDATE sw_tipo_educacion SET ";
+		$qry .= "te_nombre = '" . $this->te_nombre . "', ";
+		$qry .= "te_bachillerato = " . $this->te_bachillerato;
+		$qry .= " WHERE id_tipo_educacion = " . $this->code;
+		$consulta = parent::consulta($qry);
+		$mensaje = "Tipo de Educaci&oacute;n [" . $this->te_nombre . "] actualizado exitosamente...";
+		if (!$consulta)
+			$mensaje = "No se pudo actualizar el Tipo de Educaci&oacute;n...Error: " . mysql_error();
+		return $mensaje;
+	}
+
 	function eliminarTipoEducacion()
 	{
-		$qry = "DELETE FROM sw_tipo_educacion WHERE id_tipo_educacion=". $this->code;
+		// Primero compruebo si no existen especialidades asociadas
+		$qry = "SELECT id_especialidad FROM sw_especialidad WHERE id_tipo_educacion = " . $this->code;
 		$consulta = parent::consulta($qry);
-		$mensaje = "Tipo de Educaci&oacute;n eliminado exitosamente...";
-		if (!$consulta)
-			$mensaje = "No se pudo eliminar el Tipo de Educaci&oacute;n...Error: " . mysql_error();
+		$num_total_registros = parent::num_rows($consulta);
+		if ($num_total_registros > 0) {
+			$mensaje = "No se puede eliminar porque tiene especialidades asociadas...";
+		} else {
+			$qry = "DELETE FROM sw_tipo_educacion WHERE id_tipo_educacion=". $this->code;
+			$consulta = parent::consulta($qry);
+			$mensaje = "Tipo de Educaci&oacute;n eliminado exitosamente...";
+			if (!$consulta)
+				$mensaje = "No se pudo eliminar el Tipo de Educaci&oacute;n...Error: " . mysql_error();
+		}
 		return $mensaje;
 	}
 

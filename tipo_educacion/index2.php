@@ -65,61 +65,47 @@
             </div>
         </div>
     </div>
+    <!-- Edit Nivel Modal -->
+    <div class="modal fade" id="editNivelEdu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <center><h4 class="modal-title" id="myModalLabel">Editar Nivel de Educaci&oacute;n</h4></center>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <label class="control-label" style="position:relative; top:7px;">Nombre:</label>
+                        </div>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="edit_te_nombre" value="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <label class="control-label" style="position:relative; top:7px;">¿Es Bachillerato?:</label>
+                        </div>
+                        <div class="col-lg-10">
+                            <select class="form-control" id="edit_te_bachillerato">
+                                <!-- Aqui se va a generar dinamicamente el contenido -->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="updateNivelEducacion()"><span class="glyphicon glyphicon-floppy-disk"></span> Actualizar</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
         $(document).ready(function(){
             // JQuery Listo para utilizar
             cargarNivelesEducacion();
-            // Código para editar un perfil
-            $('#form_perfiles').submit(function(event){
-                event.preventDefault();
-                var perfil = $('#perfil').val();
-                if(perfil.trim()==""){
-                    $("#error_message").html("Debes ingresar el texto del perfil...");
-                    $("#perfil").focus();
-                    return false;
-                }
-                if($("#enviar").val() == "Añadir"){
-                    $.ajax({
-                        url: "perfil/insertar_perfil.php",
-                        method: "POST",
-                        data: {
-                            perfil: perfil
-                        },
-                        type: "html",
-                        success: function(response){
-                            $("#error_message").html("");
-                            $('#text_message').html(response);
-                            $("#perfil").val("");
-                            cargarPerfiles();
-                        },
-                        error: function(xhr, status, error) {
-                            alert(xhr.responseText);
-                        }
-                    });
-                }else if($("#enviar").val() == "Actualizar"){
-                    var id = $("#id").val();
-                    $.ajax({
-                        url: "perfil/actualizar_perfil.php",
-                        method: "POST",
-                        data: {
-                            id: id,
-                            perfil: perfil
-                        },
-                        type: "html",
-                        success: function(response){
-                            $("#error_message").html("");
-                            $('#text_message').html(response);
-                            $("#perfil").val("");
-                            $("#subtitulo").html("Añade un Nuevo Perfil");
-                            $("#enviar").val("Añadir");
-                            cargarPerfiles();
-                        },
-                        error: function(xhr, status, error) {
-                            alert(xhr.responseText);
-                        }
-                    });
-                }
-            });
         });
         function cargarNivelesEducacion(){
             // Obtengo todas los perfiles ingresados en la base de datos
@@ -135,42 +121,74 @@
                 }
             });
         }
-        function editPerfil(id){
-            //Primero obtengo el nombre del perfil seleccionado
+        function editNivelEducacion(id){
+            //Procedimiento para obtener los datos del nivel de educacione elegido
+            $("#text_message").html("<img src='./imagenes/ajax-loader.gif' alt='procesando'>");
             $.ajax({
-                url: "perfil/obtener_perfil.php",
+                url: "tipo_educacion/obtener_tipo_educacion.php",
                 method: "POST",
                 type: "html",
                 data: {
-                    id: id
+                    id_tipo_educacion: id
                 },
                 success: function(response){
-                    var perfil = jQuery.parseJSON(response);
-                    $("#perfil").val(perfil.pe_nombre);
-                    $("#subtitulo").html("Actualiza este Perfil");
-                    $("#enviar").val("Actualizar");
-                    $("#id").val(id);
-                    $("#perfil").focus();
+                    $("#text_message").html("");
+                    $("#id_tipo_educacion").val(id);
+                    var nivel_educacion = jQuery.parseJSON(response);
+                    $("#edit_te_nombre").val(nivel_educacion.te_nombre);
+                    var es_bachillerato = nivel_educacion.te_bachillerato;
+                    document.getElementById("edit_te_bachillerato").length = 0;
+                    var html1 = '<option value="1"';
+                    var selected = (es_bachillerato == 1)? ' selected': '';
+                    var html2 = '>Sí</option>';
+                    $('#edit_te_bachillerato').append(html1+selected+html2);
+                    var html1 = '<option value="0"';
+                    var selected = (es_bachillerato == 0)? ' selected': '';
+                    var html2 = '>No</option>';
+                    $('#edit_te_bachillerato').append(html1+selected+html2);
+                    $('#editNivelEdu').modal('show');
                 },
                 error: function(xhr, status, error) {
                     alert(xhr.responseText);
                 }
             });
         }
-        function deletePerfil(id){
-            //Elimino el perfil mediante AJAX
-            $("#text_message").html("<img src='imagenes/ajax-loader.gif' alt='Cargando...'>");
+        function updateNivelEducacion() {
+            var id = $("#id_tipo_educacion").val();
+            var nombre = $("#edit_te_nombre").val();
+            var es_bachillerato = $("#edit_te_bachillerato").val();
             $.ajax({
-                url: "perfil/eliminar_perfil.php",
+                url: "tipo_educacion/actualizar_nivel_educacion.php",
                 method: "POST",
                 type: "html",
                 data: {
-                    id: id
+                    id_tipo_educacion: id,
+                    te_nombre: nombre,
+                    te_bachillerato: es_bachillerato
                 },
                 success: function(response){
                     $("#text_message").html(response);
-                    cargarPerfiles();
-                    $("#perfil").focus();
+                    cargarNivelesEducacion();
+                    $('#editNivelEdu').modal('hide');
+                },
+                error: function(xhr, status, error) {
+                    alert(xhr.responseText);
+                }
+            });
+        }
+        function deleteNivelEducacion(id){
+            //Elimino el nivel de educacion mediante AJAX
+            $("#text_message").html("<img src='imagenes/ajax-loader.gif' alt='Cargando...'>");
+            $.ajax({
+                url: "tipo_educacion/eliminar_tipo_educacion.php",
+                method: "POST",
+                type: "html",
+                data: {
+                    id_tipo_educacion: id
+                },
+                success: function(response){
+                    $("#text_message").html(response);
+                    cargarNivelesEducacion();
                 },
                 error: function(xhr, status, error) {
                     alert(xhr.responseText);
