@@ -7,10 +7,11 @@ class especialidades extends MySQL
 	var $id_especialidad = 0;
 	var $es_nombre = "";
 	var $es_figura = "";
+	var $es_abreviatura = "";
 	
 	function obtenerIdEspecialidad($id_paralelo)
 	{
-		// Obtención del Id de la Especialidad que corresponde al paralelo pasado como parametro
+		// Obtencion del Id de la Especialidad que corresponde al paralelo pasado como parametro
 		$consulta = parent::consulta("SELECT e.id_especialidad FROM sw_especialidad e, sw_curso c, sw_paralelo p WHERE p.id_curso = c.id_curso AND c.id_especialidad = e.id_especialidad AND p.id_paralelo = $id_paralelo");
 		$especialidad = parent::fetch_object($consulta);
 		return $especialidad->id_especialidad;
@@ -38,20 +39,28 @@ class especialidades extends MySQL
 
 	function eliminarEspecialidad()
 	{
-		$qry = "DELETE FROM sw_especialidad WHERE id_especialidad=". $this->code;
+		$qry = "SELECT id_curso FROM sw_curso WHERE id_especialidad = " . $this->code;
 		$consulta = parent::consulta($qry);
-		$mensaje = "Especialidad eliminada exitosamente...";
-		if (!$consulta)
-			$mensaje = "No se pudo eliminar la Especialidad...Error: " . mysql_error();
+		$num_total_registros = parent::num_rows($consulta);
+		if ($num_total_registros > 0) {
+			$mensaje = "No se puede eliminar la especialidad porque tiene cursos asociados.";
+		} else {
+			$qry = "DELETE FROM sw_especialidad WHERE id_especialidad=". $this->code;
+			$consulta = parent::consulta($qry);
+			$mensaje = "Especialidad eliminada exitosamente...";
+			if (!$consulta)
+				$mensaje = "No se pudo eliminar la Especialidad...Error: " . mysql_error();
+		}
 		return $mensaje;
 	}
 
 	function insertarEspecialidad()
 	{
-		$qry = "INSERT INTO sw_especialidad (id_tipo_educacion, es_nombre, es_figura) VALUES (";
+		$qry = "INSERT INTO sw_especialidad (id_tipo_educacion, es_nombre, es_figura, es_abreviatura) VALUES (";
 		$qry .= $this->id_tipo_educacion . ",";
 		$qry .= "'" . $this->es_nombre . "',";
-		$qry .= "'" . $this->es_figura . "')";
+		$qry .= "'" . $this->es_figura . "',";
+		$qry .= "'" . $this->es_abreviatura . "')";
 		$consulta = parent::consulta($qry);
 		$mensaje = "Especialidad insertada exitosamente...";
 		if (!$consulta)
@@ -64,7 +73,8 @@ class especialidades extends MySQL
 		$qry = "UPDATE sw_especialidad SET ";
 		$qry .= "id_tipo_educacion = " . $this->id_tipo_educacion . ",";
 		$qry .= "es_nombre = '" . $this->es_nombre . "',";
-		$qry .= "es_figura = '" . $this->es_figura . "'";
+		$qry .= "es_figura = '" . $this->es_figura . "',";
+		$qry .= "es_abreviatura = '" . $this->es_abreviatura . "'";
 		$qry .= " WHERE id_especialidad = " . $this->code;
 		$consulta = parent::consulta($qry);
 		$mensaje = "Especialidad actualizada exitosamente...";
@@ -99,6 +109,34 @@ class especialidades extends MySQL
 		else {
 			$cadena .= "<tr>\n";	
 			$cadena .= "<td>No se han definido Especialidades asociadas a este tipo de educaci&oacute;n...</td>\n";
+			$cadena .= "</tr>\n";	
+		}
+		$cadena .= "</table>";	
+		return $cadena;
+	}
+
+	function cargarEspecialidades()
+	{
+		$consulta = parent::consulta("SELECT * FROM sw_especialidad WHERE id_tipo_educacion = " . $this->id_tipo_educacion . " ORDER BY es_orden ASC");
+		$num_total_registros = parent::num_rows($consulta);
+		$cadena = "";
+		if($num_total_registros>0)
+		{
+			while($especialidades = parent::fetch_assoc($consulta))
+			{
+				$cadena .= "<tr>\n";
+				$id = $especialidades["id_especialidad"];
+				$name = $especialidades["es_nombre"];
+				$cadena .= "<td>$id</td>\n";	
+				$cadena .= "<td>$name</td>\n";
+				$cadena .= "<td><button onclick='editEspecialidad(".$id.")' class='btn btn-block btn-warning'>Editar</button></td>";
+                $cadena .= "<td><button onclick='deleteEspecialidad(".$id.")' class='btn btn-block btn-danger'>Eliminar</button></td>";
+				$cadena .= "</tr>\n";	
+			}
+		}
+		else {
+			$cadena .= "<tr>\n";	
+			$cadena .= "<td>No se han definido Especialidades asociadas a este nivel de educaci&oacute;n...</td>\n";
 			$cadena .= "</tr>\n";	
 		}
 		$cadena .= "</table>";	

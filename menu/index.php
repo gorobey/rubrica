@@ -68,14 +68,14 @@
         </div>
     </div>
     <!-- New Menu Modal -->
-    <div class="modal fade" id="addnew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addnew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <center><h4 class="modal-title" id="myModalLabel">Nuevo Men&uacute;</h4></center>
+                    <center><h4 class="modal-title" id="myModalLabel1">Nuevo Men&uacute;</h4></center>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -114,14 +114,14 @@
         </div>
     </div>
     <!-- New Sub Menu Modal -->
-    <div class="modal fade" id="addNewSubmenu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addNewSubmenu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <center><h4 class="modal-title" id="myModalLabel">Nuevo Sub Men&uacute;</h4></center>
+                    <center><h4 class="modal-title" id="myModalLabel2">Nuevo Sub Men&uacute;</h4></center>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -160,14 +160,14 @@
         </div>
     </div>    
     <!-- Edit Menu Modal -->
-    <div class="modal fade" id="editMenu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editMenu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <center><h4 class="modal-title" id="myModalLabel">Editar Men&uacute;</h4></center>
+                    <center><h4 class="modal-title" id="myModalLabel3">Editar Men&uacute;</h4></center>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -206,14 +206,14 @@
         </div>
     </div>
     <!-- Edit Sub Menu Modal -->
-    <div class="modal fade" id="editSubMenu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editSubMenu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <center><h4 class="modal-title" id="myModalLabel">Editar Sub Men&uacute;</h4></center>
+                    <center><h4 class="modal-title" id="myModalLabel4">Editar Sub Men&uacute;</h4></center>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -381,7 +381,6 @@
                     var selected = (mnu_publicado == 0)? ' selected': '';
                     var html2 = '>No</option>';
                     $('#edit_mnu_publicado').append(html1+selected+html2);
-                    $("#myModalLabel").html("Actualizar Men&uacute;")
                     $('#editMenu').modal('show');
                 },
                 error: function(xhr, status, error) {
@@ -413,7 +412,6 @@
                     var selected = (mnu_publicado == 0)? ' selected': '';
                     var html2 = '>No</option>';
                     $('#edit_submnu_publicado').append(html1+selected+html2);
-                    $("#myModalLabel").html("Actualizar Sub Men&uacute;")
                     $('#editSubMenu').modal('show');
                 },
                 error: function(xhr, status, error) {
