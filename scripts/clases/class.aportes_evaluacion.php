@@ -108,7 +108,7 @@ class aportes_evaluacion extends MySQL
 		}
 		else {
 			$cadena .= "<tr>\n";	
-			$cadena .= "<td colspan='4'>No se han definido Aportes de Evaluaci&oacute;n para este Per&iacute;odo de Evaluaci&oacute;n...</td>\n";
+			$cadena .= "<td colspan='4' align='center'>No se han definido Aportes de Evaluaci&oacute;n para este Per&iacute;odo de Evaluaci&oacute;n...</td>\n";
 			$cadena .= "</tr>\n";	
 		}
 		return $cadena;
