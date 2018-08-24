@@ -149,6 +149,56 @@ class paralelos extends MySQL
 		return $cadena;
 	}
 
+	function cargarParalelos()
+	{
+		$consulta = parent::consulta("SELECT id_paralelo, pa_nombre, es_figura AS especialidad, cu_nombre AS curso FROM sw_paralelo p, sw_curso c, sw_especialidad e, sw_tipo_educacion tp WHERE c.id_curso = p.id_curso AND e.id_especialidad = c.id_especialidad AND tp.id_tipo_educacion = e.id_tipo_educacion AND id_periodo_lectivo = " . $this->id_periodo_lectivo . " ORDER BY pa_orden ASC");
+		$num_total_registros = parent::num_rows($consulta);
+		$cadena = "";
+		if($num_total_registros > 0)
+		{
+			$contador = 0;
+			while($paralelo = parent::fetch_assoc($consulta))
+			{
+				$contador++;
+				$cadena .= "<tr>\n";
+				$code = $paralelo["id_paralelo"];
+				$name = $paralelo["pa_nombre"];
+				$especialidad = $paralelo["especialidad"];
+				$curso = $paralelo["curso"];
+				$cadena .= "<td>$code</td>\n";	
+				$cadena .= "<td>$especialidad</td>\n";
+				$cadena .= "<td>$curso</td>\n";
+				$cadena .= "<td>$name</td>\n";
+				$cadena .= "<td><button class='btn btn-block btn-warning' onclick=\"editParalelo(".$code.")\">Editar</button></td>";
+				$cadena .= "<td><button class='btn btn-block btn-danger' onclick=\"deleteParalelo(".$code.")\">Eliminar</button></td>";
+				if($contador == 1) {
+					if($num_total_registros > 1) {
+						$disabled_subir = "disabled";
+						$disabled_bajar = "";
+					} else {
+						$disabled_subir = "disabled";
+						$disabled_bajar = "disabled";
+					}
+				} else if($contador == $num_total_registros) {
+					$disabled_subir = "";
+					$disabled_bajar = "disabled";
+				} else {
+					$disabled_subir = "";
+					$disabled_bajar = "";
+				}
+				$cadena .= "<td><button class='btn btn-block btn-info' onclick=\"subirParalelo(".$code.")\" $disabled_subir>Subir</button></td>";
+				$cadena .= "<td><button class='btn btn-block btn-primary' onclick=\"bajarParalelo(".$code.")\" $disabled_bajar>Bajar</button></td>";
+				$cadena .= "</tr>\n";			
+			}
+		}
+		else {
+			$cadena .= "<tr>\n";	
+			$cadena .= "<td colspan='8' align='center'>No se han definido paralelos en este periodo lectivo...</td>\n";
+			$cadena .= "</tr>\n";	
+		}
+		return $cadena;
+	}
+
 	function contarAsignaturas($id_paralelo)
 	{
 		$consulta = parent::consulta("SELECT COUNT(*) AS total_registros FROM sw_paralelo_asignatura WHERE id_paralelo = $id_paralelo");

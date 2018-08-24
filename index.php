@@ -134,7 +134,7 @@
 
             $("#mensaje").fadeOut();
 
-            console.log($(this).serialize());
+            //console.log($(this).serialize());
             $("#img_loader").css("display","block");
 
             $.ajax({

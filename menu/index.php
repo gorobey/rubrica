@@ -575,8 +575,8 @@
                         url: "menu/bajar_menu.php",
                         data: "id_menu="+id_menu+"&id_perfil="+id_perfil,
                         success: function(resultado){
-                            $("#text_message").html(resultado);
-                            listarMenus();
+                        $("#text_message").html(resultado);
+                        listarMenus();
                     }
                 });			
             }	
