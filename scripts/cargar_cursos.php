@@ -3,6 +3,6 @@
 	require_once("clases/class.combos.php");
 	session_start();
 	$selects = new selects();
-	$selects->code = $_SESSION["id_periodo_lectivo"];
+	$selects->id_periodo_lectivo = $_SESSION["id_periodo_lectivo"];
 	echo $selects->cargarCursos();
 ?>

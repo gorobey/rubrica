@@ -53,7 +53,6 @@ class selects extends MySQL
 			while($hora_clase = parent::fetch_assoc($consulta))
 			{
 				$code = $hora_clase["id_hora_clase"];
-				//$name = "[" . $hora_clase["id_hora_clase"] . "]" . $hora_clase["ds_nombre"] . " - " . $hora_clase["hc_nombre"] . " (" . $hora_clase["hora_inicio"] . " - " . $hora_clase["hora_fin"] . ")";
 				$name = $hora_clase["ds_nombre"] . " - " . $hora_clase["hc_nombre"] . " (" . $hora_clase["hora_inicio"] . " - " . $hora_clase["hora_fin"] . ")";
 				$cadena .= "<option value=\"$code\">$name</option>";
 			}
@@ -63,8 +62,7 @@ class selects extends MySQL
 	
 	function cargarPerfiles()
 	{
-		//$consulta = parent::consulta("SELECT id_perfil, pe_nombre FROM sw_perfil WHERE pe_acceso_login = 1 ORDER BY pe_nombre ASC");
-                $consulta = parent::consulta("SELECT id_perfil, pe_nombre FROM sw_perfil ORDER BY pe_nombre ASC");
+        $consulta = parent::consulta("SELECT id_perfil, pe_nombre FROM sw_perfil ORDER BY pe_nombre ASC");
 		$num_total_registros = parent::num_rows($consulta);
 		$cadena = "";
 		if($num_total_registros>0)
@@ -217,7 +215,7 @@ class selects extends MySQL
 
 	function cargarCursos()
 	{
-		$consulta = parent::consulta("SELECT es_nombre, id_curso, cu_nombre FROM sw_curso c, sw_especialidad e, sw_tipo_educacion t WHERE c.id_especialidad = e.id_especialidad AND e.id_tipo_educacion = t.id_tipo_educacion AND t.id_periodo_lectivo = ". $this->code . " ORDER BY c.id_especialidad, id_curso ASC");
+		$consulta = parent::consulta("SELECT es_figura, id_curso, cu_nombre FROM sw_curso c, sw_especialidad e, sw_tipo_educacion t WHERE c.id_especialidad = e.id_especialidad AND e.id_tipo_educacion = t.id_tipo_educacion AND t.id_periodo_lectivo = ". $this->id_periodo_lectivo . " ORDER BY c.id_especialidad, id_curso ASC");
 		$num_total_registros = parent::num_rows($consulta);
 		$cadena = "";
 		if($num_total_registros>0)
@@ -225,7 +223,7 @@ class selects extends MySQL
 			while($cursos = parent::fetch_assoc($consulta))
 			{
 				$code = $cursos["id_curso"];
-				$name = "[" . $cursos["es_nombre"] . "] " . $cursos["cu_nombre"];
+				$name = "[" . $cursos["es_figura"] . "] " . $cursos["cu_nombre"];
 				$cadena .= "<option value=\"$code\">$name</option>";
 			}
 		}
@@ -484,7 +482,7 @@ AND a.id_curso = c.id_curso AND p.id_paralelo = $id_paralelo ORDER BY as_nombre"
 		return $cadena;
 	}
         
-        function cargarUsuarios()
+    function cargarUsuarios()
 	{
 		$consulta = parent::consulta("SELECT id_usuario, us_fullname FROM sw_usuario ORDER BY us_apellidos, us_nombres ASC");
 		$num_total_registros = parent::num_rows($consulta);

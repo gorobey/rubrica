@@ -38,7 +38,7 @@ class paralelos extends MySQL
 
 	function obtenerParalelo()
 	{
-		$consulta = parent::consulta("SELECT * FROM sw_paralelo WHERE id_paralelo = " . $this->code);
+		$consulta = parent::consulta("SELECT id_paralelo, p.id_curso, es_figura, cu_nombre, pa_nombre FROM sw_paralelo p, sw_curso c, sw_especialidad e WHERE c.id_curso = p.id_curso AND e.id_especialidad = c.id_especialidad AND id_paralelo = " . $this->code);
 		return json_encode(parent::fetch_assoc($consulta));
 	}
 	
@@ -84,9 +84,13 @@ class paralelos extends MySQL
 
 	function insertarParalelo()
 	{
-		$qry = "INSERT INTO sw_paralelo (id_curso, pa_nombre) VALUES (";
+		$qry = "SELECT secuencial_paralelo_periodo_lectivo(" . $this->id_periodo_lectivo . ") AS secuencial";
+		$consulta = parent::consulta($qry);
+		$secuencial = parent::fetch_object($consulta)->secuencial;
+		$qry = "INSERT INTO sw_paralelo (id_curso, pa_nombre, pa_orden) VALUES (";
 		$qry .= $this->id_curso . ",";
-		$qry .= "'" . $this->pa_nombre . "')";
+		$qry .= "'" . $this->pa_nombre . "',";
+		$qry .= $secuencial . ")";
 		$consulta = parent::consulta($qry);
 		$mensaje = "Paralelo insertado exitosamente...";
 		if (!$consulta)
@@ -109,11 +113,18 @@ class paralelos extends MySQL
 
 	function eliminarParalelo()
 	{
-		$qry = "DELETE FROM sw_paralelo WHERE id_paralelo=". $this->code;
+		$qry = "SELECT COUNT(*) AS num_estudiantes FROM sw_estudiante_periodo_lectivo WHERE id_paralelo = " . $this->code;
 		$consulta = parent::consulta($qry);
-		$mensaje = "Paralelo eliminado exitosamente...";
-		if (!$consulta)
-			$mensaje = "No se pudo eliminar el Paralelo...Error: " . mysql_error();
+		$num_estudiantes = parent::fetch_object($consulta)->num_estudiantes;
+		if ($num_estudiantes > 0) {
+			$mensaje = "No se puede eliminar el Paralelo porque tiene estudiantes matriculados.";
+		} else {
+			$qry = "DELETE FROM sw_paralelo WHERE id_paralelo = ". $this->code;
+			$consulta = parent::consulta($qry);
+			$mensaje = "Paralelo eliminado exitosamente...";
+			if (!$consulta)
+				$mensaje = "No se pudo eliminar el Paralelo...Error: " . mysql_error();
+		}
 		return $mensaje;
 	}
 
