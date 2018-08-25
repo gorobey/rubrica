@@ -269,4 +269,38 @@
             }
         });
     }
+    function subirParalelo(id_paralelo)
+    {
+        if (id_paralelo == "") {
+            document.getElementById("text_message").innerHTML = "No se ha pasado correctamente el par&aacute;metro id_paralelo...";
+        } else {
+            $("#text_message").html("<img src='imagenes/ajax-loader.gif' alt='procesando...' />");
+            $.ajax({
+                    type: "POST",
+                    url: "paralelos/subir_paralelo.php",
+                    data: "id_paralelo="+id_paralelo,
+                    success: function(resultado){
+                        $("#text_message").html(resultado);
+                        listarParalelos();
+                }
+            });
+        }	
+    }
+    function bajarParalelo(id_paralelo)
+    {
+        if (id_paralelo == "") {
+            document.getElementById("text_message").innerHTML = "No se ha pasado correctamente el par&aacute;metro id_paralelo...";
+        } else {
+            $("#text_message").html("<img src='imagenes/ajax-loader.gif' alt='procesando...' />");
+            $.ajax({
+                    type: "POST",
+                    url: "paralelos/bajar_paralelo.php",
+                    data: "id_paralelo="+id_paralelo,
+                    success: function(resultado){
+                        $("#text_message").html(resultado);
+                        listarParalelos();
+                }
+            });			
+        }
+    }
 </script>

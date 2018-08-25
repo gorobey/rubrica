@@ -357,7 +357,77 @@ class paralelos extends MySQL
 		if (!$consulta)
 			$mensaje = "No se pudo des-asociar la Asignatura...Error: " . mysql_error();
 		return $mensaje;
-	}	
+	}
+	
+	function subirParalelo()
+	{
+		// Primero obtengo el "orden" del paralelo actual
+		$qry = "SELECT pa_orden AS orden FROM sw_paralelo WHERE id_paralelo = " . $this->code;
+		$orden = parent::fetch_object(parent::consulta($qry))->orden;
+		
+		// Ahora obtengo el id del registro que tiene el orden anterior
+		$qry = "SELECT id_paralelo AS id"
+			 . "  FROM sw_paralelo p,"
+			 . "       sw_curso c,"
+			 . "       sw_especialidad e,"
+			 . "       sw_tipo_educacion te"
+			 . " WHERE c.id_curso = p.id_curso"
+			 . "   AND e.id_especialidad = c.id_especialidad"
+			 . "   AND te.id_tipo_educacion = e.id_tipo_educacion"
+			 . "   AND te.id_periodo_lectivo = " . $this->id_periodo_lectivo
+			 . "   AND pa_orden = $orden - 1";
+		$id = parent::fetch_object(parent::consulta($qry))->id;
+		
+		// Se actualiza el orden (decrementar en uno) del registro actual...
+		$qry = "UPDATE sw_paralelo SET pa_orden = pa_orden - 1 WHERE id_paralelo = " . $this->code;
+		$consulta = parent::consulta($qry);
+		
+		// Luego se actualiza el orden (incrementar en uno) del registro anterior al actual...
+		$qry = "UPDATE sw_paralelo SET pa_orden = pa_orden + 1 WHERE id_paralelo = $id";
+		$consulta = parent::consulta($qry);
+
+		$mensaje = "Paralelo \"subido\" exitosamente...";
+		
+		if (!$consulta)
+			$mensaje = "No se pudo \"subir\" el Paralelo...Error: " . mysql_error();
+		
+		return $mensaje;
+	}
+
+	function bajarParalelo()
+	{
+		// Primero obtengo el "orden" del paralelo actual
+		$qry = "SELECT pa_orden AS orden FROM sw_paralelo WHERE id_paralelo = " . $this->code;
+		$orden = parent::fetch_object(parent::consulta($qry))->orden;
+		
+		// Ahora obtengo el id del registro que tiene el orden posterior
+		$qry = "SELECT id_paralelo AS id"
+			 . "  FROM sw_paralelo p,"
+			 . "       sw_curso c,"
+			 . "       sw_especialidad e,"
+			 . "       sw_tipo_educacion te"
+			 . " WHERE c.id_curso = p.id_curso"
+			 . "   AND e.id_especialidad = c.id_especialidad"
+			 . "   AND te.id_tipo_educacion = e.id_tipo_educacion"
+			 . "   AND te.id_periodo_lectivo = " . $this->id_periodo_lectivo
+			 . "   AND pa_orden = $orden + 1";
+		$id = parent::fetch_object(parent::consulta($qry))->id;
+		
+		// Se actualiza el orden (incrementar en uno) del registro actual...
+		$qry = "UPDATE sw_paralelo SET pa_orden = pa_orden + 1 WHERE id_paralelo = " . $this->code;
+		$consulta = parent::consulta($qry);
+		
+		// Luego se actualiza el orden (decrementar en uno) del registro anterior al actual...
+		$qry = "UPDATE sw_paralelo SET pa_orden = pa_orden - 1 WHERE id_paralelo = $id";
+		$consulta = parent::consulta($qry);
+
+		$mensaje = "Paralelo \"bajado\" exitosamente...";
+		
+		if (!$consulta)
+			$mensaje = "No se pudo \"bajado\" el Paralelo...Error: " . mysql_error();
+		
+		return $mensaje;
+	}
 
 	function subirAsignaturaCurso()
 	{
