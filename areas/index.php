@@ -106,7 +106,7 @@
                 },
                 success: function(response){
                     var area = jQuery.parseJSON(response);
-                    $("#area").val(area.ar_nombre);
+                    $("#ar_nombre").val(area.ar_nombre);
                     $("#subtitulo").html("Actualiza esta Area");
                     $("#enviar").val("Actualizar");
                     $("#id_area").val(id);
