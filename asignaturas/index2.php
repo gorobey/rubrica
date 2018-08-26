@@ -70,6 +70,16 @@
                             <span class="help-desk error" id="mensaje3"></span>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <label class="control-label" style="position:relative; top:7px;">Tipo:</label>
+                        </div>
+                        <div class="col-lg-10">
+                            <select class="form-control" id="new_cbo_tipos">
+                                <!-- Aqui se cargan los tipos de asignaturas dinamicamente -->
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
@@ -115,6 +125,16 @@
                             <span class="help-desk error" id="mensaje5"></span>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <label class="control-label" style="position:relative; top:7px;">Tipo:</label>
+                        </div>
+                        <div class="col-lg-10">
+                            <select class="form-control" id="edit_cbo_tipos">
+                                <!-- Aqui se cargan los tipos de asignaturas dinamicamente -->
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
@@ -127,6 +147,7 @@
 <script>
     $(document).ready(function(){
         cargar_areas();
+        cargar_tipos();
         listarAsignaturas();
     });
     function cargar_areas()
@@ -139,6 +160,19 @@
             else
             {
                 $('#new_cbo_areas').append(resultado);
+            }
+        });
+    }
+    function cargar_tipos()
+    {
+        $.get("scripts/cargar_tipos_asignatura.php", function(resultado){
+            if(resultado == false)
+            {
+                alert("Error");
+            }
+            else
+            {
+                $('#new_cbo_tipos').append(resultado);
             }
         });
     }
@@ -159,10 +193,11 @@
         var id_area = $("#new_cbo_areas").val();
         var as_nombre = $("#new_as_nombre").val();
         var as_abreviatura = $("#new_as_abreviatura").val();
+        var as_tipo = $("#new_cbo_tipos").val();
 
         // expresiones regulares para validar el ingreso de datos
         var reg_nombre = /^([a-zA-Z0-9 ñáéíóúÑÁÉÍÓÚ]{4,84})$/i;
-		var reg_abreviatura = /^([a-zA-Z.]{3,6})$/i;
+		var reg_abreviatura = /^([a-zA-Z.]{3,8})$/i;
         
         // contador de errores
         var cont_errores = 0;
@@ -207,7 +242,8 @@
                 data: {
                     id_area: id_area,
                     as_nombre: as_nombre,
-                    as_abrevitura: as_abrevitura
+                    as_abreviatura: as_abreviatura,
+                    id_tipo_asignatura: as_tipo
                 },
                 success: function(response){
                     listarAsignaturas();
@@ -225,10 +261,11 @@
         var id_asignatura = $("#id_asignatura").val();
         var as_nombre = $("#edit_as_nombre").val();
         var as_abreviatura = $("#edit_as_abreviatura").val();
+        var as_tipo = $("#edit_cbo_tipos").val();
 
         // expresiones regulares para validar el ingreso de datos
         var reg_nombre = /^([a-zA-Z0-9 ñáéíóúÑÁÉÍÓÚ]{4,84})$/i;
-		var reg_abreviatura = /^([a-zA-Z.]{3,6})$/i;
+		var reg_abreviatura = /^([a-zA-Z.]{3,8})$/i;
         
         // contador de errores
         var cont_errores = 0;
@@ -266,7 +303,8 @@
                     id_asignatura: id_asignatura,
                     id_area: id_area,
                     as_nombre: as_nombre,
-                    as_abreviatura: as_abreviatura
+                    as_abreviatura: as_abreviatura,
+                    id_tipo_asignatura: as_tipo
                 },
                 success: function(response){
                     listarAsignaturas();
@@ -291,8 +329,16 @@
                 $("#id_asignatura").val(id);
                 $("#id_area").val(asignatura.id_area);
                 $("#edit_ar_nombre").val(asignatura.ar_nombre);
-                $("#edit_as_nombre").val(paralelo.as_nombre);
-                $("#edit_as_abreviatura").val(paralelo.as_abreviatura);
+                $("#edit_as_nombre").val(asignatura.as_nombre);
+                $("#edit_as_abreviatura").val(asignatura.as_abreviatura);
+                html0 = "<option value='1'";
+                html1 = (asignatura.id_tipo_asignatura==1)?" selected":"";
+                html2 = ">CUANTITATIVA</option>";
+                $("#edit_cbo_tipos").append(html0+html1+html2);
+                html0 = "<option value='2'";
+                html1 = (asignatura.id_tipo_asignatura==2)?" selected":"";
+                html2 = ">CUALITATIVA</option>";
+                $("#edit_cbo_tipos").append(html0+html1+html2);
                 $('#editAsignatura').modal('show');
             }
         });

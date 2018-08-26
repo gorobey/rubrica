@@ -4,6 +4,7 @@ class asignaturas extends MySQL
 {
 	
 	var $code = "";
+	var $id_area = "";
 	var $id_tipo_asignatura = "";
 	var $as_nombre = "";
 	var $as_abreviatura = "";
@@ -41,7 +42,7 @@ class asignaturas extends MySQL
 
 	function obtenerDatosAsignatura()
 	{
-		$consulta = parent::consulta("SELECT * FROM sw_asignatura WHERE id_asignatura = " . $this->code);
+		$consulta = parent::consulta("SELECT a.*, ar_nombre FROM sw_asignatura a, sw_area ar WHERE ar.id_area = a.id_area AND id_asignatura = " . $this->code);
 		return json_encode(parent::fetch_assoc($consulta));
 	}
 	
@@ -560,11 +561,11 @@ class asignaturas extends MySQL
 
 	function insertarAsignatura()
 	{
-		$qry = "INSERT INTO sw_asignatura (id_tipo_asignatura, as_nombre, as_abreviatura, as_carga_horaria) VALUES (";
+		$qry = "INSERT INTO sw_asignatura (id_area, id_tipo_asignatura, as_nombre, as_abreviatura) VALUES (";
+		$qry .= $this->id_area . ",";
 		$qry .= $this->id_tipo_asignatura . ",";
 		$qry .= "'" . $this->as_nombre . "',";
-		$qry .= "'" . $this->as_abreviatura . "',";
-		$qry .= $this->as_carga_horaria . ")";
+		$qry .= "'" . $this->as_abreviatura . "')";
 		$consulta = parent::consulta($qry);
 		$mensaje = "Asignatura " . $this->as_nombre . " insertada exitosamente...";
 		if (!$consulta)
@@ -576,10 +577,9 @@ class asignaturas extends MySQL
 	{
 		$qry = "UPDATE sw_asignatura SET ";
 		$qry .= "id_tipo_asignatura = " . $this->id_tipo_asignatura . ",";
+		$qry .= "id_area = " . $this->id_area . ",";
 		$qry .= "as_nombre = '" . $this->as_nombre . "',";
-		$qry .= "as_abreviatura = '" . $this->as_abreviatura . "',";
-		$qry .= "as_carga_horaria = " . $this->as_carga_horaria . ",";
-		$qry .= "as_orden = " . $this->as_orden;
+		$qry .= "as_abreviatura = '" . $this->as_abreviatura . "'";
 		$qry .= " WHERE id_asignatura = " . $this->code;
 		$consulta = parent::consulta($qry);
 		$mensaje = "Asignatura " . $this->as_nombre . " actualizada exitosamente...";
@@ -590,11 +590,18 @@ class asignaturas extends MySQL
 
 	function eliminarAsignatura()
 	{
-		$qry = "DELETE FROM sw_asignatura WHERE id_asignatura=". $this->code;
+		$qry = "SELECT COUNT(id_rubrica_estudiante) AS num_calificaciones FROM sw_rubrica_estudiante WHERE id_asignatura = " . $this->code;
 		$consulta = parent::consulta($qry);
-		$mensaje = "Asignatura eliminada exitosamente...";
-		if (!$consulta)
-			$mensaje = "No se pudo eliminar la Asignatura...Error: " . mysql_error();
+		$num_calificaciones = parent::fetch_object($consulta)->num_calificaciones;
+		if ($num_calificaciones > 0) {
+			$mensaje = "No se puede eliminar la Asignatura porque tiene calificaciones asociadas.";
+		} else {
+			$qry = "DELETE FROM sw_asignatura WHERE id_asignatura=". $this->code;
+			$consulta = parent::consulta($qry);
+			$mensaje = "Asignatura eliminada exitosamente...";
+			if (!$consulta)
+				$mensaje = "No se pudo eliminar la Asignatura...Error: " . mysql_error();
+		}
 		return $mensaje;
 	}
 
