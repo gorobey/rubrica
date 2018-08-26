@@ -88,6 +88,37 @@ class asignaturas extends MySQL
 		return $cadena;
 	}
 
+	function cargarAsignaturas()
+	{
+		$consulta = parent::consulta("SELECT id_asignatura, as_nombre, as_abreviatura, ar_nombre FROM sw_asignatura a, sw_area ar WHERE ar.id_area = a.id_area ORDER BY ar_nombre, as_nombre");
+		$num_total_registros = parent::num_rows($consulta);
+		$cadena = "";
+		if($num_total_registros > 0)
+		{
+			while($asignatura = parent::fetch_assoc($consulta))
+			{
+				$cadena .= "<tr>\n";
+				$id = $asignatura["id_asignatura"];
+				$area = $asignatura["ar_nombre"];
+				$nombre = $asignatura["as_nombre"];
+				$abreviatura = $asignatura["as_abreviatura"];
+				$cadena .= "<td>$id</td>\n";
+				$cadena .= "<td>$area</td>\n";
+				$cadena .= "<td>$nombre</td>\n";
+				$cadena .= "<td>$abreviatura</td>\n";
+				$cadena .= "<td><button onclick='editAsignatura(".$id.")' class='btn btn-block btn-warning'>Editar</button></td>";
+                $cadena .= "<td><button onclick='deleteAsignatura(".$id.")' class='btn btn-block btn-danger'>Eliminar</button></td>";
+				$cadena .= "</tr>\n";	
+			}
+		}
+		else {
+			$cadena .= "<tr>\n";	
+			$cadena .= "<td colspan='5' align='center'>No se han definido asignaturas...</td>\n";
+			$cadena .= "</tr>\n";	
+		}
+		return $cadena;
+	}
+
 	function listarAsignaturasDocente($cantidad_registros, $numero_pagina)
 	{
 		$inicio = ($numero_pagina - 1) * $cantidad_registros;

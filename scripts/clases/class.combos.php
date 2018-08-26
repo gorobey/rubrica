@@ -7,6 +7,23 @@ class selects extends MySQL
 	var $id_periodo_lectivo = "";
 	var $id_aporte_evaluacion = "";
 	var $id_periodo_evaluacion = "";
+
+	function cargarAreas()
+	{
+		$consulta = parent::consulta("SELECT id_area, ar_nombre FROM sw_area ORDER BY ar_nombre");
+		$num_total_registros = parent::num_rows($consulta);
+		$cadena = "";
+		if($num_total_registros > 0)
+		{
+			while($area = parent::fetch_assoc($consulta))
+			{
+				$code = $area["id_area"];
+				$name = $area["ar_nombre"];
+				$cadena .= "<option value=\"$code\">$name</option>";
+			}
+		}
+		return $cadena;
+	}
 	
 	function cargarPeriodosL()
 	{
