@@ -147,7 +147,7 @@
             data: {id_periodo_lectivo:id_periodo_lectivo},
             dataType: "json",
             success: function(data){
-                console.log(data);
+                //console.log(data);
                 var paralelos = new Array();
                 var cuantos = new Array();
                 $.each(data,function(key,value){

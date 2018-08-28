@@ -395,7 +395,7 @@ AND a.id_curso = c.id_curso AND p.id_paralelo = $id_paralelo ORDER BY as_nombre"
 			{
 				$code = $asignatura["id_asignatura"];
 				$area = $asignatura["area"];
-				$name = "(".$asignatura["id_asignatura"].") - ".$asignatura["as_nombre"]." [".$area."]";
+				$name = $asignatura["as_nombre"]." [".$area."] - (".$code.")";
 				$cadena .= "<option value=\"$code\">$name</option>";
 			}
 		}
