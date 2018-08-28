@@ -1,6 +1,6 @@
 <?php
 	require_once("clases/class.mysql.php");
 	require_once("clases/class.combos.php");
-	$selects = new selects();
-	echo $selects->cargarAsignaturas($_GET["id_paralelo"]);
+	$select = new selects();
+	echo $select->cargarAsignaturas();
 ?>

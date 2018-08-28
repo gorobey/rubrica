@@ -386,15 +386,16 @@ AND a.id_curso = c.id_curso AND p.id_paralelo = $id_paralelo ORDER BY as_nombre"
 
 	function cargarAsignaturas()
 	{
-		$consulta = parent::consulta("SELECT id_asignatura, as_nombre FROM sw_asignatura WHERE id_curso = 0 ORDER BY as_nombre ASC");
+		$consulta = parent::consulta("SELECT a.*, ar_nombre as area FROM sw_asignatura a, sw_area ar WHERE ar.id_area = a.id_area ORDER BY as_nombre");
 		$num_total_registros = parent::num_rows($consulta);
 		$cadena = "";
 		if($num_total_registros>0)
 		{
-			while($asignaturas = parent::fetch_assoc($consulta))
+			while($asignatura = parent::fetch_assoc($consulta))
 			{
-				$code = $asignaturas["id_asignatura"];
-				$name = "[".$asignaturas["id_asignatura"]."]-".$asignaturas["as_nombre"];
+				$code = $asignatura["id_asignatura"];
+				$area = $asignatura["area"];
+				$name = "(".$asignatura["id_asignatura"].") - ".$asignatura["as_nombre"]." [".$area."]";
 				$cadena .= "<option value=\"$code\">$name</option>";
 			}
 		}

@@ -43,6 +43,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title><?php echo $titulo ?></title>
+	<script src="js/keypress.js"></script>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<!-- jquery-ui -->
 	<link rel="stylesheet" href="assets/template/jquery-ui/jquery-ui.css">
