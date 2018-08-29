@@ -413,7 +413,8 @@ AND a.id_curso = c.id_curso AND p.id_paralelo = $id_paralelo ORDER BY as_nombre"
                                        . "       sw_usuario_perfil up "
                                        . " WHERE u.id_usuario = up.id_usuario "
                                        . "   AND p.id_perfil = up.id_perfil "
-                                       . "   AND p.pe_nombre = 'DOCENTE' "
+									   . "   AND p.pe_nombre = 'DOCENTE' "
+									   . "   AND us_activo = 1 "
                                        . "ORDER BY us_apellidos ASC");
             $num_total_registros = parent::num_rows($consulta);
             $cadena = "";
