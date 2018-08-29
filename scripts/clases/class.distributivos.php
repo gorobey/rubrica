@@ -21,63 +21,86 @@ class distributivos extends MySQL
 		$num_total_registros = parent::num_rows($consulta);
 		if($num_total_registros == 0)
 		{
-			$mensaje = "No se han asociado items a la malla con el paralelo y la asignatura elegidos...";
+			$mensaje = "No se han asociado items a la malla con el paralelo y la asignatura seleccionados...";
         }
         else
         {
-            $registro = parent::fetch_assoc($consulta);
-            $id_malla_curricular = $registro["id_malla_curricular"];
-            $horas_presenciales = $registro["ma_horas_presenciales"];
-            $horas_autonomas = $registro["ma_horas_autonomas"];
-            $horas_tutorias = $registro["ma_horas_tutorias"];
-            $subtotal = $registro["ma_subtotal"];
-            // Ahora si procedemos a insertar...
-            $qry = "INSERT INTO sw_distributivo(";
-            $qry .= "id_malla_curricular,";
-            $qry .= "id_paralelo,";
-            $qry .= "id_asignatura,";
-            $qry .= "id_usuario,";
-            $qry .= "di_horas_presenciales,";
-            $qry .= "di_horas_autonomas,";
-            $qry .= "di_horas_tutorias,";
-            $qry .= "di_subtotal) VALUES(";
-            // id_malla_curricular
-            $qry .= $id_malla_curricular . ",";
-            // id_paralelo
-            $qry .= $this->id_paralelo . ",";
-            // id_asignatura
-            $qry .= $this->id_asignatura . ",";
-            // id_usuario
-            $qry .= $this->id_usuario . ",";
-            // di_horas_presenciales
-            $qry .= $horas_presenciales . ",";
-            // di_horas_autonomas
-            $qry .= $horas_autonomas . ",";
-            // di_horas_tutorias
-            $qry .= $horas_tutorias . ",";
-            // di_subtotal
-            $qry .= $subtotal . ")";
-            $consulta = parent::consulta($qry);
-            if (!$consulta) {
-                $mensaje = "No se pudo insertar el item del distributivo. Error: " . mysql_error();
+            $consulta2 = parent::consulta("SELECT * FROM sw_distributivo WHERE id_paralelo = "
+                                        . $this->id_paralelo
+                                        . " AND id_asignatura = "
+                                        . $this->id_asignatura);
+            $num_total_registros = parent::num_rows($consulta2);
+            if($num_total_registros > 0) {
+                $mensaje = "Ya existe la asociacion entre el paralelo y asignatura seleccionados.";
             } else {
-                $mensaje = "Insercion exitosa.";
+                $registro = parent::fetch_assoc($consulta);
+                $id_malla_curricular = $registro["id_malla_curricular"];
+                $horas_presenciales = $registro["ma_horas_presenciales"];
+                $horas_autonomas = $registro["ma_horas_autonomas"];
+                $horas_tutorias = $registro["ma_horas_tutorias"];
+                $subtotal = $registro["ma_subtotal"];
+                // Ahora si procedemos a insertar...
+                $qry = "INSERT INTO sw_distributivo(";
+                $qry .= "id_malla_curricular,";
+                $qry .= "id_paralelo,";
+                $qry .= "id_asignatura,";
+                $qry .= "id_usuario,";
+                $qry .= "di_horas_presenciales,";
+                $qry .= "di_horas_autonomas,";
+                $qry .= "di_horas_tutorias,";
+                $qry .= "di_subtotal) VALUES(";
+                // id_malla_curricular
+                $qry .= $id_malla_curricular . ",";
+                // id_paralelo
+                $qry .= $this->id_paralelo . ",";
+                // id_asignatura
+                $qry .= $this->id_asignatura . ",";
+                // id_usuario
+                $qry .= $this->id_usuario . ",";
+                // di_horas_presenciales
+                $qry .= $horas_presenciales . ",";
+                // di_horas_autonomas
+                $qry .= $horas_autonomas . ",";
+                // di_horas_tutorias
+                $qry .= $horas_tutorias . ",";
+                // di_subtotal
+                $qry .= $subtotal . ")";
+                $consulta = parent::consulta($qry);
+                if (!$consulta) {
+                    $mensaje = "No se pudo insertar el item del distributivo. Error: " . mysql_error();
+                } else {
+                    $mensaje = "Insercion exitosa.";
+                }
             }
         }
 		return $mensaje;
     }
+    function eliminarDistributivo()
+    {
+        $consulta = parent::consulta("DELETE FROM sw_distributivo WHERE id_distributivo = " . $this->code);
+        if (!$consulta) {
+            $mensaje = "No se pudo eliminar el item del distributivo. Error: " . mysql_error();
+        } else {
+            $mensaje = "Item del Distributivo eliminado exitosamente.";
+        }
+        return $mensaje;
+    }
     function listarDistributivo()
 	{
 		$consulta = parent::consulta("SELECT d.*, 
-                                             pa_nombre, 
+                                             pa_nombre,
+                                             cu_abreviatura,
+                                             es_abreviatura, 
                                              as_nombre,
                                              ac_orden 
                                         FROM sw_distributivo d, 
                                              sw_paralelo p, 
-                                             sw_curso c, 
+                                             sw_curso c,
+                                             sw_especialidad e, 
                                              sw_asignatura_curso ac, 
                                              sw_asignatura a 
-                                       WHERE c.id_curso = p.id_curso 
+                                       WHERE e.id_especialidad = c.id_especialidad
+                                         AND c.id_curso = p.id_curso 
                                          AND p.id_paralelo = d.id_paralelo 
                                          AND c.id_curso = ac.id_curso 
                                          AND a.id_asignatura = d.id_asignatura 
@@ -95,7 +118,7 @@ class distributivos extends MySQL
 			{
 				$cadena .= "<tr>\n";
                 $code = $malla["id_distributivo"];
-                $paralelo = $malla["pa_nombre"];
+                $paralelo = $malla["es_abreviatura"]." ".$malla["cu_abreviatura"].$malla["pa_nombre"];
 				$asignatura = $malla["as_nombre"];
                 $presenciales = $malla["di_horas_presenciales"];
                 $autonomas = $malla["di_horas_autonomas"];

@@ -215,6 +215,25 @@
             });
         }
     }
+    function eliminarDistributivo(id_distributivo){
+        //Elimino el item del distributivo mediante AJAX
+        $("#text_message").html("<img src='imagenes/ajax-loader.gif' alt='Cargando...'>");
+        $.ajax({
+            url: "distributivo/eliminar_item_distributivo.php",
+            method: "POST",
+            type: "html",
+            data: {
+                id_distributivo: id_distributivo
+            },
+            success: function(response){
+                $("#text_message").html(response);
+                listarDistributivo();
+            },
+            error: function(xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+    }
     function listarDistributivo()
     {
         var id_usuario = $("#cboDocentes").val();
