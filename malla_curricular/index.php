@@ -374,7 +374,7 @@
     {
         var id_paralelo = $("#cboParalelos").val();
         if(id_paralelo==0){
-            $("#text_message").html("<tr><td colspan='8' align='center'>Debes seleccionar un paralelo...</td></tr>");
+            $("#lista_items").html("<tr><td colspan='8' align='center'>Debes seleccionar un paralelo...</td></tr>");
         }else{
             $.get("malla_curricular/listar_malla.php", 
                 { 

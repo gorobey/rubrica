@@ -99,6 +99,11 @@
     $(document).ready(function(){
         cargarDocentes();
         cargarParalelos();
+        $("#cboDocentes").change(function(e){
+            e.preventDefault();
+            $("#text_message").html("");
+            listarDistributivo();
+        });
         $("#cboParalelos").change(function(e){
             e.preventDefault();
             $("#text_message").html("");
@@ -201,13 +206,48 @@
                     id_asignatura: id_asignatura
                 },
                 success: function(response){
-                    //listarDistributivo();
+                    listarDistributivo();
                     $("#text_message").html(response);
                 },
                 error: function(xhr, status, error) {
                     alert(xhr.responseText);
                 }
             });
+        }
+    }
+    function listarDistributivo()
+    {
+        var id_usuario = $("#cboDocentes").val();
+        if (id_usuario == 0) {
+            $("#lista_items").html("<tr><td colspan='8' align='center'>No ha seleccionado algún docente...</td></tr>");
+            $("#horas_presenciales").val("0");
+            $("#horas_tutorias").val("0");
+            $("#total_horas").val("0");
+            $("#mensaje1").html("Debe seleccionar un docente...");
+            $("#mensaje1").fadeIn();
+        } else {
+            $("#mensaje1").fadeOut();
+            $.get("distributivo/listar_distributivo.php", 
+                { 
+                    id_usuario: id_usuario
+                },
+                function(resultado)
+                {
+                    if(resultado == false)
+                    {
+                        alert("Error");
+                    }
+                    else
+                    {
+                        console.log(resultado);
+                        var datos = JSON.parse(resultado);
+                        $("#lista_items").html(datos.cadena);
+                        $("#horas_presenciales").val(datos.horas_presenciales);
+                        $("#horas_tutorias").val(datos.horas_tutorias);
+                        $("#total_horas").val(datos.total_horas);
+                    }
+                }
+            );
         }
     }
 </script>
