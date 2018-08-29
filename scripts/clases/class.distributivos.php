@@ -92,6 +92,7 @@ class distributivos extends MySQL
                                              cu_abreviatura,
                                              es_abreviatura, 
                                              as_nombre,
+                                             cu_orden,
                                              ac_orden 
                                         FROM sw_distributivo d, 
                                              sw_paralelo p, 
@@ -106,7 +107,7 @@ class distributivos extends MySQL
                                          AND a.id_asignatura = d.id_asignatura 
                                          AND d.id_asignatura = ac.id_asignatura 
                                          AND d.id_usuario = " . $this->id_usuario 
-                                   . " ORDER BY ac_orden");
+                                   . " ORDER BY cu_orden, ac_orden");
 		$num_total_registros = parent::num_rows($consulta);
 		$cadena = "";
 		if($num_total_registros > 0)
