@@ -107,7 +107,7 @@ class distributivos extends MySQL
                                          AND a.id_asignatura = d.id_asignatura 
                                          AND d.id_asignatura = ac.id_asignatura 
                                          AND d.id_usuario = " . $this->id_usuario 
-                                   . " ORDER BY cu_orden, ac_orden, pa_nombre");
+                                   . " ORDER BY cu_orden, pa_nombre, ac_orden");
 		$num_total_registros = parent::num_rows($consulta);
 		$cadena = "";
 		if($num_total_registros > 0)
