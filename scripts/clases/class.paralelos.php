@@ -303,6 +303,71 @@ class paralelos extends MySQL
 		return $cadena;
 	}
 
+	function cargarAsignaturasCurso($id_curso)
+	{
+		$consulta = parent::consulta("SELECT id_asignatura_curso, 
+											 es_figura,
+											 c.id_curso, 
+											 cu_nombre, 
+											 a.id_asignatura, 
+											 as_nombre, 
+											 ac_orden 
+										FROM sw_asignatura_curso ac, 
+											 sw_curso c, 
+											 sw_especialidad e,
+											 sw_asignatura a 
+									   WHERE e.id_especialidad = c.id_especialidad
+									     AND ac.id_curso = c.id_curso 
+										 AND ac.id_asignatura = a.id_asignatura 
+										 AND ac.id_curso = $id_curso 
+									ORDER BY ac_orden ASC");
+		$num_total_registros = parent::num_rows($consulta);
+		$cadena = ""; $contador = 0;
+		if($num_total_registros > 0)
+		{
+			while($paralelos = parent::fetch_assoc($consulta))
+			{
+				$contador++;
+				$cadena .= "<tr>\n";
+				$code = $paralelos["id_asignatura_curso"];
+				$id_curso = $paralelos["id_curso"];
+				$curso = $paralelos["es_figura"] . " - " . $paralelos["cu_nombre"];
+				$id_asignatura = $paralelos["id_asignatura"];
+				$asignatura = $paralelos["as_nombre"];
+				$cadena .= "<td>$code</td>\n";
+				$cadena .= "<td>$curso</td>\n";	
+				$cadena .= "<td width=\"39%\" align=\"left\">$asignatura</td>\n";
+				$cadena .= "<td><button class='btn btn-block btn-danger' onclick=\"eliminarAsociacion(".$code.",".$id_curso.")\">Eliminar</button></td>";
+				if($contador == 1) {
+					if($num_total_registros > 1) {
+						$disabled_subir = "disabled";
+						$disabled_bajar = "";
+					} else {
+						$disabled_subir = "disabled";
+						$disabled_bajar = "disabled";
+					}
+				} else if($contador == $num_total_registros) {
+					$disabled_subir = "";
+					$disabled_bajar = "disabled";
+				} else {
+					$disabled_subir = "";
+					$disabled_bajar = "";
+				}
+				$cadena .= "<td><button class='btn btn-block btn-info' onclick=\"subirAsociacion(".$code.",".$id_curso.")\" $disabled_subir>Subir</button></td>";
+				$cadena .= "<td><button class='btn btn-block btn-primary' onclick=\"bajarAsociacion(".$code.",".$id_curso.")\" $disabled_bajar>Bajar</button></td>";
+				$cadena .= "</tr>\n";	
+			}
+		}
+		else {
+			$cadena .= "<tr>\n";	
+			$cadena .= "<td colspan='6' align='center'>No se han asociado asignaturas a este curso...</td>\n";
+			$cadena .= "</tr>\n";	
+		}	
+		$datos = array('cadena' => $cadena, 
+				       'total_asignaturas' => $contador);
+        return json_encode($datos);
+	}
+
 	function asociarAsignatura()
 	{
 		$qry = "INSERT INTO sw_paralelo_asignatura (id_paralelo, id_asignatura, id_usuario, id_periodo_lectivo) VALUES (";
@@ -319,19 +384,26 @@ class paralelos extends MySQL
 
 	function asociarAsignaturaCurso()
 	{
-		// Aqui primero llamo a la funcion almacenada secuencial_curso_asignatura
-		$consulta = parent::consulta("SELECT secuencial_curso_asignatura(".$this->id_curso.") AS secuencial");
-		$ac_orden = parent::fetch_object($consulta)->secuencial;
-		
-		$qry = "INSERT INTO sw_asignatura_curso (id_curso, id_asignatura, id_periodo_lectivo, ac_orden) VALUES (";
-		$qry .= $this->id_curso . ",";
-		$qry .= $this->id_asignatura . ",";
-		$qry .= $this->id_periodo_lectivo . ",";
-		$qry .= $ac_orden . ")";
-		$consulta = parent::consulta($qry);
-		$mensaje = "Asignatura asociada exitosamente...";
-		if (!$consulta)
-			$mensaje = "No se pudo asociar la Asignatura...Error: " . mysql_error();
+		// Verifico si ya existe la asociacion
+		$consulta = parent::consulta("SELECT * FROM sw_asignatura_curso WHERE id_curso = ".$this->id_curso." AND id_asignatura = ".$this->id_asignatura);
+		$num_total_registros = parent::num_rows($consulta);
+		if ($num_total_registros > 0) {
+			$mensaje = "Ya existe la asociacion entre el curso y la asignatura seleccionados.";
+		} else {
+			// Aqui primero llamo a la funcion almacenada secuencial_curso_asignatura
+			$consulta = parent::consulta("SELECT secuencial_curso_asignatura(".$this->id_curso.") AS secuencial");
+			$ac_orden = parent::fetch_object($consulta)->secuencial;
+			
+			$qry = "INSERT INTO sw_asignatura_curso (id_curso, id_asignatura, id_periodo_lectivo, ac_orden) VALUES (";
+			$qry .= $this->id_curso . ",";
+			$qry .= $this->id_asignatura . ",";
+			$qry .= $this->id_periodo_lectivo . ",";
+			$qry .= $ac_orden . ")";
+			$consulta = parent::consulta($qry);
+			$mensaje = "Asignatura asociada exitosamente...";
+			if (!$consulta)
+				$mensaje = "No se pudo asociar la Asignatura...Error: " . mysql_error();
+		}
 		return $mensaje;
 	}
 

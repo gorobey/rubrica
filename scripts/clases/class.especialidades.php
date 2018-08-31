@@ -117,7 +117,7 @@ class especialidades extends MySQL
 
 	function cargarEspecialidades()
 	{
-		$consulta = parent::consulta("SELECT * FROM sw_especialidad WHERE id_tipo_educacion = " . $this->id_tipo_educacion . " ORDER BY es_orden ASC");
+		$consulta = parent::consulta("SELECT * FROM sw_especialidad WHERE id_tipo_educacion = " . $this->id_tipo_educacion);
 		$num_total_registros = parent::num_rows($consulta);
 		$cadena = "";
 		if($num_total_registros>0)
@@ -136,7 +136,7 @@ class especialidades extends MySQL
 		}
 		else {
 			$cadena .= "<tr>\n";	
-			$cadena .= "<td>No se han definido Especialidades asociadas a este nivel de educaci&oacute;n...</td>\n";
+			$cadena .= "<td colspan='4' align='center'>No se han definido Especialidades asociadas a este nivel de educaci&oacute;n...</td>\n";
 			$cadena .= "</tr>\n";	
 		}
 		$cadena .= "</table>";	

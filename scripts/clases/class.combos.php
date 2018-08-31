@@ -130,7 +130,7 @@ class selects extends MySQL
 
 	function cargarEspecialidades()
 	{
-		$consulta = parent::consulta("SELECT id_especialidad, es_nombre FROM sw_especialidad e, sw_tipo_educacion t WHERE e.id_tipo_educacion = t.id_tipo_educacion AND id_periodo_lectivo = " . $this->id_periodo_lectivo . " ORDER BY es_nombre ASC");
+		$consulta = parent::consulta("SELECT id_especialidad, es_figura FROM sw_especialidad e, sw_tipo_educacion t WHERE e.id_tipo_educacion = t.id_tipo_educacion AND id_periodo_lectivo = " . $this->id_periodo_lectivo . " ORDER BY es_figura ASC");
 		$num_total_registros = parent::num_rows($consulta);
 		$cadena = "";
 		if($num_total_registros>0)
@@ -138,7 +138,7 @@ class selects extends MySQL
 			while($especialidades = parent::fetch_assoc($consulta))
 			{
 				$code = $especialidades["id_especialidad"];
-				$name = $especialidades["es_nombre"];
+				$name = $especialidades["es_figura"];
 				$cadena .= "<option value=\"$code\">$name</option>";
 			}
 		}
