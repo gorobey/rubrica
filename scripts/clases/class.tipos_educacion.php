@@ -6,7 +6,7 @@ class tipos_educacion extends MySQL
 	var $code = "";
 	var $id_periodo_lectivo = "";
 	var $te_nombre = "";
-	var $te_bachillerato = "";
+	var $te_bachillerato = 0;
 	
 	function existeTipoEducacion($nombre)
 	{
@@ -74,7 +74,7 @@ class tipos_educacion extends MySQL
 
 	function cargar_tipos_educacion()
 	{
-		$consulta = parent::consulta("SELECT * FROM sw_tipo_educacion WHERE id_periodo_lectivo = " . $this->code . " ORDER BY te_orden");
+		$consulta = parent::consulta("SELECT * FROM sw_tipo_educacion WHERE id_periodo_lectivo = " . $this->code);
 		$num_total_registros = parent::num_rows($consulta);
 		$cadena = "";
 		if($num_total_registros>0)
@@ -93,10 +93,9 @@ class tipos_educacion extends MySQL
 		}
 		else {
 			$cadena .= "<tr>\n";	
-			$cadena .= "<td>No se han definido Tipos de Educaci&oacute;n en este Per&iacute;odo Lectivo...</td>\n";
+			$cadena .= "<td colspan='4' align='center'>No se han definido Niveles de Educaci&oacute;n en este Per&iacute;odo Lectivo...</td>\n";
 			$cadena .= "</tr>\n";	
-		}
-		$cadena .= "</table>";	
+		}	
 		return $cadena;
 	}
 
@@ -109,6 +108,19 @@ class tipos_educacion extends MySQL
 		$mensaje = "Tipo de Educaci&oacute;n insertado exitosamente...";
 		if (!$consulta)
 			$mensaje = "No se pudo insertar el Tipo de Educaci&oacute;n...Error: " . mysql_error();
+		return $mensaje;
+	}
+
+	function insertarNivelEducacion()
+	{
+		$qry = "INSERT INTO sw_tipo_educacion (id_periodo_lectivo, te_nombre, te_bachillerato) VALUES (";
+		$qry .= $this->id_periodo_lectivo . ",";
+		$qry .= "'" . $this->te_nombre . "',";
+		$qry .= $this->te_bachillerato . ")";
+		$consulta = parent::consulta($qry);
+		$mensaje = "Nivel de Educaci&oacute;n insertada exitosamente...";
+		if (!$consulta)
+			$mensaje = "No se pudo insertar el Nivel de Educaci&oacute;n...Error: " . mysql_error();
 		return $mensaje;
 	}
 

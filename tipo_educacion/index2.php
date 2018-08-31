@@ -153,6 +153,28 @@
                 }
             });
         }
+        function addNivelEducacion()
+        {
+            var te_nombre = $("#new_te_nombre").val();
+            var te_bachillerato = $("#new_te_bachillerato").val();
+            $.ajax({
+                url: "tipo_educacion/insertar_nivel_educacion.php",
+                method: "POST",
+                type: "html",
+                data: {
+                    te_nombre: te_nombre,
+                    te_bachillerato: te_bachillerato
+                },
+                success: function(response){
+                    $("#text_message").html(response);
+                    $('#addnew').modal('hide');
+                    cargarNivelesEducacion();
+                },
+                error: function(xhr, status, error) {
+                    alert(xhr.responseText);
+                }
+            });
+        }
         function updateNivelEducacion() {
             var id = $("#id_tipo_educacion").val();
             var nombre = $("#edit_te_nombre").val();

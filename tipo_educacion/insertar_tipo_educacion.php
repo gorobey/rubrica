@@ -6,5 +6,5 @@
 	$tipos_educacion = new tipos_educacion();
 	$tipos_educacion->id_periodo_lectivo = $_SESSION["id_periodo_lectivo"];
 	$tipos_educacion->te_nombre = $_POST["te_nombre"];
-	echo $tipos_educacion->insertarTipoEducacion();
+	echo $tipos_educacion->insertarNivelEducacion();
 ?>
