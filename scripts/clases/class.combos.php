@@ -266,7 +266,7 @@ class selects extends MySQL
 
 	function cargarParalelos()
 	{
-		$consulta = parent::consulta("SELECT es_nombre, es_figura, cu_nombre, id_paralelo, pa_nombre FROM sw_paralelo p, sw_curso c, sw_especialidad e, sw_tipo_educacion t WHERE p.id_curso = c.id_curso AND c.id_especialidad = e.id_especialidad AND e.id_tipo_educacion = t.id_tipo_educacion AND t.id_periodo_lectivo = ". $this->code . " ORDER BY c.id_especialidad, c.id_curso, pa_nombre ASC");
+		$consulta = parent::consulta("SELECT es_nombre, es_figura, cu_nombre, id_paralelo, pa_nombre, pa_orden FROM sw_paralelo p, sw_curso c, sw_especialidad e, sw_tipo_educacion t WHERE p.id_curso = c.id_curso AND c.id_especialidad = e.id_especialidad AND e.id_tipo_educacion = t.id_tipo_educacion AND t.id_periodo_lectivo = ". $this->code . " ORDER BY pa_orden ASC");
 		$num_total_registros = parent::num_rows($consulta);
 		$cadena = "";
 		if($num_total_registros>0)
@@ -503,7 +503,7 @@ AND a.id_curso = c.id_curso AND p.id_paralelo = $id_paralelo ORDER BY as_nombre"
         
     function cargarUsuarios()
 	{
-		$consulta = parent::consulta("SELECT id_usuario, us_fullname FROM sw_usuario ORDER BY us_apellidos, us_nombres ASC");
+		$consulta = parent::consulta("SELECT id_usuario, us_fullname FROM sw_usuario WHERE us_activo = 1 ORDER BY us_apellidos, us_nombres ASC");
 		$num_total_registros = parent::num_rows($consulta);
 		$cadena = "";
 		if($num_total_registros > 0)

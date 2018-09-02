@@ -11,11 +11,7 @@ class distributivos extends MySQL
 
 	function insertarDistributivo()
 	{
-		$consulta = parent::consulta("SELECT id_malla_curricular, 
-                                             ma_horas_presenciales, 
-                                             ma_horas_autonomas, 
-                                             ma_horas_tutorias, 
-                                             ma_subtotal 
+		$consulta = parent::consulta("SELECT id_malla_curricular 
                                         FROM sw_malla_curricular
                                        WHERE id_paralelo = " . $this->id_paralelo
                                     . "  AND id_asignatura = " . $this->id_asignatura);
@@ -36,21 +32,13 @@ class distributivos extends MySQL
             } else {
                 $registro = parent::fetch_assoc($consulta);
                 $id_malla_curricular = $registro["id_malla_curricular"];
-                $horas_presenciales = $registro["ma_horas_presenciales"];
-                $horas_autonomas = $registro["ma_horas_autonomas"];
-                $horas_tutorias = $registro["ma_horas_tutorias"];
-                $subtotal = $registro["ma_subtotal"];
                 // Ahora si procedemos a insertar...
                 $qry = "INSERT INTO sw_distributivo(";
                 $qry .= "id_periodo_lectivo,";
                 $qry .= "id_malla_curricular,";
                 $qry .= "id_paralelo,";
                 $qry .= "id_asignatura,";
-                $qry .= "id_usuario,";
-                $qry .= "di_horas_presenciales,";
-                $qry .= "di_horas_autonomas,";
-                $qry .= "di_horas_tutorias,";
-                $qry .= "di_subtotal) VALUES(";
+                $qry .= "id_usuario) VALUES(";
                 // id_periodo_lectivo
                 $qry .= $this->id_periodo_lectivo . ",";
                 // id_malla_curricular
@@ -60,15 +48,7 @@ class distributivos extends MySQL
                 // id_asignatura
                 $qry .= $this->id_asignatura . ",";
                 // id_usuario
-                $qry .= $this->id_usuario . ",";
-                // di_horas_presenciales
-                $qry .= $horas_presenciales . ",";
-                // di_horas_autonomas
-                $qry .= $horas_autonomas . ",";
-                // di_horas_tutorias
-                $qry .= $horas_tutorias . ",";
-                // di_subtotal
-                $qry .= $subtotal . ")";
+                $qry .= $this->id_usuario . ")";
                 $consulta = parent::consulta($qry);
                 if (!$consulta) {
                     $mensaje = "No se pudo insertar el item del distributivo. Error: " . mysql_error();
@@ -91,7 +71,8 @@ class distributivos extends MySQL
     }
     function listarDistributivo()
 	{
-		$consulta = parent::consulta("SELECT d.*, 
+		$consulta = parent::consulta("SELECT d.*,
+                                             m.*, 
                                              pa_nombre,
                                              cu_abreviatura,
                                              es_abreviatura, 
@@ -99,12 +80,14 @@ class distributivos extends MySQL
                                              pa_orden,
                                              ac_orden 
                                         FROM sw_distributivo d, 
+                                             sw_malla_curricular m,
                                              sw_paralelo p, 
                                              sw_curso c,
                                              sw_especialidad e, 
                                              sw_asignatura_curso ac, 
                                              sw_asignatura a 
-                                       WHERE e.id_especialidad = c.id_especialidad
+                                       WHERE m.id_malla_curricular = d.id_malla_curricular
+                                         AND e.id_especialidad = c.id_especialidad
                                          AND c.id_curso = p.id_curso 
                                          AND p.id_paralelo = d.id_paralelo 
                                          AND c.id_curso = ac.id_curso 
@@ -126,9 +109,9 @@ class distributivos extends MySQL
                 $code = $malla["id_distributivo"];
                 $paralelo = $malla["cu_abreviatura"].$malla["pa_nombre"]." ".$malla["es_abreviatura"];
 				$asignatura = $malla["as_nombre"];
-                $presenciales = $malla["di_horas_presenciales"];
-                $autonomas = $malla["di_horas_autonomas"];
-                $tutorias = $malla["di_horas_tutorias"];
+                $presenciales = $malla["ma_horas_presenciales"];
+                $autonomas = $malla["ma_horas_autonomas"];
+                $tutorias = $malla["ma_horas_tutorias"];
                 $suma_horas_presenciales = $suma_horas_presenciales + $presenciales;
                 $suma_horas_tutorias = $suma_horas_tutorias + $tutorias;
                 $suma_horas_totales = $suma_horas_totales + $presenciales + $tutorias;
