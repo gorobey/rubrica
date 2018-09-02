@@ -40,6 +40,33 @@ class dias_semana extends MySQL
 		return $cadena;
 	}
 
+	function cargarDiasSemana()
+	{
+		$consulta = parent::consulta("SELECT * FROM sw_dia_semana WHERE id_periodo_lectivo = " . $this->id_periodo_lectivo . " ORDER BY ds_ordinal ASC");
+		$num_total_registros = parent::num_rows($consulta);
+		$cadena = "";
+		if($num_total_registros>0)
+		{
+			while($dia_semana = parent::fetch_assoc($consulta))
+			{
+				$cadena .= "<tr>\n";
+				$code = $dia_semana["id_dia_semana"];
+				$name = $dia_semana["ds_nombre"];
+				$cadena .= "<td>$code</td>\n";	
+				$cadena .= "<td>$name</td>\n";
+				$cadena .= "<td><button onclick='editDiaSemana(".$code.")' class='btn btn-block btn-warning'>Editar</button></td>";
+                $cadena .= "<td><button onclick='deleteDiaSemana(".$code.")' class='btn btn-block btn-danger'>Eliminar</button></td>";
+				$cadena .= "</tr>\n";	
+			}
+		}
+		else {
+			$cadena .= "<tr>\n";	
+			$cadena .= "<td colspan='4' align='center'>No se han definido D&iacute;as de la Semana...</td>\n";
+			$cadena .= "</tr>\n";
+		}
+		return $cadena;
+	}
+
 	function insertardiaSemana()
 	{
 		$qry = "INSERT INTO sw_dia_semana (id_periodo_lectivo, ds_nombre, ds_ordinal) VALUES (";
