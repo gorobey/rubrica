@@ -2,7 +2,8 @@
 
 class distributivos extends MySQL
 {
-	var $code = "";
+    var $code = "";
+    var $id_periodo_lectivo = "";
 	var $id_malla_curricular = "";
 	var $id_paralelo = "";
 	var $id_asignatura = "";
@@ -41,6 +42,7 @@ class distributivos extends MySQL
                 $subtotal = $registro["ma_subtotal"];
                 // Ahora si procedemos a insertar...
                 $qry = "INSERT INTO sw_distributivo(";
+                $qry .= "id_periodo_lectivo,";
                 $qry .= "id_malla_curricular,";
                 $qry .= "id_paralelo,";
                 $qry .= "id_asignatura,";
@@ -49,6 +51,8 @@ class distributivos extends MySQL
                 $qry .= "di_horas_autonomas,";
                 $qry .= "di_horas_tutorias,";
                 $qry .= "di_subtotal) VALUES(";
+                // id_periodo_lectivo
+                $qry .= $this->id_periodo_lectivo . ",";
                 // id_malla_curricular
                 $qry .= $id_malla_curricular . ",";
                 // id_paralelo
@@ -92,7 +96,7 @@ class distributivos extends MySQL
                                              cu_abreviatura,
                                              es_abreviatura, 
                                              as_nombre,
-                                             cu_orden,
+                                             pa_orden,
                                              ac_orden 
                                         FROM sw_distributivo d, 
                                              sw_paralelo p, 
@@ -107,7 +111,8 @@ class distributivos extends MySQL
                                          AND a.id_asignatura = d.id_asignatura 
                                          AND d.id_asignatura = ac.id_asignatura 
                                          AND d.id_usuario = " . $this->id_usuario 
-                                   . " ORDER BY cu_orden, pa_nombre, ac_orden");
+                                   . "   AND d.id_periodo_lectivo = " . $this->id_periodo_lectivo
+                                   . " ORDER BY pa_orden, ac_orden");
 		$num_total_registros = parent::num_rows($consulta);
 		$cadena = "";
 		if($num_total_registros > 0)
@@ -119,7 +124,7 @@ class distributivos extends MySQL
 			{
 				$cadena .= "<tr>\n";
                 $code = $malla["id_distributivo"];
-                $paralelo = $malla["es_abreviatura"]." ".$malla["cu_abreviatura"].$malla["pa_nombre"];
+                $paralelo = $malla["cu_abreviatura"].$malla["pa_nombre"]." ".$malla["es_abreviatura"];
 				$asignatura = $malla["as_nombre"];
                 $presenciales = $malla["di_horas_presenciales"];
                 $autonomas = $malla["di_horas_autonomas"];
