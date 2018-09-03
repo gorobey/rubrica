@@ -34,19 +34,19 @@
                             <label class="control-label" style="position:relative; top:7px;">Presenciales:</label>
                         </div>
                         <div class="col-sm-2" style="margin-top: 2px;">
-                            <input type="text" class="form-control fuente9 text-right" id="horas_presenciales" value="0" onfocus="sel_texto(this)" onkeypress="return permite(event,'num')">
+                            <input type="number" min="0" class="form-control fuente9" id="horas_presenciales" value="0" onfocus="sel_texto(this)" onkeypress="return permite(event,'num')">
                         </div>
                         <div class="col-sm-2 text-right">
                             <label class="control-label" style="position:relative; top:7px;">Autónomas:</label>
                         </div>
                         <div class="col-sm-2" style="margin-top: 2px;">
-                            <input type="text" class="form-control fuente9 text-right" id="horas_autonomas" value="0" onfocus="sel_texto(this)" onkeypress="return permite(event,'num')">
+                            <input type="number" min="0" class="form-control fuente9" id="horas_autonomas" value="0" onfocus="sel_texto(this)" onkeypress="return permite(event,'num')">
                         </div>
                         <div class="col-sm-2 text-right">
                             <label class="control-label" style="position:relative; top:7px;">Tutorías:</label>
                         </div>
                         <div class="col-sm-2" style="margin-top: 2px;">
-                            <input type="text" class="form-control fuente9 text-right" id="horas_tutorias" value="0" onfocus="sel_texto(this)" onkeypress="return permite(event,'num')">
+                            <input type="number" min="0" class="form-control fuente9" id="horas_tutorias" value="0" onfocus="sel_texto(this)" onkeypress="return permite(event,'num')">
                         </div>
                     </div>
                     <div class="row">

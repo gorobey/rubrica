@@ -21,7 +21,7 @@
                             <label class="control-label" style="position:relative; top:7px;">Ordinal:</label>
                         </div>
                         <div class="col-sm-10" style="margin-top: 2px;">
-                            <input type="text" class="form-control fuente9" id="ds_ordinal" value="0" onfocus="sel_texto(this)" onkeypress="return permite(event,'num')">
+                            <input type="number" min="0" class="form-control fuente9" id="ds_ordinal" value="0" onfocus="sel_texto(this)" onkeypress="return permite(event,'num')">
                             <span class="help-desk error" id="mensaje2"></span>
                         </div>
                     </div>
