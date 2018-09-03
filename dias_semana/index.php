@@ -12,7 +12,7 @@
                             <label class="control-label" style="position:relative; top:7px;">Nombre:</label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control fuente9 text-right" id="ds_nombre" value="">
+                            <input type="text" class="form-control fuente9" id="ds_nombre" value="" onfocus="sel_texto(this)" onkeypress="return permite(event,'car')">
                             <span class="help-desk error" id="mensaje1"></span>
                         </div>
                     </div>
@@ -21,7 +21,7 @@
                             <label class="control-label" style="position:relative; top:7px;">Ordinal:</label>
                         </div>
                         <div class="col-sm-10" style="margin-top: 2px;">
-                            <input type="text" class="form-control fuente9 text-right" id="ds_ordinal" value="0">
+                            <input type="text" class="form-control fuente9" id="ds_ordinal" value="0" onfocus="sel_texto(this)" onkeypress="return permite(event,'num')">
                             <span class="help-desk error" id="mensaje2"></span>
                         </div>
                     </div>
@@ -29,6 +29,18 @@
                         <div class="col-sm-12" style="margin-top: 4px;">
                             <button id="btn-add-item" type="button" class="btn btn-block btn-primary" onclick="insertarDiaSemana()">
                                 Añadir
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 4px;" id="botones_edicion">
+                        <div class="col-sm-6">
+                            <button id="btn-cancel" type="button" class="btn btn-block" onclick="cancelarEdicion()">
+                                Cancelar
+                            </button>
+                        </div>
+                        <div class="col-sm-6">
+                            <button id="btn-update" type="button" class="btn btn-block btn-primary" onclick="actualizarDiaSemana()">
+                                Actualizar
                             </button>
                         </div>
                     </div>
@@ -56,7 +68,7 @@
 </div>
 <script>
     $(document).ready(function(){
-        // JQuery Listo para utilizar
+        $("#botones_edicion").hide();
         cargarDiasSemana();
         $("#mensaje1").html("");
         $("#mensaje2").html("");
@@ -91,7 +103,17 @@
             }
         }); */
     });
-    
+
+	function sel_texto(input) {
+		$(input).select();
+	}
+
+    function cancelarEdicion()
+    {
+        $("#botones_edicion").hide();
+        $("#botones_insercion").show();
+    }
+
     function cargarDiasSemana(){
         // Obtengo todos los dias de la semana ingresados en la base de datos
         $.ajax({
@@ -161,42 +183,99 @@
         }
     }
 
-    function editPerfil(id){
-        //Primero obtengo el nombre del perfil seleccionado
+    function editDiaSemana(id_dia)
+    {
+        $("#id_dia").val(id_dia);
+        $("#botones_insercion").hide();
+        $("#botones_edicion").show();
+        // Primero obtengo los datos del item elegido
         $.ajax({
-            url: "perfil/obtener_perfil.php",
+            url: "dias_semana/obtener_dia_semana.php",
             method: "POST",
             type: "html",
             data: {
-                id: id
+                id_dia_semana: id_dia
             },
             success: function(response){
-                var perfil = jQuery.parseJSON(response);
-                $("#perfil").val(perfil.pe_nombre);
-                $("#subtitulo").html("Actualiza este Perfil");
-                $("#enviar").val("Actualizar");
-                $("#id").val(id);
-                $("#perfil").focus();
+                var dia = jQuery.parseJSON(response);
+                $("#ds_nombre").val(dia.ds_nombre);
+                $("#ds_ordinal").val(dia.ds_ordinal);
             },
             error: function(xhr, status, error) {
                 alert(xhr.responseText);
             }
         });
     }
-    function deletePerfil(id){
-        //Elimino el perfil mediante AJAX
+
+    function actualizarDiaSemana()
+    {
+        // Recolección de datos
+        var cont_errores = 0;
+        var id_dia = $("#id_dia").val();
+        var nombre = $("#ds_nombre").val();
+        var ordinal = $("#ds_ordinal").val();
+
+        // Validación de ingreso de datos
+        if(nombre.trim()==""){
+            $("#mensaje1").html("Debes ingresar el nombre del dia de la semana...");
+            $("#mensaje1").fadeIn();
+            cont_errores++;
+        } else {
+            $("#mensaje1").fadeOut("slow");
+        } 
+        
+        if(ordinal.trim()==""){
+            $("#mensaje2").html("Debes ingresar el ordinal del dia de la semana...");
+            $("#mensaje2").fadeIn();
+            cont_errores++;
+        } else {
+            $("#mensaje2").fadeOut("slow");
+        }
+
+        if(ordinal.trim()=="0"){
+            $("#mensaje2").html("Debes ingresar un numero mayor que cero para el ordinal...");
+            $("#mensaje2").fadeIn();
+            cont_errores++;
+        } else {
+            $("#mensaje2").fadeOut();
+        }
+
+        if (cont_errores == 0) {
+            // Se procede a la actualizacion del dia de la semana
+            $.ajax({
+                url: "dias_semana/actualizar_dia_semana.php",
+                method: "POST",
+                type: "html",
+                data: {
+                    id_dia_semana: id_dia,
+                    ds_nombre: nombre,
+                    ds_ordinal: ordinal
+                },
+                success: function(response){
+                    cargarDiasSemana();
+                    cancelarEdicion();
+                    $("#text_message").html(response);
+                },
+                error: function(xhr, status, error) {
+                    alert(xhr.responseText);
+                }
+            });
+        }
+    }
+
+    function deleteDiaSemana(id_dia){
+        //Elimino el dia de la semana mediante AJAX
         $("#text_message").html("<img src='imagenes/ajax-loader.gif' alt='Cargando...'>");
         $.ajax({
-            url: "perfil/eliminar_perfil.php",
+            url: "dias_semana/eliminar_dia_semana.php",
             method: "POST",
             type: "html",
             data: {
-                id: id
+                id_dia_semana: id_dia
             },
             success: function(response){
                 $("#text_message").html(response);
-                cargarPerfiles();
-                $("#perfil").focus();
+                cargarDiasSemana();
             },
             error: function(xhr, status, error) {
                 alert(xhr.responseText);

@@ -69,14 +69,21 @@ class dias_semana extends MySQL
 
 	function insertardiaSemana()
 	{
-		$qry = "INSERT INTO sw_dia_semana (id_periodo_lectivo, ds_nombre, ds_ordinal) VALUES (";
-		$qry .= $this->id_periodo_lectivo .",";
-		$qry .= "'" . $this->ds_nombre . "',";
-		$qry .= "'" . $this->ds_ordinal . "')";
+		$qry = "SELECT * FROM sw_dia_semana WHERE id_periodo_lectivo = " . $this->id_periodo_lectivo . " AND ds_nombre = '" . $this->ds_nombre . "'";
 		$consulta = parent::consulta($qry);
-		$mensaje = "D&iacute;a de la Semana insertado exitosamente...";
-		if (!$consulta)
-			$mensaje = "No se pudo insertar el D&iacute;a de la Semana...Error: " . mysql_error();
+		$num_rows = parent::num_rows($consulta);
+		if ($num_rows > 0) {
+			$mensaje = "Ya existe el dia de la semana para el presente periodo lectivo...";
+		} else {
+			$qry = "INSERT INTO sw_dia_semana (id_periodo_lectivo, ds_nombre, ds_ordinal) VALUES (";
+			$qry .= $this->id_periodo_lectivo .",";
+			$qry .= "'" . $this->ds_nombre . "',";
+			$qry .= "'" . $this->ds_ordinal . "')";
+			$consulta = parent::consulta($qry);
+			$mensaje = "D&iacute;a de la Semana insertado exitosamente...";
+			if (!$consulta)
+				$mensaje = "No se pudo insertar el D&iacute;a de la Semana...Error: " . mysql_error();
+		}
 		return $mensaje;
 	}
 
@@ -108,11 +115,18 @@ class dias_semana extends MySQL
 	
 	function eliminarDiaSemana()
 	{
-		$qry = "DELETE FROM sw_dia_semana WHERE id_dia_semana=". $this->code;
+		$qry = "SELECT * FROM sw_hora_dia WHERE id_dia_semana = " . $this->code;
 		$consulta = parent::consulta($qry);
-		$mensaje = "Dia de la Semana eliminado exitosamente...";
-		if (!$consulta)
-			$mensaje = "No se pudo eliminar el Dia de la Semana...Error: " . mysql_error();
+		$num_rows = parent::num_rows($consulta);
+		if ($num_rows > 0) {
+			$mensaje = "No se puede eliminar porque tiene horas clase asociadas...";
+		} else {
+			$qry = "DELETE FROM sw_dia_semana WHERE id_dia_semana = " . $this->code;
+			$consulta = parent::consulta($qry);
+			$mensaje = "Dia de la Semana eliminado exitosamente...";
+			if (!$consulta)
+				$mensaje = "No se pudo eliminar el Dia de la Semana...Error: " . mysql_error();
+		}
 		return $mensaje;
 	}
 
