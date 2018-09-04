@@ -108,8 +108,27 @@
 <script>
     $(document).ready(function(){
         $("#botones_edicion").hide();
+        listarHorasClase();
     });
     function sel_texto(input) {
 		$(input).select();
 	}
+    function listarHorasClase()
+    {
+        $.get("hora_clase/listar_horas_clase.php", {},
+            function(resultado)
+            {
+                if(resultado == false)
+                {
+                    alert("Error");
+                }
+                else
+                {
+                    var datos = JSON.parse(resultado);
+                    $("#lista_items").html(datos.cadena);
+                    $("#total_horas").val(datos.total_horas);
+                }
+            }
+        );
+    }
 </script>

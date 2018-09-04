@@ -10,43 +10,45 @@ class horas_clase extends MySQL
 	var $id_dia_semana = "";
 	var $hc_hora_inicio = "";
 
-        var $id_asignatura = "";
-        var $id_paralelo = "";
+	var $id_periodo_lectivo = "";
+
+    var $id_asignatura = "";
+    var $id_paralelo = "";
         
 	function listar_horas_clase()
 	{
-		$consulta = parent::consulta("SELECT * FROM sw_hora_clase WHERE id_dia_semana = " . $this->id_dia_semana . " ORDER BY hc_ordinal ASC");
+		$consulta = parent::consulta("SELECT * FROM sw_hora_clase WHERE id_periodo_lectivo = " . $this->id_periodo_lectivo . " ORDER BY hc_ordinal ASC");
 		$num_total_registros = parent::num_rows($consulta);
-		$cadena = "<table class=\"fuente8\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
-		if($num_total_registros>0)
+		$cadena = ""; $contador = 0;
+		if($num_total_registros > 0)
 		{
-			$contador = 0;
 			while($hora_clase = parent::fetch_assoc($consulta))
 			{
-				$contador += 1;
-				$fondolinea = ($contador % 2 == 0) ? "itemParTabla" : "itemImparTabla";
-				$cadena .= "<tr class=\"$fondolinea\" onmouseover=\"className='itemEncimaTabla'\" onmouseout=\"className='$fondolinea'\">\n";
+				$contador++;
+				$cadena .= "<tr>\n";
 				$code = $hora_clase["id_hora_clase"];
 				$name = $hora_clase["hc_nombre"];
 				$hora_inicio = $hora_clase["hc_hora_inicio"];
 				$hora_fin = $hora_clase["hc_hora_fin"];
-				$cadena .= "<td width=\"5%\">$contador</td>\n";	
-				$cadena .= "<td width=\"5%\">$code</td>\n";	
-				$cadena .= "<td width=\"24%\" align=\"left\">$name</td>\n";
-				$cadena .= "<td width=\"24%\" align=\"left\">$hora_inicio</td>\n";
-				$cadena .= "<td width=\"24%\" align=\"left\">$hora_fin</td>\n";
-				$cadena .= "<td width=\"9%\" class=\"link_table\"><a href=\"#\" onclick=\"editarHoraClase(".$code.")\">editar</a></td>\n";
-				$cadena .= "<td width=\"9%\" class=\"link_table\"><a href=\"#\" onclick=\"eliminarHoraClase(".$code.")\">eliminar</a></td>\n";
-				$cadena .= "</tr>\n";	
+				$ordinal = $hora_clase["hc_ordinal"];
+				$cadena .= "<td>$code</td>\n";	
+				$cadena .= "<td>$name</td>\n";
+				$cadena .= "<td>$hora_inicio</td>\n";
+				$cadena .= "<td>$hora_fin</td>\n";
+				$cadena .= "<td>$ordinal</td>\n";
+				$cadena .= "<td><button class='btn btn-block btn-warning' onclick=\"editarHoraClase(".$code.")\">Editar</button></td>";
+				$cadena .= "<td><button class='btn btn-block btn-danger' onclick=\"eliminarHoraClase(".$code.")\">Eliminar</button></td>";
+				$cadena .= "</tr>\n";
 			}
 		}
 		else {
 			$cadena .= "<tr>\n";	
-			$cadena .= "<td>No se han definido Horas Clase para este D&iacute;a de la Semana...</td>\n";
+			$cadena .= "<td colspan='7' align='center'>No se han definido Horas Clase para este periodo lectivo...</td>\n";
 			$cadena .= "</tr>\n";	
 		}
-		$cadena .= "</table>";	
-		return $cadena;
+		$datos = array('cadena' => $cadena, 
+				       'total_horas' => $contador);
+        return json_encode($datos);
 	}
 
 	function insertarHoraClase()
