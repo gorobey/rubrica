@@ -21,19 +21,24 @@
                             <label class="control-label" style="position:relative; top:7px;">Hora de Inicio:</label>
                         </div>
                         <div class="col-sm-2" style="margin-top: 2px;">
-                            <input type="text" class="form-control fuente9" id="hc_hora_inicio" value="0" onfocus="sel_texto(this)">
+                            <input type="text" class="form-control fuente9" placeholder="formato hh:mm" id="hc_hora_inicio" value="" onfocus="sel_texto(this)">
                         </div>
                         <div class="col-sm-2 text-right">
                             <label class="control-label" style="position:relative; top:7px;">Hora de Fin:</label>
                         </div>
                         <div class="col-sm-2" style="margin-top: 2px;">
-                            <input type="text" class="form-control fuente9" id="hc_hora_fin" value="0" onfocus="sel_texto(this)">
+                            <input type="text" class="form-control fuente9" placeholder="formato hh:mm" id="hc_hora_fin" value="" onfocus="sel_texto(this)">
                         </div>
                         <div class="col-sm-2 text-right">
                             <label class="control-label" style="position:relative; top:7px;">Ordinal:</label>
                         </div>
                         <div class="col-sm-2" style="margin-top: 2px;">
-                            <input type="number" min="1" class="form-control fuente9" id="horas_tutorias" value="0" onfocus="sel_texto(this)" onkeypress="return permite(event,'num')">
+                            <input type="number" min="1" class="form-control fuente9" id="hc_ordinal" value="0" onfocus="sel_texto(this)" onkeypress="return permite(event,'num')">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-top: 2px;">
+                            <span class="help-desk error" id="mensaje2"></span>
                         </div>
                     </div>
                     <div class="row">
@@ -46,14 +51,9 @@
                             <span class="help-desk error" id="mensaje4"></span>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-top: 2px;">
-                            <span class="help-desk error" id="mensaje5"></span>
-                        </div>
-                    </div>
                     <div class="row" id="botones_insercion">
                         <div class="col-sm-12" style="margin-top: 4px;">
-                            <button id="btn-add-item" type="button" class="btn btn-block btn-primary" onclick="insertarItemMalla()">
+                            <button id="btn-add-item" type="button" class="btn btn-block btn-primary" onclick="insertarHoraClase()">
                                 Añadir
                             </button>
                         </div>
@@ -65,7 +65,7 @@
                             </button>
                         </div>
                         <div class="col-sm-6">
-                            <button id="btn-update" type="button" class="btn btn-block btn-primary" onclick="actualizarItemMalla()">
+                            <button id="btn-update" type="button" class="btn btn-block btn-primary" onclick="actualizarHoraClase()">
                                 Actualizar
                             </button>
                         </div>
@@ -130,5 +130,84 @@
                 }
             }
         );
+    }
+    function insertarHoraClase()
+    {
+        // Recolección de datos
+        var cont_errores = 0;
+        var nombre = $("#hc_nombre").val();
+        var hora_inicio = $("#hc_hora_inicio").val();
+        var hora_fin = $("#hc_hora_fin").val();
+        var ordinal = $("#hc_ordinal").val();
+
+        // Expresiones regulares para la validación de datos
+        var reg_hora = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/i;
+
+        // Validación de ingreso de datos
+        if (nombre.trim() == "") {
+            $("#mensaje1").html("Debe ingresar el nombre de la hora clase.");
+            $("#mensaje1").fadeIn();
+            cont_errores++;
+        } else {
+            $("#mensaje1").fadeOut("slow");
+        } 
+        
+        if(hora_inicio.trim()==""){
+            $("#mensaje2").html("Debe ingresar la hora de inicio de la hora clase.");
+            $("#mensaje2").fadeIn("slow");
+            cont_errores++;
+        }else if(!reg_hora.test(hora_inicio)){
+            $("#mensaje2").html("Debe ingresar la hora en el formato hh:mm de 24 horas.");
+            $("#mensaje2").fadeIn("slow");
+            cont_errores++;
+        }else {
+            $("#mensaje2").fadeOut();
+        }
+
+        if(hora_fin.trim()==""){
+            $("#mensaje3").html("Debe ingresar la hora de fin de la hora clase.");
+            $("#mensaje3").fadeIn("slow");
+            cont_errores++;
+        }else if(!reg_hora.test(hora_fin)){
+            $("#mensaje3").html("Debe ingresar la hora en el formato hh:mm de 24 horas.");
+            $("#mensaje3").fadeIn("slow");
+            cont_errores++;
+        }else {
+            $("#mensaje3").fadeOut();
+        }
+
+        if (ordinal.trim() == "") {
+            $("#mensaje4").html("Debe ingresar el ordinal de las horas clase.");
+            $("#mensaje4").fadeIn();
+            cont_errores++;
+        } else if (parseInt(ordinal) < 1) {
+            $("#mensaje4").html("Debe ingresar un valor entero mayor o igual que uno! para el ordinal.");
+            $("#mensaje4").fadeIn();
+            cont_errores++;
+        } else {
+            $("#mensaje4").fadeOut();
+        }
+
+        if (cont_errores == 0) {
+            // Se procede a la inserción del item de la malla
+            $.ajax({
+                url: "hora_clase/insertar_hora_clase.php",
+                method: "POST",
+                type: "html",
+                data: {
+                    hc_nombre: nombre,
+                    hc_hora_inicio: hora_inicio,
+                    hc_hora_fin: hora_fin,
+                    hc_ordinal: ordinal
+                },
+                success: function(response){
+                    listarHorasClase();
+                    $("#text_message").html(response);
+                },
+                error: function(xhr, status, error) {
+                    alert(xhr.responseText);
+                }
+            });
+        }
     }
 </script>

@@ -52,17 +52,13 @@ class horas_clase extends MySQL
 	}
 
 	function insertarHoraClase()
-	{
-		// Aqui primero llamo a la funcion almacenada secuencial_hora_clase_dia_semana
-		$consulta = parent::consulta("SELECT secuencial_hora_clase_dia_semana(".$this->id_dia_semana.") AS secuencial");
-		$hc_ordinal = parent::fetch_object($consulta)->secuencial;
-		
-		$qry = "INSERT INTO sw_hora_clase (id_dia_semana, hc_nombre, hc_hora_inicio, hc_hora_fin, hc_ordinal) VALUES (";
-		$qry .= $this->id_dia_semana . ",";
+	{	
+		$qry = "INSERT INTO sw_hora_clase (id_periodo_lectivo, hc_nombre, hc_hora_inicio, hc_hora_fin, hc_ordinal) VALUES (";
+		$qry .= $this->id_periodo_lectivo . ",";
 		$qry .= "'" . $this->hc_nombre . "',";
 		$qry .= "'" . $this->hc_hora_inicio . "',";
 		$qry .= "'" . $this->hc_hora_fin . "',";
-		$qry .= $hc_ordinal . ")";
+		$qry .= $this->hc_ordinal . ")";
 		$consulta = parent::consulta($qry);
 		$mensaje = "Hora Clase insertada exitosamente...";
 		if (!$consulta)
