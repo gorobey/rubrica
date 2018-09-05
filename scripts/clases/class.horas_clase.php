@@ -68,30 +68,36 @@ class horas_clase extends MySQL
 
 	function obtenerHoraClase()
 	{
-		$consulta = parent::consulta("SELECT * FROM sw_hora_clase WHERE id_hora_clase = " . $this->code);
+		$consulta = parent::consulta("SELECT id_hora_clase,
+											 hc_nombre,
+											 DATE_FORMAT(hc_hora_inicio,'%H:%i') AS hora_inicio,
+											 DATE_FORMAT(hc_hora_fin,'%H:%i') AS hora_fin,
+											 hc_ordinal
+									    FROM sw_hora_clase WHERE id_hora_clase = " . $this->code);
 		return json_encode(parent::fetch_assoc($consulta));
 	}
         
-        function obtenerNombreHoraClase($id_hora_clase)
-        {
-            $consulta = parent::consulta("SELECT hc_nombre,
-	                                         DATE_FORMAT(hc_hora_inicio,'%H:%i') AS hora_inicio,
-	                                         DATE_FORMAT(hc_hora_fin,'%H:%i') AS hora_fin,
-	                                         ds_nombre
-                                            FROM sw_hora_clase hc,
-	                                         sw_dia_semana di
-                                           WHERE di.id_dia_semana = hc.id_dia_semana
-                                             AND id_hora_clase = $id_hora_clase");
-            $hora_clase = parent::fetch_assoc($consulta);
-            return $hora_clase["ds_nombre"] . " - " . $hora_clase["hc_nombre"] . " (" . $hora_clase["hora_inicio"] . " - " . $hora_clase["hora_fin"] . ")";
-        }
+	function obtenerNombreHoraClase($id_hora_clase)
+	{
+		$consulta = parent::consulta("SELECT hc_nombre,
+											 DATE_FORMAT(hc_hora_inicio,'%H:%i') AS hora_inicio,
+											 DATE_FORMAT(hc_hora_fin,'%H:%i') AS hora_fin,
+											 ds_nombre
+										FROM sw_hora_clase hc,
+											 sw_dia_semana di
+									   WHERE di.id_dia_semana = hc.id_dia_semana
+										 AND id_hora_clase = $id_hora_clase");
+		$hora_clase = parent::fetch_assoc($consulta);
+		return $hora_clase["ds_nombre"] . " - " . $hora_clase["hc_nombre"] . " (" . $hora_clase["hora_inicio"] . " - " . $hora_clase["hora_fin"] . ")";
+	}
 	
 	function actualizarHoraClase()
 	{
 		$qry = "UPDATE sw_hora_clase SET ";
 		$qry .= "hc_nombre = '" . $this->hc_nombre . "',";
 		$qry .= "hc_hora_inicio = '" . $this->hc_hora_inicio . "',";
-		$qry .= "hc_hora_fin = '" . $this->hc_hora_fin . "'";
+		$qry .= "hc_hora_fin = '" . $this->hc_hora_fin . "',";
+		$qry .= "hc_ordinal = " . $this->hc_ordinal;
 		$qry .= " WHERE id_hora_clase = " . $this->code;
 		$consulta = parent::consulta($qry);
 		$mensaje = "Hora Clase " . $this->hc_nombre . " actualizada exitosamente...";
@@ -102,11 +108,17 @@ class horas_clase extends MySQL
 	
 	function eliminarHoraClase()
 	{
-		$qry = "DELETE FROM sw_hora_clase WHERE id_hora_clase = ". $this->code;
-		$consulta = parent::consulta($qry);
-		$mensaje = "Hora de Clase eliminada exitosamente...";
-		if (!$consulta)
-			$mensaje = "No se pudo eliminar la Hora de Clase...Error: " . mysql_error();
+		$consulta = parent::consulta("SELECT * FROM sw_hora_dia WHERE id_hora_clase = ". $this->code);
+		$num_rows = parent::num_rows($consulta);
+		if ($num_rows > 0) {
+			$mensaje = "No se puede eliminar la hora clase porque esta asociada a dias de la semana...";
+		} else {
+			$qry = "DELETE FROM sw_hora_clase WHERE id_hora_clase = ". $this->code;
+			$consulta = parent::consulta($qry);
+			$mensaje = "Hora de Clase eliminada exitosamente...";
+			if (!$consulta)
+				$mensaje = "No se pudo eliminar la Hora de Clase...Error: " . mysql_error();
+		}
 		return $mensaje;
 	}
 	

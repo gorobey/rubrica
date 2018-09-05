@@ -131,6 +131,32 @@
             }
         );
     }
+    function editarHoraClase(id_hora_clase)
+    {
+        $("#id_hora_clase").val(id_hora_clase);
+        $("#botones_insercion").hide();
+        $("#botones_edicion").show();
+        // Primero obtengo los datos del item elegido
+        $.ajax({
+            url: "hora_clase/obtener_hora_clase.php",
+            method: "POST",
+            type: "html",
+            data: {
+                id_hora_clase: id_hora_clase
+            },
+            success: function(response){
+                //console.log(response);
+                var hora_clase = jQuery.parseJSON(response);
+                $("#hc_nombre").val(hora_clase.hc_nombre);
+                $("#hc_hora_inicio").val(hora_clase.hora_inicio);
+                $("#hc_hora_fin").val(hora_clase.hora_fin);
+                $("#hc_ordinal").val(hora_clase.hc_ordinal);
+            },
+            error: function(xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+    }
     function insertarHoraClase()
     {
         // Recolección de datos
@@ -209,5 +235,105 @@
                 }
             });
         }
+    }
+    function actualizarHoraClase()
+    {
+        // Recolección de datos
+        var cont_errores = 0;
+        var id_hora_clase = $("#id_hora_clase").val();
+        var nombre = $("#hc_nombre").val();
+        var hora_inicio = $("#hc_hora_inicio").val();
+        var hora_fin = $("#hc_hora_fin").val();
+        var ordinal = $("#hc_ordinal").val();
+
+        // Expresiones regulares para la validación de datos
+        var reg_hora = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/i;
+
+        // Validación de ingreso de datos
+        if (nombre.trim() == "") {
+            $("#mensaje1").html("Debe ingresar el nombre de la hora clase.");
+            $("#mensaje1").fadeIn();
+            cont_errores++;
+        } else {
+            $("#mensaje1").fadeOut("slow");
+        } 
+        
+        if(hora_inicio.trim()==""){
+            $("#mensaje2").html("Debe ingresar la hora de inicio de la hora clase.");
+            $("#mensaje2").fadeIn("slow");
+            cont_errores++;
+        }else if(!reg_hora.test(hora_inicio)){
+            $("#mensaje2").html("Debe ingresar la hora en el formato hh:mm de 24 horas.");
+            $("#mensaje2").fadeIn("slow");
+            cont_errores++;
+        }else {
+            $("#mensaje2").fadeOut();
+        }
+
+        if(hora_fin.trim()==""){
+            $("#mensaje3").html("Debe ingresar la hora de fin de la hora clase.");
+            $("#mensaje3").fadeIn("slow");
+            cont_errores++;
+        }else if(!reg_hora.test(hora_fin)){
+            $("#mensaje3").html("Debe ingresar la hora en el formato hh:mm de 24 horas.");
+            $("#mensaje3").fadeIn("slow");
+            cont_errores++;
+        }else {
+            $("#mensaje3").fadeOut();
+        }
+
+        if (ordinal.trim() == "") {
+            $("#mensaje4").html("Debe ingresar el ordinal de las horas clase.");
+            $("#mensaje4").fadeIn();
+            cont_errores++;
+        } else if (parseInt(ordinal) < 1) {
+            $("#mensaje4").html("Debe ingresar un valor entero mayor o igual que uno! para el ordinal.");
+            $("#mensaje4").fadeIn();
+            cont_errores++;
+        } else {
+            $("#mensaje4").fadeOut();
+        }
+
+        if (cont_errores == 0) {
+            // Se procede a la actualización de la hora clase
+            $.ajax({
+                url: "hora_clase/actualizar_hora_clase.php",
+                method: "POST",
+                type: "html",
+                data: {
+                    id_hora_clase: id_hora_clase,
+                    hc_nombre: nombre,
+                    hc_hora_inicio: hora_inicio,
+                    hc_hora_fin: hora_fin,
+                    hc_ordinal: ordinal
+                },
+                success: function(response){
+                    listarHorasClase();
+                    $("#text_message").html(response);
+                },
+                error: function(xhr, status, error) {
+                    alert(xhr.responseText);
+                }
+            });
+        }
+    }
+    function eliminarHoraClase(id_hora_clase){
+        //Elimino la hora clase seleccionada...
+        $("#text_message").html("<img src='imagenes/ajax-loader.gif' alt='Cargando...'>");
+        $.ajax({
+            url: "hora_clase/eliminar_hora_clase.php",
+            method: "POST",
+            type: "html",
+            data: {
+                id_hora_clase: id_hora_clase
+            },
+            success: function(response){
+                $("#text_message").html(response);
+                listarHorasClase();
+            },
+            error: function(xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
     }
 </script>
