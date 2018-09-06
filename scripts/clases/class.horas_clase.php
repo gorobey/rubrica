@@ -122,7 +122,7 @@ class horas_clase extends MySQL
 		return $mensaje;
 	}
 	
-        function obtenerHorasClase()
+    function obtenerHorasClase()
 	{
 		$consulta = parent::consulta("SELECT hc.id_hora_clase,
                                                      hc_nombre,
@@ -138,18 +138,6 @@ class horas_clase extends MySQL
                                                " AND ho.id_paralelo = " . $this->id_paralelo .
                                                " AND ho.id_dia_semana = " . $this->id_dia_semana .
                                                " ORDER BY hc.hc_ordinal");
-            
-//                $consulta = parent::consulta("SELECT hc.id_hora_clase,
-//                                                     hc_nombre,
-//                                                     DATE_FORMAT(hc_hora_inicio,'%H:%i') AS hora_inicio,
-//                                                     DATE_FORMAT(hc_hora_fin,'%H:%i') AS hora_fin,
-//                                                     ds_nombre
-//                                                FROM sw_hora_clase hc,
-//                                                     sw_dia_semana di
-//                                               WHERE di.id_dia_semana = hc.id_dia_semana
-//                                                 AND hc.id_dia_semana = " . $this->id_dia_semana .
-//                                             " ORDER BY hc.hc_ordinal");
-                
                 $cadena = "";
                 $num_total_registros = parent::num_rows($consulta);
 		if($num_total_registros>0)

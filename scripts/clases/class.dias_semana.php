@@ -7,6 +7,90 @@ class dias_semana extends MySQL
 	var $ds_nombre = "";
 	var $ds_ordinal = "";
 	var $id_periodo_lectivo = "";
+
+	var $id_dia_semana = "";
+	var $id_hora_clase = "";
+
+	function insertarHoraDia()
+	{
+		$qry = "SELECT * FROM sw_hora_dia WHERE id_dia_semana = " . $this->id_dia_semana . " AND id_hora_clase = " . $this->id_hora_clase;
+		$consulta = parent::consulta($qry);
+		$num_rows = parent::num_rows($consulta);
+		if ($num_rows > 0) {
+			$mensaje = "Ya existe la asociacion de hora clase y dia de la semana seleccionados...";
+		} else {
+			$qry = "INSERT INTO sw_hora_dia(id_dia_semana, id_hora_clase) VALUES(";
+			$qry .= $this->id_dia_semana . ",";
+			$qry .= $this->id_hora_clase . ")";
+			$consulta = parent::consulta($qry);
+			if (!$consulta) {
+				$mensaje = "No se pudo insertar la asociacion. Error: " . mysql_error();
+			} else {
+				$mensaje = "Asociacion insertada exitosamente.";
+			}
+		}
+		return $mensaje;
+	}
+
+	function listarHorasAsociadas()
+	{
+		$consulta = parent::consulta("SELECT id_hora_dia, 
+											 ds_nombre,
+                                             hc_nombre,
+											 DATE_FORMAT(hc_hora_inicio,'%H:%i') AS hora_inicio,
+											 DATE_FORMAT(hc_hora_fin,'%H:%i') AS hora_fin,
+                                             hc_ordinal 
+                                        FROM sw_hora_dia hd, 
+                                             sw_dia_semana ds, 
+                                             sw_hora_clase hc
+                                       WHERE ds.id_dia_semana = hd.id_dia_semana
+                                         AND hc.id_hora_clase = hd.id_hora_clase 
+                                         AND hd.id_dia_semana = " . $this->id_dia_semana 
+                                   . " ORDER BY hc_ordinal");
+		$num_total_registros = parent::num_rows($consulta);
+		$cadena = ""; $contador = 0;
+		if($num_total_registros > 0)
+		{
+			while($hora_asociada = parent::fetch_assoc($consulta))
+			{
+				$contador++;
+				$cadena .= "<tr>\n";
+				$code = $hora_asociada["id_hora_dia"];
+				$dia_semana = $hora_asociada["ds_nombre"];
+                $hora_clase = $hora_asociada["ds_nombre"] . " - " . $hora_asociada["hc_nombre"] . " (" . $hora_asociada["hora_inicio"] . " - " . $hora_asociada["hora_fin"] . ")";
+				$cadena .= "<td>$code</td>\n";
+				$cadena .= "<td>$dia_semana</td>\n";
+                $cadena .= "<td>$hora_clase</td>\n";
+				$cadena .= "<td><button class='btn btn-block btn-danger' onclick=\"eliminarAsociacion(".$code.")\">Eliminar</button></td>";
+				$cadena .= "</tr>\n";	
+			}
+		}
+		else {
+			$cadena .= "<tr>\n";	
+			$cadena .= "<td colspan='4' align='center'>No se han asociado horas clase a este dia de la semana...</td>\n";
+			$cadena .= "</tr>\n";	
+        }
+        $datos = array('cadena' => $cadena, 
+				       'total_horas' => $contador);
+        return json_encode($datos);
+	}
+
+	function eliminarHoraDia()
+	{
+		$consulta = parent::consulta("SELECT COUNT(*) AS num_rows FROM sw_asistencia_estudiante WHERE id_hora_dia = " . $this->id_hora_dia);
+		$num_rows = parent::fetch_object($consulta)->num_rows;
+		if ($num_rows > 0) {
+			$mensaje = "No se puede eliminar la asociacion porque tiene asistencias relacionadas...";
+		} else {
+			$consulta = parent::consulta("DELETE FROM sw_hora_dia WHERE id_hora_dia = " . $this->id_hora_dia);
+			if (!$consulta) {
+				$mensaje = "No se pudo eliminar la asociacion. Error: " . mysql_error();
+			} else {
+				$mensaje = "Asociacion eliminada exitosamente.";
+			}
+		}
+		return $mensaje;
+	}
 	
 	function listar_dias_semana()
 	{

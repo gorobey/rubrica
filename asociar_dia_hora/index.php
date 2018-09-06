@@ -23,7 +23,7 @@
                             <label class="control-label" style="position:relative; top:7px;">Hora Clase:</label>
                         </div>
                         <div class="col-sm-10" style="margin-top: 2px;">
-                            <select class="form-control fuente9" id="cboHoraClase">
+                            <select class="form-control fuente9" id="cboHorasClase">
                                 <option value="0">Seleccione...</option>
                             </select>
                             <span class="help-desk error" id="mensaje2"></span>
@@ -48,7 +48,7 @@
                             <th>Id</th>
                             <th>Dia</th>
                             <th>Hora</th>
-                            <th colspan='3' align='center'>Acciones</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="lista_items">
@@ -69,3 +69,134 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        cargarDiasSemana();
+        cargarHorasClase();
+        $("#cboDiasSemana").change(function(e){
+            e.preventDefault();
+            listarHorasAsociadas();
+        })
+    });
+    function cargarDiasSemana()
+	{
+		$.get("scripts/cargar_dias_semana.php", { },
+			function(resultado)
+			{
+				if(resultado == false)
+				{
+					alert("Error");
+				}
+				else
+				{
+					$("#cboDiasSemana").append(resultado);
+				}
+			}
+		);
+    }
+    function cargarHorasClase()
+	{
+		$.get("scripts/cargar_horas_clase.php", { },
+			function(resultado)
+			{
+				if(resultado == false)
+				{
+					alert("Error");
+				}
+				else
+				{
+					//console.log(resultado);
+                    $("#cboHorasClase").append(resultado);
+				}
+			}
+		);
+	}
+    function asociarHoraDia()
+    {
+        // Procedimiento para insertar la asociacion entre hora clase y dia de la semana
+        var id_dia_semana = $("#cboDiasSemana").val();
+        var id_hora_clase = $("#cboHorasClase").val();
+        var cont_errores = 0;
+
+        // Validación de ingreso de datos
+        if (id_dia_semana == 0) {
+            $("#mensaje1").html("Debe elegir el dia de la semana...");
+            $("#mensaje1").fadeIn();
+            cont_errores++;
+        } else {
+            $("#mensaje1").fadeOut("slow");
+        }
+
+        if (id_hora_clase == 0) {
+            $("#mensaje2").html("Debe elegir la hora clase...");
+            $("#mensaje2").fadeIn();
+            cont_errores++;
+        } else {
+            $("#mensaje2").fadeOut("slow");
+        }
+
+        if (cont_errores == 0) {
+            $.ajax({
+                url: "asociar_dia_hora/insertar_asociacion.php",
+                method: "POST",
+                type: "html",
+                data: {
+                    id_dia_semana: id_dia_semana,
+                    id_hora_clase: id_hora_clase
+                },
+                success: function(response){
+                    listarHorasAsociadas();
+                    $("#text_message").html(response);
+                },
+                error: function(xhr, status, error) {
+                    alert(xhr.responseText);
+                }
+            });
+        }
+    }
+    function listarHorasAsociadas()
+    {
+        var id_dia_semana = $("#cboDiasSemana").val();
+        if(id_dia_semana==0){
+            $("#lista_items").html("<tr><td colspan='4' align='center'>Debes seleccionar un dia de la semana...</td></tr>");
+        }else{
+            $.get("asociar_dia_hora/listar_horas_asociadas.php", 
+                { 
+                    id_dia_semana: id_dia_semana
+                },
+                function(resultado)
+                {
+                    if(resultado == false)
+                    {
+                        alert("Error");
+                    }
+                    else
+                    {
+                        var datos = JSON.parse(resultado);
+                        $("#lista_items").html(datos.cadena);
+                        $("#total_horas").val(datos.total_horas);
+                    }
+                }
+            );
+        }
+    }
+    function eliminarAsociacion(id_hora_dia){
+        //Elimino la asociacion de la hora clase en el dia seleccionado mediante AJAX
+        $("#text_message").html("<img src='imagenes/ajax-loader.gif' alt='Cargando...'>");
+        $.ajax({
+            url: "asociar_dia_hora/eliminar_asociacion.php",
+            method: "POST",
+            type: "html",
+            data: {
+                id_hora_dia: id_hora_dia
+            },
+            success: function(response){
+                $("#text_message").html(response);
+                listarHorasAsociadas();
+            },
+            error: function(xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+    }
+</script>

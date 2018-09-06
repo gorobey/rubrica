@@ -62,7 +62,7 @@ class selects extends MySQL
 
 	function cargarHorasClase()
 	{
-		$consulta = parent::consulta("SELECT ds_nombre, id_hora_clase, hc_nombre, DATE_FORMAT(hc_hora_inicio,'%H:%i') AS hora_inicio, DATE_FORMAT(hc_hora_fin,'%H:%i') AS hora_fin FROM sw_dia_semana d, sw_hora_clase h WHERE d.id_dia_semana = h.id_dia_semana AND d.id_periodo_lectivo = ". $this->id_periodo_lectivo . " AND h.id_dia_semana = " . $this->id_dia_semana . " ORDER BY h.hc_ordinal ASC");
+		$consulta = parent::consulta("SELECT id_hora_clase, hc_nombre, DATE_FORMAT(hc_hora_inicio,'%H:%i') AS hora_inicio, DATE_FORMAT(hc_hora_fin,'%H:%i') AS hora_fin FROM sw_hora_clase WHERE id_periodo_lectivo = ". $this->id_periodo_lectivo . " ORDER BY hc_ordinal ASC");
 		$num_total_registros = parent::num_rows($consulta);
 		$cadena = "";
 		if($num_total_registros>0)
@@ -70,7 +70,7 @@ class selects extends MySQL
 			while($hora_clase = parent::fetch_assoc($consulta))
 			{
 				$code = $hora_clase["id_hora_clase"];
-				$name = $hora_clase["ds_nombre"] . " - " . $hora_clase["hc_nombre"] . " (" . $hora_clase["hora_inicio"] . " - " . $hora_clase["hora_fin"] . ")";
+				$name = $hora_clase["hc_nombre"] . " (" . $hora_clase["hora_inicio"] . " - " . $hora_clase["hora_fin"] . ")";
 				$cadena .= "<option value=\"$code\">$name</option>";
 			}
 		}
