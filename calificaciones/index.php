@@ -41,26 +41,7 @@
 			$("#lista_estudiantes_paralelo").addClass("error");
 			$("#lista_estudiantes_paralelo").html("Debe seleccionar una asignatura...");
 			$("#tituloNomina").html("NOMINA DE ESTUDIANTES");
-		});
-
-		$('#mostrar_ocultar_asignaturas').toggle( 
-	  
-			// Primer click
-			function(e){ 
-				$('#pag_asignaturas').slideUp();
-				$(this).html('<a href="#">Mostrar lista de asignaturas</a>');
-				e.preventDefault();
-			}, // Separamos las dos funciones con una coma
-		  
-			// Segundo click
-			function(e){ 
-				$('#pag_asignaturas').slideDown();
-				$(this).html('<a href="#">Ocultar lista de asignaturas</a>');
-				e.preventDefault();
-			}
-	  
-		);
-		
+		});		
 	});
 
 	function verificarCalificaciones()
@@ -298,6 +279,7 @@
 				}
 				else
 				{
+					console.log(resultado);
 					$("#lista_asignaturas").html(resultado);
 				}
 			}
@@ -649,12 +631,11 @@
      </table>
    </div>
    <div id="lista_calificaciones_erroneas" style="text-align:center"> </div>
-   <div id="mensaje_slideToggle" class="paginacion">
+   <!-- <div id="mensaje_slideToggle" class="paginacion">
        <div id="mostrar_ocultar_asignaturas" class="link_form" style="text-align:right;padding-right:2px;">
-            <!-- Aqui va el hiperenlace para mostrar u ocultar la lista de asignaturas-->
             <a href="#">Ocultar la lista de asignaturas</a>
        </div>
-   </div>
+   </div> -->
    <div id="pag_asignaturas">
       <!-- Aqui va la paginacion de las asignaturas asociadas al docente -->
       <div id="total_registros" class="paginacion">
