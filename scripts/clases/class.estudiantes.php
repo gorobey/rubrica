@@ -69,7 +69,22 @@ class estudiantes extends MySQL
 
 	function buscarEstudiantesAntiguos($patron)
 	{
-		$consulta = parent::consulta("SELECT e.id_estudiante, es_apellidos, es_nombres, cu_nombre, pa_nombre, p.id_paralelo, ep.id_periodo_lectivo FROM sw_estudiante e, sw_estudiante_periodo_lectivo ep, sw_curso c, sw_paralelo p WHERE e.id_estudiante = ep.id_estudiante AND ep.id_paralelo = p.id_paralelo AND p.id_curso = c.id_curso AND e.es_nombre_completo LIKE '$patron%' AND ep.id_periodo_lectivo <= " . $this->id_periodo_lectivo . " - 1");
+		$consulta = parent::consulta("SELECT e.id_estudiante, 
+											 es_apellidos, 
+											 es_nombres, 
+											 cu_nombre, 
+											 pa_nombre, 
+											 p.id_paralelo, 
+											 ep.id_periodo_lectivo 
+										FROM sw_estudiante e, 
+											 sw_estudiante_periodo_lectivo ep, 
+											 sw_curso c, 
+											 sw_paralelo p 
+									   WHERE e.id_estudiante = ep.id_estudiante 
+									     AND ep.id_paralelo = p.id_paralelo 
+										 AND p.id_curso = c.id_curso 
+										 AND e.es_nombre_completo LIKE '$patron%' 
+										 AND ep.id_periodo_lectivo <= " . $this->id_periodo_lectivo . " - 1");
 		$num_registros = parent::num_rows($consulta);
 		$cadena = "<table class=\"fuente8\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
 		if ($num_registros > 0) {

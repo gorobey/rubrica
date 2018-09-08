@@ -15,14 +15,39 @@ class horarios extends MySQL
 	{
 		$cadena = "";
 		// Primero debo obtener las horas clase del dia de la semana...
-		$consulta1 = parent::consulta("SELECT id_hora_clase FROM sw_hora_clase WHERE id_dia_semana = $id_dia_semana");
+		$consulta1 = parent::consulta("SELECT id_hora_clase FROM sw_hora_dia WHERE id_dia_semana = $id_dia_semana");
 		$num_total_registros = parent::num_rows($consulta1);
 		if($num_total_registros>0)
 		{
 			while($hora_clase = parent::fetch_assoc($consulta1))
 			{
 				$id_hora_clase = $hora_clase["id_hora_clase"];
-				$consulta2 = parent::consulta("SELECT id_horario, ho.id_hora_clase, hc_nombre, DATE_FORMAT(hc_hora_inicio,'%H:%i') AS hora_inicio, DATE_FORMAT(hc_hora_fin,'%H:%i') AS hora_fin, as_nombre, pa_nombre, cu_nombre, es_figura FROM sw_horario ho, sw_hora_clase hc, sw_asignatura a, sw_paralelo_asignatura pa, sw_paralelo p, sw_curso c, sw_especialidad e WHERE ho.id_hora_clase = hc.id_hora_clase AND ho.id_asignatura = a.id_asignatura AND a.id_asignatura = pa.id_asignatura AND ho.id_paralelo = pa.id_paralelo AND p.id_paralelo = pa.id_paralelo AND c.id_curso = p.id_curso AND e.id_especialidad = c.id_especialidad AND pa.id_usuario = $id_usuario AND ho.id_hora_clase = $id_hora_clase");
+				$consulta2 = parent::consulta("SELECT id_horario, 
+													  ho.id_hora_clase, 
+													  hc_nombre, 
+													  DATE_FORMAT(hc_hora_inicio,'%H:%i') AS hora_inicio, 
+													  DATE_FORMAT(hc_hora_fin,'%H:%i') AS hora_fin, 
+													  as_nombre, 
+													  pa_nombre, 
+													  cu_nombre, 
+													  es_figura 
+												 FROM sw_horario ho, 
+												 	  sw_hora_clase hc, 
+													  sw_asignatura a, 
+													  sw_distributivo d, 
+													  sw_paralelo p, 
+													  sw_curso c, 
+													  sw_especialidad e 
+												WHERE ho.id_hora_clase = hc.id_hora_clase 
+												  AND ho.id_asignatura = a.id_asignatura 
+												  AND a.id_asignatura = d.id_asignatura 
+												  AND ho.id_paralelo = d.id_paralelo 
+												  AND p.id_paralelo = d.id_paralelo 
+												  AND c.id_curso = p.id_curso 
+												  AND e.id_especialidad = c.id_especialidad 
+												  AND d.id_usuario = $id_usuario 
+												  AND ho.id_hora_clase = $id_hora_clase
+												  AND ho.id_dia_semana = $id_dia_semana");
 				while($horario = parent::fetch_assoc($consulta2))
 				{
 					$cadena .= "<tr>\n";

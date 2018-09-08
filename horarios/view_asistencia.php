@@ -17,23 +17,6 @@
                cargarInasistencias(); 
             });
 
-            $('#mostrar_ocultar_asignaturas').toggle( 
-
-                    // Primer click
-                    function(e){ 
-                        $('#pag_asignaturas').slideUp();
-                        $(this).html('<a href="#">Mostrar lista de asignaturas</a>');
-                        e.preventDefault();
-                    }, // Separamos las dos funciones con una coma
-
-                    // Segundo click
-                    function(e){ 
-                        $('#pag_asignaturas').slideDown();
-                        $(this).html('<a href="#">Ocultar lista de asignaturas</a>');
-                        e.preventDefault();
-                    }
-
-            );
         });
 
         //Recibe fecha en formato DD/MM/YYYY
@@ -155,6 +138,7 @@
                 $("#lista_estudiantes_paralelo").html("");
                 //Consultar el dia de la semana
                 var ds_ordinal = dia_semana(fecha);
+                console.log(ds_ordinal);
                 var id_periodo_lectivo = document.getElementById("id_periodo_lectivo").value;
                 $.post("horarios/consultar_id_dia_semana.php", 
                     {
@@ -188,6 +172,7 @@
                                             $("#lista_estudiantes_paralelo").addClass("error");
                                             $("#lista_estudiantes_paralelo").html("No se han definido Horas Clase para este D&iacute;a de la Semana...");
                                         } else {
+                                            console.log(resultado);
                                             $("#cboHoraClase").append(resultado);
                                             $("#lista_estudiantes_paralelo").html("");
                                         }
@@ -313,12 +298,6 @@
             </div>
         </div>
         <div id="mensaje" class="error"></div>
-        <div id="mensaje_slideToggle" class="paginacion">
-            <div id="mostrar_ocultar_asignaturas" class="link_form" style="text-align:right;padding-right:2px;">
-                <!-- Aqui va el hiperenlace para mostrar u ocultar la lista de asignaturas-->
-                <a href="#">Ocultar la lista de asignaturas</a>
-            </div>
-        </div>
         <div id="pag_asignaturas">
             <!-- Aqui va la paginacion de las asignaturas asociadas al docente -->
             <div id="total_registros" class="paginacion">

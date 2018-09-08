@@ -130,13 +130,16 @@ class horas_clase extends MySQL
                                                      DATE_FORMAT(hc_hora_fin,'%H:%i') AS hora_fin,
                                                      ds_nombre
                                                 FROM sw_hora_clase hc,
+													 sw_hora_dia hd,
                                                      sw_horario ho,
                                                      sw_dia_semana di
-                                               WHERE hc.id_hora_clase = ho.id_hora_clase
-                                                 AND di.id_dia_semana = hc.id_dia_semana
+                                               WHERE hc.id_hora_clase = hd.id_hora_clase
+											     AND hc.id_hora_clase = ho.id_hora_clase
+                                                 AND di.id_dia_semana = hd.id_dia_semana
                                                  AND ho.id_asignatura = " . $this->id_asignatura .
                                                " AND ho.id_paralelo = " . $this->id_paralelo .
-                                               " AND ho.id_dia_semana = " . $this->id_dia_semana .
+											   " AND ho.id_dia_semana = " . $this->id_dia_semana .
+											   " AND hd.id_dia_semana = " . $this->id_dia_semana .
                                                " ORDER BY hc.hc_ordinal");
                 $cadena = "";
                 $num_total_registros = parent::num_rows($consulta);
