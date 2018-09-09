@@ -173,12 +173,13 @@ class usuarios extends MySQL
 					$cadena .= "<td>$activo</td>\n";
 					$cadena .= "<td><button class='btn btn-block btn-warning' onclick=\"editarUsuario(".$code.")\">Editar</button></td>";
 					$cadena .= "<td><button class='btn btn-block btn-danger' onclick=\"eliminarUsuario(".$code.")\">Eliminar</button></td>";
+					$cadena .= "<td><button class='btn btn-block btn-secondary' onclick=\"desasociarUsuarioPerfil(".$code.")\">Des-Asociar</button></td>";
 					$cadena .= "</tr>\n";	
 				}
 			}
 			else {
 				$cadena .= "<tr>\n";	
-				$cadena .= "<td>No se han definido usuarios para este perfil...</td>\n";
+				$cadena .= "<td colspn='8' align='center'>No se han definido usuarios para este perfil...</td>\n";
 				$cadena .= "</tr>\n";	
 			}
 			$cadena .= "</table>";	
@@ -186,49 +187,49 @@ class usuarios extends MySQL
 		return $cadena;
 	}
 
-       	function listarUsuariosAsociados()
+    function listarUsuariosAsociados()
 	{
-                $consulta = parent::consulta("SELECT u.id_usuario, "
-                                                  . "us_titulo, "
-                                                  . "us_fullname, "
-                                                  . "us_login, "
-                                                  . "pe_nombre "
-                                             . "FROM sw_usuario u, "
-                                                  . "sw_perfil p, "
-                                                  . "sw_usuario_perfil up "
-                                            . "WHERE u.id_usuario = up.id_usuario "
-                                              . "AND p.id_perfil = up.id_perfil "
-                                              . "AND up.id_perfil = " . $this->id_perfil 
-                                        . " ORDER BY pe_nombre, us_apellidos, us_nombres ASC");
-                $num_total_registros = parent::num_rows($consulta);
-                $cadena = "<table class=\"fuente8\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
-                if($num_total_registros>0)
-                {
-                        $contador = 0;
-                        while($usuarios = parent::fetch_assoc($consulta))
-                        {
-                                $contador += 1;
-                                $fondolinea = ($contador % 2 == 0) ? "itemParTabla" : "itemImparTabla";
-                                $cadena .= "<tr class=\"$fondolinea\" onmouseover=\"className='itemEncimaTabla'\" onmouseout=\"className='$fondolinea'\">\n";
-                                $code = $usuarios["id_usuario"];
-                                $name = $usuarios["us_titulo"] . " " . $usuarios["us_fullname"];
-                                $login = $usuarios["us_login"];
-                                $perfil = $usuarios["pe_nombre"];
-                                $cadena .= "<td width=\"5%\">$contador</td>\n";	
-                                $cadena .= "<td width=\"5%\">$code</td>\n";	
-                                $cadena .= "<td width=\"24%\" align=\"left\">$name</td>\n";
-                                $cadena .= "<td width=\"24%\" align=\"left\">$login</td>\n";
-                                $cadena .= "<td width=\"24%\" align=\"left\">$perfil</td>\n";
-                                $cadena .= "<td width=\"18%\" class=\"link_table\"><a href=\"#\" onclick=\"eliminarAsociacion(".$code.",".$this->id_perfil.")\">eliminar</a></td>\n";
-                                $cadena .= "</tr>\n";	
-                        }
-                }
-                else {
-                        $cadena .= "<tr>\n";	
-                        $cadena .= "<td>No se han asociado usuarios para este perfil...</td>\n";
-                        $cadena .= "</tr>\n";	
-                }
-                $cadena .= "</table>";	
+		$consulta = parent::consulta("SELECT u.id_usuario, "
+											. "us_titulo, "
+											. "us_fullname, "
+											. "us_login, "
+											. "pe_nombre "
+										. "FROM sw_usuario u, "
+											. "sw_perfil p, "
+											. "sw_usuario_perfil up "
+									. "WHERE u.id_usuario = up.id_usuario "
+										. "AND p.id_perfil = up.id_perfil "
+										. "AND up.id_perfil = " . $this->id_perfil 
+								. " ORDER BY pe_nombre, us_apellidos, us_nombres ASC");
+		$num_total_registros = parent::num_rows($consulta);
+		$cadena = "<table class=\"fuente8\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
+		if($num_total_registros>0)
+		{
+				$contador = 0;
+				while($usuarios = parent::fetch_assoc($consulta))
+				{
+						$contador += 1;
+						$fondolinea = ($contador % 2 == 0) ? "itemParTabla" : "itemImparTabla";
+						$cadena .= "<tr class=\"$fondolinea\" onmouseover=\"className='itemEncimaTabla'\" onmouseout=\"className='$fondolinea'\">\n";
+						$code = $usuarios["id_usuario"];
+						$name = $usuarios["us_titulo"] . " " . $usuarios["us_fullname"];
+						$login = $usuarios["us_login"];
+						$perfil = $usuarios["pe_nombre"];
+						$cadena .= "<td width=\"5%\">$contador</td>\n";	
+						$cadena .= "<td width=\"5%\">$code</td>\n";	
+						$cadena .= "<td width=\"24%\" align=\"left\">$name</td>\n";
+						$cadena .= "<td width=\"24%\" align=\"left\">$login</td>\n";
+						$cadena .= "<td width=\"24%\" align=\"left\">$perfil</td>\n";
+						$cadena .= "<td width=\"18%\" class=\"link_table\"><a href=\"#\" onclick=\"eliminarAsociacion(".$code.",".$this->id_perfil.")\">eliminar</a></td>\n";
+						$cadena .= "</tr>\n";	
+				}
+		}
+		else {
+				$cadena .= "<tr>\n";	
+				$cadena .= "<td>No se han asociado usuarios para este perfil...</td>\n";
+				$cadena .= "</tr>\n";	
+		}
+		$cadena .= "</table>";	
 		return $cadena;
 	}
 
@@ -350,37 +351,37 @@ class usuarios extends MySQL
 		return $cadena;
 	}
         
-       	function asociarUsuarioPerfil()
+    function asociarUsuarioPerfil()
 	{
-            //Primero verificar si ya se realizo la asociacion
-            $qry = "SELECT * FROM sw_usuario_perfil WHERE id_perfil = " . $this->id_perfil
-                    . " AND id_usuario = " . $this->id_usuario;
-            $consulta = parent::consulta($qry);
-            if(parent::num_rows($consulta) > 0){
-                $mensaje = "Este usuario ya fue asociado anteriormente...";
-            }else{
-                $qry = "INSERT INTO sw_usuario_perfil (id_perfil, id_usuario) VALUES (";
-                $qry .= $this->id_perfil . ",";
-                $qry .= $this->id_usuario . ")";
-                $consulta = parent::consulta($qry);
-                $mensaje = "Usuario asociado exitosamente...";
-                if (!$consulta)
-                    $mensaje = "No se pudo asociar el Usuario...Error: " . mysql_error();
-            }
-            
-            return $mensaje;
+		//Primero verificar si ya se realizo la asociacion
+		$qry = "SELECT * FROM sw_usuario_perfil WHERE id_perfil = " . $this->id_perfil
+				. " AND id_usuario = " . $this->id_usuario;
+		$consulta = parent::consulta($qry);
+		if(parent::num_rows($consulta) > 0){
+			$mensaje = "Este usuario ya fue asociado anteriormente...";
+		}else{
+			$qry = "INSERT INTO sw_usuario_perfil (id_perfil, id_usuario) VALUES (";
+			$qry .= $this->id_perfil . ",";
+			$qry .= $this->id_usuario . ")";
+			$consulta = parent::consulta($qry);
+			$mensaje = "Usuario asociado exitosamente...";
+			if (!$consulta)
+				$mensaje = "No se pudo asociar el Usuario...Error: " . mysql_error();
+		}
+		
+		return $mensaje;
 	}
 
-       	function eliminarUsuarioPerfil()
+    function eliminarUsuarioPerfil()
 	{
-            $qry = "DELETE FROM sw_usuario_perfil WHERE id_perfil = ". $this->id_perfil .
-                    " AND id_usuario = " . $this->id_usuario;
-            $consulta = parent::consulta($qry);
-            $mensaje = "Usuario des-asociado exitosamente...";
-            if (!$consulta)
-                $mensaje = "No se pudo des-asociar el Usuario...Error: " . mysql_error();
-            return $mensaje;
-	}	
+		$qry = "DELETE FROM sw_usuario_perfil WHERE id_perfil = ". $this->id_perfil .
+				" AND id_usuario = " . $this->id_usuario;
+		$consulta = parent::consulta($qry);
+		$mensaje = "Usuario des-asociado exitosamente...";
+		if (!$consulta)
+			$mensaje = "No se pudo des-asociar el Usuario...Error: " . mysql_error();
+		return $mensaje;
+	}
 
 }
 ?>

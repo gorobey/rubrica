@@ -18,7 +18,7 @@
                         <input type="text" id="search_user" class="form-control" style="position:relative; top:7px;" placeholder="Escriba el nombre del usuario a ser asociado...">
                     </div>
                     <div class="col-sm-3">
-                        <button id="btn-assoc" type="button" class="btn btn-block btn-success" style="position:relative; top:7px;" data-toggle="modal" data-target="#assoc_user">
+                        <button id="btn-assoc" type="button" class="btn btn-block btn-success" style="position:relative; top:7px;" onclick="asociarUsuarioPerfil()">
                             Asociar
                         </button>
                     </div>
@@ -35,7 +35,8 @@
                         <th>Usuario</th>
                         <th>Activo</th>
                         <th><!-- Botón Editar --></th>
-                        <th><!-- Botón Borrar --></th>
+                        <th><!-- Botón Eliminar --></th>
+                        <th><!-- Botón Des-Asociar --></th>
                         </tr>
                     </thead>
                     <tbody id="usuarios">
@@ -181,7 +182,7 @@
                     $("#id_usuario").val(ui.item.id);
                 },
             });
-            $("#usuarios").html("<tr><td colspan='7' align='center'>Debes seleccionar un perfil...</td></tr>");
+            $("#usuarios").html("<tr><td colspan='8' align='center'>Debes seleccionar un perfil...</td></tr>");
         });
         function cargar_perfiles()
         {
@@ -454,6 +455,55 @@
                     html1 = (usuario.us_activo=='0')? ' selected': '';
                     $("#edit_us_activo").append(html0+html1+">No</option>");
                     $('#editUser').modal('show');
+                }
+            });
+        }
+        function asociarUsuarioPerfil()
+        {
+            // Valores de los parámetros que se van a asociar
+            var usuario = $("#search_user").val();
+
+            if (usuario.trim()=="") {
+                alert("Debes \"buscar\" el usuario que va a ser asociado...");
+                $("#search_user").focus();
+            } else {
+                var id_usuario = $("#id_usuario").val();
+                var id_perfil = $("#cboPerfiles").val();
+                $.ajax({
+                    url: "usuario/asociar_usuario_perfil.php",
+                    method: "POST",
+                    type: "html",
+                    data: {
+                        id_usuario: id_usuario,
+                        id_perfil: id_perfil
+                    },
+                    success: function(response){
+                        listarUsuarios();
+                        $("#text_message").html(response);
+                    },
+                    error: function(xhr, status, error) {
+                        alert(xhr.responseText);
+                    }
+                });
+            }
+        }
+        function desasociarUsuarioPerfil(id_usuario)
+        {
+            var id_perfil = $("#cboPerfiles").val();
+            $.ajax({
+                url: "usuario/desasociar_usuario_perfil.php",
+                method: "POST",
+                type: "html",
+                data: {
+                    id_usuario: id_usuario,
+                    id_perfil: id_perfil
+                },
+                success: function(response){
+                    listarUsuarios();
+                    $("#text_message").html(response);
+                },
+                error: function(xhr, status, error) {
+                    alert(xhr.responseText);
                 }
             });
         }
