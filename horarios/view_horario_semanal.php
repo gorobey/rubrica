@@ -141,7 +141,7 @@
 			$.ajax({
 					type: "POST",
 					url: "horarios/existe_asociacion.php",
-					data: "id_paralelo="+id_paralelo+"&id_hora_clase="+id_hora_clase,
+					data: "id_paralelo="+id_paralelo+"&id_dia_semana="+id_dia_semana+"&id_hora_clase="+id_hora_clase,
 					success: function(resultado){
 						var JSONResultado = eval('(' + resultado + ')');
 						if (JSONResultado.error) {
