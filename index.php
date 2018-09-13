@@ -71,7 +71,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <button type="submit" class="btn btn-warning btn-block btn-flat" id="btnEnviar">Ingresar</button>
+                        <button type="submit" class="btn btn-raised btn-danger btn-block" id="btnEnviar">Ingresar</button>
                     </div>
                     <!-- /.col -->
                 </div>
