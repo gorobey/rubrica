@@ -60,6 +60,9 @@ $id_periodo_lectivo = $_SESSION["id_periodo_lectivo"];
 $institucion = new institucion();
 $nombreInstitucion = $institucion->obtenerNombreInstitucion();
 
+$nombreRector = $institucion->obtenerNombreRector();
+$nombreSecretario = $institucion->obtenerNombreSecretario();
+
 $periodo_lectivo = new periodos_lectivos();
 $nombrePeriodoLectivo = $periodo_lectivo->obtenerNombrePeriodoLectivo($id_periodo_lectivo);
 
@@ -85,7 +88,7 @@ $objPHPExcel = $objReader->load("../templates/" . $baseFilename . $numAsignatura
 
 $objPHPExcel->setActiveSheetIndex(0);
 $objPHPExcel->getActiveSheet()->setCellValue('A7', $nombreInstitucion)
-                              ->setCellValue('A8', 'CUADRO DE CALIFICACIONES - '.$nombrePeriodoEvaluacion);
+							  ->setCellValue('A8', 'CUADRO DE CALIFICACIONES - '.$nombrePeriodoEvaluacion);
 
 // Renombrar la hoja de calculo
 $objPHPExcel->getActiveSheet()->setTitle($nombrePeriodoEvaluacion);
@@ -95,23 +98,26 @@ $colAsignaturas = array('C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', '
 
 // Columna para escribir el promedio de las asignaturas
 switch ($numAsignaturas) {
-    case 6: $colPromedio = 'I'; $colNomPerLectivo = 'F'; $colComportamiento = 'J'; $colNomParalelo = 'I'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 1); break;
-    case 7: $colPromedio = 'J'; $colNomPerLectivo = 'F'; $colComportamiento = 'K'; $colNomParalelo = 'J'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 1); break;
-    case 8: $colPromedio = 'K'; $colNomPerLectivo = 'F'; $colComportamiento = 'M'; $colNomParalelo = 'K'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 1); break;
-    case 9: $colPromedio = 'L'; $colNomPerLectivo = 'F'; $colComportamiento = 'M'; $colNomParalelo = 'L'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 1); break;
-    case 10: $colPromedio = 'M'; $colNomPerLectivo = 'F'; $colComportamiento = 'O'; $colNomParalelo = 'M'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 2); break;
-    case 11: $colPromedio = 'N'; $colNomPerLectivo = 'F'; $colComportamiento = 'P'; $colNomParalelo = 'N'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 2); break;
-    case 12: $colPromedio = 'O'; $colNomPerLectivo = 'F'; $colComportamiento = 'P'; $colNomParalelo = 'O'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 1); break;
-    case 13: $colPromedio = 'P'; $colNomPerLectivo = 'F'; $colComportamiento = 'Q'; $colNomParalelo = 'P'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 2); break;
-    case 14: $colPromedio = 'Q'; $colNomPerLectivo = 'F'; $colComportamiento = 'R'; $colNomParalelo = 'Q'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 2); break;
-    case 15: $colPromedio = 'R'; $colNomPerLectivo = 'I'; $colComportamiento = 'S'; $colNomParalelo = 'R'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 2); break;
-    case 16: $colPromedio = 'S'; $colNomPerLectivo = 'I'; $colComportamiento = 'T'; $colNomParalelo = 'S'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 2); break;
-    case 17: $colPromedio = 'T'; $colNomPerLectivo = 'F'; $colComportamiento = 'V'; $colNomParalelo = 'T'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 2); break;
+    case 6: $colPromedio = 'I'; $colNomPerLectivo = 'F'; $colComportamiento = 'J'; $colNomParalelo = 'I'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 1); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 7: $colPromedio = 'J'; $colNomPerLectivo = 'F'; $colComportamiento = 'K'; $colNomParalelo = 'J'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 1); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 8: $colPromedio = 'K'; $colNomPerLectivo = 'F'; $colComportamiento = 'M'; $colNomParalelo = 'K'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 1); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 9: $colPromedio = 'L'; $colNomPerLectivo = 'F'; $colComportamiento = 'M'; $colNomParalelo = 'L'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 1); $colNomRector = 'D61'; $colNomSecre = 'O61'; break;
+    case 10: $colPromedio = 'M'; $colNomPerLectivo = 'F'; $colComportamiento = 'O'; $colNomParalelo = 'M'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 2); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 11: $colPromedio = 'N'; $colNomPerLectivo = 'F'; $colComportamiento = 'P'; $colNomParalelo = 'N'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 2); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 12: $colPromedio = 'O'; $colNomPerLectivo = 'F'; $colComportamiento = 'P'; $colNomParalelo = 'O'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 1); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 13: $colPromedio = 'P'; $colNomPerLectivo = 'F'; $colComportamiento = 'Q'; $colNomParalelo = 'P'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 2); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 14: $colPromedio = 'Q'; $colNomPerLectivo = 'F'; $colComportamiento = 'R'; $colNomParalelo = 'Q'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 2); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 15: $colPromedio = 'R'; $colNomPerLectivo = 'I'; $colComportamiento = 'S'; $colNomParalelo = 'R'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 2); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 16: $colPromedio = 'S'; $colNomPerLectivo = 'I'; $colComportamiento = 'T'; $colNomParalelo = 'S'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 2); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 17: $colPromedio = 'T'; $colNomPerLectivo = 'F'; $colComportamiento = 'V'; $colNomParalelo = 'T'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 2); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
 }
 
 $objPHPExcel->getActiveSheet()->setCellValue('A10', $nombreCurso);
 $objPHPExcel->getActiveSheet()->setCellValue($colNomPerLectivo.'9', $nombrePeriodoLectivo);
 $objPHPExcel->getActiveSheet()->setCellValue($colNomParalelo.'12', 'PARALELO '.$nomParalelo);
+
+$objPHPExcel->getActiveSheet()->setCellValue($colNomRector, $nombreRector);
+$objPHPExcel->getActiveSheet()->setCellValue($colNomSecre, $nombreSecretario);
 
 // Aqui va el codigo para calcular el promedio del aporte de cada estudiante
 $db = new MySQL();

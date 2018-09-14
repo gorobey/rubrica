@@ -55,6 +55,9 @@ $id_periodo_lectivo = $_SESSION["id_periodo_lectivo"];
 $institucion = new institucion();
 $nombreInstitucion = $institucion->obtenerNombreInstitucion();
 
+$nombreRector = $institucion->obtenerNombreRector();
+$nombreSecretario = $institucion->obtenerNombreSecretario();
+
 $periodo_lectivo = new periodos_lectivos();
 $nombrePeriodoLectivo = $periodo_lectivo->obtenerNombrePeriodoLectivo($id_periodo_lectivo);
 
@@ -86,7 +89,9 @@ $objPHPExcel->setActiveSheetIndex(0);
 $objPHPExcel->getActiveSheet()->setCellValue('A7', $nombreInstitucion)
                               ->setCellValue('A10', $nombreCurso)
                               ->setCellValue('C9', $nombrePeriodoLectivo)
-                              ->setCellValue('D11', 'PARALELO '.$nomParalelo);
+                              ->setCellValue('D11', 'PARALELO '.$nomParalelo)
+                              ->setCellValue('B66', $nombreRector)
+                              ->setCellValue('D66', $nombreSecretario);
 
 // Renombrar la hoja de calculo
 $objPHPExcel->getActiveSheet()->setTitle('NOMINA DE MATRICULADOS');
