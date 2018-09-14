@@ -65,6 +65,9 @@ $id_periodo_lectivo = $_SESSION["id_periodo_lectivo"];
 $institucion = new institucion();
 $nombreInstitucion = $institucion->obtenerNombreInstitucion();
 
+$nombreRector = $institucion->obtenerNombreRector();
+$nombreSecretario = $institucion->obtenerNombreSecretario();
+
 $periodo_lectivo = new periodos_lectivos();
 $nombrePeriodoLectivo = $periodo_lectivo->obtenerNombrePeriodoLectivo($id_periodo_lectivo);
 
@@ -100,7 +103,9 @@ $objPHPExcel->setActiveSheetIndex(0);
 $objPHPExcel->getActiveSheet()->setCellValue('D1', $nombreInstitucion)
                               ->setCellValue('D2', $nombreCurso)
                               ->setCellValue('O4', $nombrePeriodoLectivo)
-                              ->setCellValue('S4', 'PARALELO '.$nomParalelo);
+                              ->setCellValue('S4', 'PARALELO '.$nomParalelo)
+                              ->setCellValue('D61', $nombreRector)
+                              ->setCellValue('O61', $nombreSecretario);
 
 // Renombrar la hoja de calculo
 $objPHPExcel->getActiveSheet()->setTitle('CUADRO FINAL Y SUPLETORIOS');
@@ -208,10 +213,14 @@ if ($num_total_estudiantes > 0) {
                 $contAsignatura++;
             }
             // Aca se calcula el promedio anual de comportamiento
-            $promedio_anual = $sumaComportamiento / $total_asignaturas;
-            $equiv_final = equiv_comportamiento($promedio_anual);
+            $promedio_anual = ceil($sumaComportamiento / $total_asignaturas);
+
+            $query = $db->consulta("SELECT ec_equivalencia FROM sw_escala_comportamiento WHERE ec_correlativa = $promedio_anual");
+			$equivalencia = $db->fetch_assoc($query);
+			$promedio_cualitativo = $equivalencia["ec_equivalencia"];
+
             if($retirado!='S'){
-                $objPHPExcel->getActiveSheet()->setCellValue($colComportamiento.$row, $equiv_final);
+                $objPHPExcel->getActiveSheet()->setCellValue($colComportamiento.$row, $promedio_cualitativo);
             }
         }
 
