@@ -420,17 +420,17 @@ class asignaturas extends MySQL
 		$contadores[2] = 0;$porcentajes[2] = 0;
 		$contadores[3] = 0;$porcentajes[3] = 0;
 		$contadores[4] = 0;$porcentajes[4] = 0;
-                // Arrays para almacenar los nombres completos y los promedios quimestrales de los estudiantes de acuerdo a la escala de calificación que corresponda
-                for($i = 0;$i < 50;$i++) {
-                    $codigo_estudiante[$i] = 0;
-                    $promedio_parcial[$i] = 0;
-                }
+		// Arrays para almacenar los nombres completos y los promedios quimestrales de los estudiantes de acuerdo a la escala de calificación que corresponda
+		for($i = 0;$i < 50;$i++) {
+			$codigo_estudiante[$i] = 0;
+			$promedio_parcial[$i] = 0;
+		}
 		// Aqui va el codigo para calcular el promedio del aporte de cada estudiante
 		$estudiantes = parent::consulta("SELECT id_estudiante FROM sw_estudiante_periodo_lectivo WHERE id_paralelo = $id_paralelo AND id_periodo_lectivo = $id_periodo_lectivo AND es_retirado = 'N'");
 		$num_total_estudiantes = parent::num_rows($estudiantes);
 		if($num_total_estudiantes > 0)
 		{
-                        $cont_estudiante = 0;
+            $cont_estudiante = 0;
 			while($estudiante = parent::fetch_assoc($estudiantes))
 			{
 				// Consulta de las calificaciones correspondientes al aporte de evaluacion					
@@ -454,8 +454,8 @@ class asignaturas extends MySQL
 						$suma_rubricas += $calificacion;
 					}
 					$promedio = $suma_rubricas / $contador_rubricas;
-                                        $promedio_parcial[$cont_estudiante] = $promedio;
-                                        $codigo_estudiante[$cont_estudiante] = $id_estudiante;
+					$promedio_parcial[$cont_estudiante] = $promedio;
+					$codigo_estudiante[$cont_estudiante] = $id_estudiante;
 					// Calculo de porcentajes de acuerdo a la escala de calificaciones
 					$escala_calificacion = parent::consulta("SELECT * FROM sw_escala_calificaciones WHERE id_periodo_lectivo = $id_periodo_lectivo");
 					$cont_escala = 0;
@@ -468,20 +468,20 @@ class asignaturas extends MySQL
 						$cont_escala++;
 					}
 				}
-                                $cont_estudiante++;
+                $cont_estudiante++;
 			}
                         
-                        // Procedimiento para ordenar el array de calificaciones de mayor a menor
-                        for($i=0;$i<$num_total_estudiantes-1;$i++)
-                            for($j=$i+1;$j<$num_total_estudiantes;$j++)
-                                if($promedio_parcial[$i]<$promedio_parcial[$j]) {
-                                    $temporal = $promedio_parcial[$i];
-                                    $temp_codigo = $codigo_estudiante[$i];
-                                    $promedio_parcial[$i] = $promedio_parcial[$j];
-                                    $codigo_estudiante[$i] = $codigo_estudiante[$j];
-                                    $promedio_parcial[$j] = $temporal;
-                                    $codigo_estudiante[$j] = $temp_codigo;
-                                }
+			// Procedimiento para ordenar el array de calificaciones de mayor a menor
+			for($i=0;$i<$num_total_estudiantes-1;$i++)
+				for($j=$i+1;$j<$num_total_estudiantes;$j++)
+					if($promedio_parcial[$i]<$promedio_parcial[$j]) {
+						$temporal = $promedio_parcial[$i];
+						$temp_codigo = $codigo_estudiante[$i];
+						$promedio_parcial[$i] = $promedio_parcial[$j];
+						$codigo_estudiante[$i] = $codigo_estudiante[$j];
+						$promedio_parcial[$j] = $temporal;
+						$codigo_estudiante[$j] = $temp_codigo;
+					}
                                 
 			// Calculo de porcentajes de acuerdo a la escala de calificaciones				
 			for($cont=0;$cont<$cont_escala;$cont++)
@@ -489,9 +489,6 @@ class asignaturas extends MySQL
 				$porcentajes[$cont]=$contadores[$cont]/$num_total_estudiantes*100;
 		}
 
-		$consulta = parent::consulta("SELECT id_paralelo_asignatura FROM sw_paralelo_asignatura WHERE id_paralelo = $id_paralelo and id_asignatura = $id_asignatura");
-		$registro = parent::fetch_assoc($consulta);
-		$id_paralelo_asignatura = $registro["id_paralelo_asignatura"];
 		$consulta = parent::consulta("SELECT id_escala_calificaciones, ec_cualitativa, ec_cuantitativa FROM sw_escala_calificaciones WHERE id_periodo_lectivo = $id_periodo_lectivo ORDER BY ec_orden");
 		$num_total_registros = parent::num_rows($consulta);
 		$cadena = "<table class=\"fuente8\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
@@ -506,7 +503,7 @@ class asignaturas extends MySQL
 				$id_escala_calificaciones = $escalas["id_escala_calificaciones"];
 				$cualitativa = $escalas["ec_cualitativa"];
 				$cuantitativa = $escalas["ec_cuantitativa"];
-				$qry = parent::consulta("SELECT re_plan_de_mejora FROM sw_recomendaciones WHERE id_escala_calificaciones = $id_escala_calificaciones AND id_paralelo_asignatura = $id_paralelo_asignatura AND id_aporte_evaluacion = $id_aporte_evaluacion");
+				$qry = parent::consulta("SELECT re_plan_de_mejora FROM sw_recomendaciones WHERE id_escala_calificaciones = $id_escala_calificaciones AND id_paralelo = $id_paralelo AND id_asignatura = $id_asignatura AND id_aporte_evaluacion = $id_aporte_evaluacion");
 				$registro = parent::fetch_assoc($qry);
 				//$recomendaciones = $registro["re_recomendaciones"];
 				$plan_de_mejora = $registro["re_plan_de_mejora"];
