@@ -148,18 +148,40 @@
 		var id_aporte_evaluacion = document.getElementById("cboAportesEvaluacion").value;
 		document.getElementById("id_aporte_evaluacion").value = id_aporte_evaluacion;
 		$("#escala_calificaciones").html("<img src='imagenes/ajax-loader.gif' alt='procesando...' />");
-		$.post("scripts/informe_parciales.php", 
-			{ 
+		$.ajax({
+            url: "scripts/informe_parciales.php",
+            type: "POST",
+            data: {
 				id_paralelo: id_paralelo,
 				id_asignatura: id_asignatura,
 				id_aporte_evaluacion: id_aporte_evaluacion
 			},
-			function(resultado)
-			{
-				$("#escala_calificaciones").html(resultado);
+            dataType: "json",
+            success: function(data){
+				$("#escala_calificaciones").html("");
+                var escalas = new Array();
+                var porcentajes = new Array();
+                $.each(data,function(key,value){
+                    escalas.push(value.escala);
+                    porcentaje = Number(value.porcentaje);
+                    porcentajes.push(porcentaje);
+                });
+                graficar(escalas, porcentajes, "escala_calificaciones");
 				$("#ver_reporte").css("display","block");
-			}
-		);
+            }
+        });
+	}
+
+	function graficar(escalas, porcentajes, idDiv)
+	{
+		var data = [{
+			values: porcentajes,
+			labels: escalas,
+			type: 'pie',
+			sort: false
+		}];
+
+		Plotly.newPlot(idDiv, data);
 	}
 
 	function guardar_recomendaciones()
@@ -262,18 +284,6 @@
     <div id="mensaje_salida" class="text-center"></div>
     <div id="pag_nomina_estudiantes" style="margin-top:2px;">
       <div id="tituloNomina" class="header2"> ESCALA DE CALIFICACIONES </div>
-      <div class="cabeceraTabla">
-        <table class="fuente8" width="100%" cellspacing=0 cellpadding=0 border=0>
-            <tr class="cabeceraTabla">
-                <td width="20%" align="center">ESCALA CUALITATIVA</td>
-                <td width="20%" align="center">ESCALA CUANTITATIVA</td>
-                <td width="10%" align="center">Nro. Estudiantes</td>
-                <td width="20%" align="center">PORCENTAJE</td>
-                <td width="30%" align="center">PLAN DE MEJORA</td>
-                <!-- <td width="18%" align="center">Acciones</td> -->
-            </tr>
-        </table>
-	  </div>
       <form id="formulario_periodo" action="php_excel/informe_de_parciales.php" method="post">
       	 <div id="escala_calificaciones" style="text-align:center"> Debe elegir un per&iacute;odo de evaluaci&oacute;n.... </div>
 	     <div id="ver_reporte" style="text-align:center;margin-top:2px;display:none">
@@ -281,8 +291,7 @@
 	        <input id="id_paralelo" name="id_paralelo" type="hidden" />
             <input id="id_aporte_evaluacion" name="id_aporte_evaluacion" type="hidden" />
             <input id="id_paralelo_asignatura" name="id_paralelo_asignatura" type="hidden"  />
-            <input type="button" value="Guardar" onclick="guardar_recomendaciones()" />
-            <input type="submit" value="Exportar a Excel" />
+            <input type="submit" value="Generar Informe" />
          </div>
       </form>
    </div>
