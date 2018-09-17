@@ -53,7 +53,10 @@
 	{
 		var id_periodo_evaluacion = document.getElementById("cboPeriodosEvaluacion").value;
 		document.getElementById("cboAportesEvaluacion").options.length=1;
-		$.get("scripts/cargar_aportes_evaluacion.php", { id_periodo_evaluacion: id_periodo_evaluacion },
+		$.get("scripts/cargar_aportes_principales_evaluacion.php", 
+			{ 
+				id_periodo_evaluacion: id_periodo_evaluacion 
+			},
 			function(resultado)
 			{
 				$("#cboAportesEvaluacion").append(resultado);
@@ -135,6 +138,7 @@
 		} else {
 			$("#escala_calificaciones").html("");
 			$("#tituloNomina").html("ESCALA DE CALIFICACIONES [" + asignatura + " - " + curso + " " + paralelo + "]");
+			$("#titulo").val("ESCALA DE CALIFICACIONES [" + asignatura + "]<br>" + curso + " " + paralelo);
 			//Aqui va la llamada a ajax para recuperar la nómina de estudiantes con sus respectivas calificaciones
 			cargarEscalaCalificaciones(id_paralelo, id_asignatura);
 			$("#ver_reporte").css("display","block");
@@ -174,6 +178,11 @@
 
 	function graficar(escalas, porcentajes, idDiv)
 	{
+		var title = $("#titulo").val()
+					+"<br>"
+					+$("#cboPeriodosEvaluacion option:selected").text()
+					+" - "
+					+$("#cboAportesEvaluacion option:selected").text();
 		var data = [{
 			values: porcentajes,
 			labels: escalas,
@@ -181,7 +190,14 @@
 			sort: false
 		}];
 
-		Plotly.newPlot(idDiv, data);
+		var layout = {
+            title: title,
+			"titlefont": {
+				"size": 12
+			},
+        };
+
+		Plotly.newPlot(idDiv, data, layout);
 	}
 
 	function guardar_recomendaciones()
@@ -283,7 +299,8 @@
     </div>
     <div id="mensaje_salida" class="text-center"></div>
     <div id="pag_nomina_estudiantes" style="margin-top:2px;">
-      <div id="tituloNomina" class="header2"> ESCALA DE CALIFICACIONES </div>
+      <div id="tituloNomina" class="header2 hidden"> ESCALA DE CALIFICACIONES </div>
+	  <input type="hidden" id="titulo" value="">
       <form id="formulario_periodo" action="php_excel/informe_de_parciales.php" method="post">
       	 <div id="escala_calificaciones" style="text-align:center"> Debe elegir un per&iacute;odo de evaluaci&oacute;n.... </div>
 	     <div id="ver_reporte" style="text-align:center;margin-top:2px;display:none">
