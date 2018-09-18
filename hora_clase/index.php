@@ -113,6 +113,11 @@
     function sel_texto(input) {
 		$(input).select();
 	}
+    function cancelarEdicion()
+    {
+        $("#botones_edicion").hide();
+        $("#botones_insercion").show();
+    }
     function listarHorasClase()
     {
         $.get("hora_clase/listar_horas_clase.php", {},
@@ -310,6 +315,7 @@
                 success: function(response){
                     listarHorasClase();
                     $("#text_message").html(response);
+                    cancelarEdicion();
                 },
                 error: function(xhr, status, error) {
                     alert(xhr.responseText);

@@ -68,7 +68,7 @@ class horarios extends MySQL
 	{
 		$cadena = "<table class=\"fuente8\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
 		// Primero debo obtener las horas clase del dia de la semana...
-		$consulta1 = parent::consulta("SELECT id_hora_clase FROM sw_hora_dia WHERE id_dia_semana = $id_dia_semana");
+		$consulta1 = parent::consulta("SELECT hd.id_hora_clase FROM sw_hora_dia hd, sw_hora_clase hc WHERE hc.id_hora_clase = hd.id_hora_clase AND id_dia_semana = $id_dia_semana ORDER BY hc_ordinal");
 		$num_total_registros = parent::num_rows($consulta1);
 		if($num_total_registros > 0)
 		{
