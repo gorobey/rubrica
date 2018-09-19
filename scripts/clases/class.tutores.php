@@ -62,6 +62,37 @@ class tutores extends MySQL
 		return $cadena;
 	}
 
+	function cargarParalelosTutores()
+	{
+		$consulta = parent::consulta("SELECT id_paralelo_tutor, cu_nombre, es_figura, pa_nombre, us_titulo, us_fullname FROM sw_paralelo_tutor pt, sw_paralelo p, sw_curso c, sw_especialidad e, sw_usuario u WHERE pt.id_paralelo = p.id_paralelo AND p.id_curso = c.id_curso AND c.id_especialidad = e.id_especialidad AND pt.id_usuario = u.id_usuario AND pt.id_periodo_lectivo = " . $this->id_periodo_lectivo . " ORDER BY c.id_especialidad, c.id_curso, pa_nombre ASC");
+		$num_total_registros = parent::num_rows($consulta);
+		$cadena = ""; $total_tutores = 0;
+		if($num_total_registros>0)
+		{
+			while($tutor = parent::fetch_assoc($consulta))
+			{
+				$total_tutores++;
+				$cadena .= "<tr>\n";
+				$code = $tutor["id_paralelo_tutor"];
+				$paralelo = $tutor["cu_nombre"] . " " . $tutor["pa_nombre"] . " - [" . $tutor["es_figura"] . "]";
+				$tutor = $tutor["us_titulo"] . " " . $tutor["us_fullname"];
+				$cadena .= "<td>$code</td>\n";
+				$cadena .= "<td>$paralelo</td>\n";
+				$cadena .= "<td>$tutor</td>\n";
+				$cadena .= "<td><button onclick='eliminarAsociacion(".$code.")' class='btn btn-block btn-danger'>Eliminar</button></td>";
+				$cadena .= "</tr>\n";
+			}
+		}
+		else {
+			$cadena .= "<tr>\n";
+			$cadena .= "<td colspan='4' align='center'>No se ha asociado tutores...</td>\n";
+			$cadena .= "</tr>\n";
+		}
+		$datos = array('cadena' => $cadena, 
+				       'total_tutores' => $total_tutores);
+        return json_encode($datos);
+	}
+
 	function obtenerIdParaleloTutor($id_usuario, $id_periodo_lectivo)
 	{
 		$consulta = parent::consulta("SELECT id_paralelo FROM sw_paralelo_tutor WHERE id_usuario = $id_usuario AND id_periodo_lectivo = $id_periodo_lectivo");

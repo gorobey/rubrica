@@ -50,7 +50,7 @@
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody id="lista_items">
+                    <tbody id="lista_paralelos_tutores">
                         <!-- Aqui desplegamos el contenido de la base de datos -->
                     </tbody>
                 </table>
@@ -71,12 +71,8 @@
 <script>
     $(document).ready(function(){
 		cargar_paralelos();
-		/* cargar_tutores();
-		listar_paralelos_tutores(false);
-		$("#asociar").click(function(e){
-			e.preventDefault();
-			asociar_paralelo_tutor();
-		}); */
+		cargar_tutores();
+		cargar_paralelos_tutores();
 	});
 	function cargar_paralelos()
 	{
@@ -90,5 +86,76 @@
 				$('#cboParalelos').append(resultado);			
 			}
 		});	
+	}
+	function cargar_tutores()
+	{
+		$.get("scripts/cargar_tutores.php", function(resultado){
+			if(resultado == false)
+			{
+				alert("No se han definido tutores en el presenta periodo lectivo...");
+			}
+			else
+			{
+				$('#cboDocentes').append(resultado);			
+			}
+		});	
+	}
+	function cargar_paralelos_tutores(iDesplegar)
+	{
+		$.get("paralelos_tutores/cargar_paralelos_tutores.php",
+			function(resultado)
+			{
+				if(resultado == false)
+				{
+					alert("Error");
+				}
+				else
+				{
+					var datos = JSON.parse(resultado);
+                    $("#lista_paralelos_tutores").html(datos.cadena);
+                    $("#total_tutores").val(datos.total_tutores);
+				}
+			}
+		);
+	}
+	function insertarAsociacion()
+	{
+		var id_paralelo = $("#cboParalelos").find(":selected").val();
+		var id_usuario = $("#cboDocentes").find(":selected").val();
+		if (id_paralelo == "") {
+			document.getElementById("text_message").innerHTML = "Debe elegir un paralelo...";
+			document.getElementById("cboParalelos").focus();
+		} else if (id_usuario == "") {
+			document.getElementById("text_message").innerHTML = "Debe elegir un docente...";
+			document.getElementById("cboDocentes").focus();
+		} else {
+			$("#text_message").html("<img src='imagenes/ajax-loader.gif' alt='procesando...' />");
+			$.ajax({
+					type: "POST",
+					url: "paralelos_tutores/insertar_asociacion.php",
+					data: "id_paralelo="+id_paralelo+"&id_usuario="+id_usuario,
+					success: function(resultado){
+						$("#text_message").html(resultado);
+						cargar_paralelos_tutores();
+				  }
+			});	
+		}
+	}
+	function eliminarAsociacion(id_paralelo_tutor)
+	{
+		if (id_paralelo_tutor == "") {
+			document.getElementById("text_message").innerHTML = "No se ha pasado el par&aacute;metro id_paralelo_tutor...";
+		} else {
+			$("#text_message").html("<img src='imagenes/ajax-loader.gif' alt='procesando...' />");
+			$.ajax({
+					type: "POST",
+					url: "paralelos_tutores/eliminar_asociacion.php",
+					data: "id_paralelo_tutor="+id_paralelo_tutor,
+					success: function(resultado){
+						$("#text_message").html(resultado);
+						cargar_paralelos_tutores(true);
+				  }
+			});	
+		}
 	}
 </script>
