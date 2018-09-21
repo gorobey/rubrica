@@ -76,6 +76,20 @@ class paralelos extends MySQL
 		return " \"" . $paralelo->pa_nombre . "\"";
 	}
 
+	function getNombreParalelo($id_paralelo)
+	{
+		$qry = "SELECT CONCAT(cu_abreviatura, pa_nombre, ' ', es_abreviatura) AS paralelo
+				  FROM sw_especialidad e,
+				  	   sw_curso c, 
+					   sw_paralelo p
+				 WHERE e.id_especialidad = c.id_especialidad
+				   AND c.id_curso = p.id_curso
+				   AND p.id_paralelo = $id_paralelo";
+		$consulta = parent::consulta($qry);
+		$paralelo = parent::fetch_object($consulta);
+		return $paralelo->paralelo;
+	}
+
 	function obtenerNombreCurso($id)
 	{
 		$consulta = parent::consulta("SELECT cu_nombre FROM sw_curso cu, sw_paralelo pa WHERE pa.id_curso = cu.id_curso AND pa.id_paralelo = $id");

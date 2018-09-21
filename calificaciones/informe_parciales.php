@@ -186,6 +186,7 @@
 		var data = [{
 			values: porcentajes,
 			labels: escalas,
+			hoverinfo: "label",
 			type: 'pie',
 			sort: false
 		}];

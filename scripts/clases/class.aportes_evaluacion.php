@@ -55,6 +55,13 @@ class aportes_evaluacion extends MySQL
 		$aporte_evaluacion = parent::fetch_object($consulta);
 		return $aporte_evaluacion->pe_nombre . " - " . $aporte_evaluacion->ap_nombre;
 	}
+
+	function getNombreAporte($id)
+	{
+		$consulta = parent::consulta("SELECT ap_shortname FROM sw_aporte_evaluacion WHERE id_aporte_evaluacion = $id");
+		$aporte_evaluacion = parent::fetch_object($consulta);
+		return $aporte_evaluacion->ap_shortname;
+	}
 	
 	function listarAportesEvaluacion()
 	{

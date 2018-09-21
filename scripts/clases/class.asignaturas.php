@@ -471,7 +471,11 @@ class asignaturas extends MySQL
                         
 			// Calculo de porcentajes de acuerdo a la escala de calificaciones				
 			for($i = 0; $i < count($escala); $i++) {
-				$datos[] = array('escala' => $escala[$i]['escala'],
+				if($escala[$i]['contador'] == 1)
+					$terminacion = "";
+				else
+					$terminacion = "s";
+				$datos[] = array('escala' => $escala[$i]['escala']." (".$escala[$i]['contador']." estudiante".$terminacion.")",
 								 'porcentaje' => $escala[$i]['contador'] / $num_total_estudiantes * 100);
 			}
 		}
@@ -660,6 +664,14 @@ class asignaturas extends MySQL
 		$mensaje .= "</tr>\n";
 		$mensaje .= "</table>\n";
 		return $mensaje;
+	}
+
+	function obtenerNombreArea($id_asignatura)
+	{
+		$qry = "SELECT ar_nombre FROM sw_area ar, sw_asignatura a WHERE ar.id_area = a.id_area AND id_asignatura = $id_asignatura";
+		$consulta = parent::consulta($qry);
+		$area = parent::fetch_object($consulta);
+		return $area->ar_nombre;
 	}
 	
 }

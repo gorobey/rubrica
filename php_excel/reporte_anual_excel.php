@@ -214,21 +214,7 @@ $contador_rubricas++;
 				$contAsignatura++;
 			} // fin while $asignatura
 		} // fin if $total_asignatura
-
-		/*$observacion="";
-		if($contador_no_aprueba > 0 || $retirado == "S")
-			$observacion="NO APRUEBA";
-		else if($contador_general_sin_examen > 0)
-			$observacion="SIN EXAMEN";
-		else if($contador_remedial > 0 && $contador_supletorio > 0) 
-			$observacion="REM.(" . $contador_remedial . ") SUP.(" . $contador_supletorio . ")";
-		else if($contador_remedial > 0) 
-			$observacion="REM.(" . $contador_remedial . ")";
-		else if($contador_supletorio > 0) 
-			$observacion="SUP.(" . $contador_supletorio . ")";
-		else $observacion="APRUEBA";*/
-		//$pdf->Cell(24,5,$observacion,1,0,'C');
-		
+	
 		$row++;
 	}
 }

@@ -38,7 +38,6 @@ date_default_timezone_set('America/Guayaquil');
 
 require_once '../php_excel/Classes/PHPExcel/IOFactory.php';
 require_once '../scripts/clases/class.mysql.php';
-require_once '../scripts/clases/class.institucion.php';
 require_once '../scripts/clases/class.usuarios.php';
 require_once '../scripts/clases/class.periodos_lectivos.php';
 require_once '../scripts/clases/class.paralelos.php';
@@ -54,9 +53,6 @@ session_start();
 $id_periodo_lectivo = $_SESSION["id_periodo_lectivo"];
 $id_usuario = $_SESSION["id_usuario"];
 
-$institucion = new institucion();
-$nombreInstitucion = $institucion->obtenerNombreInstitucion();
-
 $usuario = new usuarios();
 $nombreUsuario = $usuario->obtenerNombreUsuario($id_usuario);
 
@@ -64,39 +60,45 @@ $periodo_lectivo = new periodos_lectivos();
 $nombrePeriodoLectivo = $periodo_lectivo->obtenerNombrePeriodoLectivo($id_periodo_lectivo);
 
 $paralelo = new paralelos();
-$nombreParalelo = $paralelo->obtenerNombreParalelo($id_paralelo);
+$nombreParalelo = $paralelo->getNombreParalelo($id_paralelo);
 
 $aporte = new aportes_evaluacion();
-$nombreAporte = $aporte->obtenerNombreAporteEvaluacion($id_aporte_evaluacion);
+$nombreAporte = $aporte->getNombreAporte($id_aporte_evaluacion);
 
 $asignatura = new asignaturas();
 $nombreAsignatura = $asignatura->obtenerNombreAsignatura($id_asignatura);
+$nombreArea = $asignatura->obtenerNombreArea($id_asignatura);
 
 $objReader = PHPExcel_IOFactory::createReader('Excel5');
-$baseFilename = "Informe-de-Parciales";
-$objPHPExcel = $objReader->load("../plantillas/".$baseFilename.".xls");
+$baseFilename = "INFORME PARCIAL DE APRENDIZAJES";
+$objPHPExcel = $objReader->load("../templates/".$baseFilename.".xls");
 
-$objPHPExcel->getActiveSheet()->setCellValue('B1', $nombreInstitucion)
-							  ->setCellValue('B2', 'PERIODO LECTIVO '.$nombrePeriodoLectivo)
-							  ->setCellValue('B4', $nombreAporte)
-							  ->setCellValue('C6', $nombreAsignatura)
-							  ->setCellValue('C7', $nombreParalelo)
-							  ->setCellValue('C8', $nombreUsuario);
+$objPHPExcel->getActiveSheet()->setCellValue('B6', $nombrePeriodoLectivo)
+							  ->setCellValue('C8', $nombreArea)
+							  ->setCellValue('F8', $nombreAporte)
+							  ->setCellValue('C9', $nombreUsuario)
+							  ->setCellValue('F9', $nombreParalelo)
+							  ->setCellValue('C10', $nombreAsignatura);
 
-$contadores[0] = 0;$porcentajes[0] = 0;
-$contadores[1] = 0;$porcentajes[1] = 0;
-$contadores[2] = 0;$porcentajes[2] = 0;
-$contadores[3] = 0;$porcentajes[3] = 0;
-$contadores[4] = 0;$porcentajes[4] = 0;
 // Aqui va el codigo para calcular el promedio del aporte de cada estudiante
 $db = new MySQL();
-$estudiantes = $db->consulta("SELECT id_estudiante FROM sw_estudiante_periodo_lectivo WHERE id_paralelo = $id_paralelo");
+$estudiantes = $db->consulta("SELECT e.id_estudiante, 
+									 es_apellidos, 
+									 es_nombres 
+								FROM sw_estudiante e,
+									 sw_estudiante_periodo_lectivo ep 
+							   WHERE e.id_estudiante = ep.id_estudiante
+							     AND es_retirado = 'N'
+								 AND id_paralelo = $id_paralelo
+							ORDER BY es_apellidos, es_nombres");
 $num_total_estudiantes = $db->num_rows($estudiantes);
 if($num_total_estudiantes > 0)
 {
+	$fila_base = 25;
 	while($estudiante = $db->fetch_assoc($estudiantes))
 	{
-		// Consulta de las calificaciones correspondientes al aporte de evaluacion					
+		$nombreEstudiante = $estudiante["es_apellidos"]." ".$estudiante["es_nombres"];
+		// Consulta de las calificaciones correspondientes al aporte de evaluacion
 		$rubrica_evaluacion = $db->consulta("SELECT id_rubrica_evaluacion FROM sw_rubrica_evaluacion WHERE id_aporte_evaluacion = $id_aporte_evaluacion");
 		$num_total_registros = $db->num_rows($rubrica_evaluacion);
 		if($num_total_registros > 0)
@@ -117,54 +119,19 @@ if($num_total_estudiantes > 0)
 				$suma_rubricas += $calificacion;
 			}
 			$promedio = $suma_rubricas / $contador_rubricas;
-			// Calculo de porcentajes de acuerdo a la escala de calificaciones
-			$escala_calificacion = $db->consulta("SELECT * FROM sw_escala_calificaciones WHERE id_periodo_lectivo = $id_periodo_lectivo");
-			$cont_escala = 0;
-			while ($escala = $db->fetch_assoc($escala_calificacion))
+			// Desplegar los estudiantes con promedio menor que siete
+			if($promedio < 7)
 			{
-				$nota_minima = $escala["ec_nota_minima"];
-				$nota_maxima = $escala["ec_nota_maxima"];
-				if ($promedio >= $nota_minima && $promedio <= $nota_maxima)
-					$contadores[$cont_escala] = $contadores[$cont_escala] + 1;
-				$cont_escala++;
+				$objPHPExcel->getActiveSheet()->setCellValue('C'.$fila_base, $nombreEstudiante);
+				$objPHPExcel->getActiveSheet()->setCellValue('D'.$fila_base, $promedio);
+				$fila_base++;
 			}
 		}
-	}
-	// Calculo de porcentajes de acuerdo a la escala de calificaciones				
-	for($cont=0;$cont<$cont_escala;$cont++)
-		//$porcentajes[$cont]=ceil($contadores[$cont]/$num_total_estudiantes);
-		$porcentajes[$cont]=$contadores[$cont]/$num_total_estudiantes;
-}
-
-$consulta = $db->consulta("SELECT id_paralelo_asignatura FROM sw_paralelo_asignatura WHERE id_paralelo = $id_paralelo and id_asignatura = $id_asignatura");
-$registro = $db->fetch_assoc($consulta);
-$id_paralelo_asignatura = $registro["id_paralelo_asignatura"];
-$consulta = $db->consulta("SELECT id_escala_calificaciones, ec_cualitativa, ec_cuantitativa FROM sw_escala_calificaciones WHERE id_periodo_lectivo = $id_periodo_lectivo ORDER BY ec_orden");
-$num_total_registros = $db->num_rows($consulta);
-if($num_total_registros>0)
-{
-	$contador = 0; $row = 10;
-	while($escalas = $db->fetch_assoc($consulta))
-	{
-		$contador++; $row++;
-		$id_escala_calificaciones = $escalas["id_escala_calificaciones"];
-		$cualitativa = $escalas["ec_cualitativa"];
-		$cuantitativa = $escalas["ec_cuantitativa"];
-		$qry = $db->consulta("SELECT re_plan_de_mejora FROM sw_recomendaciones WHERE id_escala_calificaciones = $id_escala_calificaciones AND id_paralelo_asignatura = $id_paralelo_asignatura AND id_aporte_evaluacion = $id_aporte_evaluacion");
-		$registro = $db->fetch_assoc($qry);
-		//$recomendaciones = $registro["re_recomendaciones"];
-		$plan_de_mejora = $registro["re_plan_de_mejora"];
-		
-		$objPHPExcel->getActiveSheet()->setCellValue('B'.$row, $cualitativa)
-									  ->setCellValue('C'.$row, $cuantitativa)
-									  ->setCellValue('D'.$row, $contadores[$contador - 1])
-									  ->setCellValue('E'.$row, $porcentajes[$contador - 1])
-									  ->setCellValue('F'.$row, $plan_de_mejora);
 	}
 }
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-$objWriter->save($baseFilename. $id_usuario . $id_paralelo . $id_asignatura . $id_periodo_lectivo . $id_aporte_evaluacion . ".xls");
+$objWriter->save($baseFilename . " " . $nombreParalelo . " " . $nombreAsignatura . " " . $nombreAporte . " " . $nombrePeriodoLectivo . ".xls");
 
 // Codigo para abrir la caja de dialogo Abrir o Guardar Archivo
 
@@ -173,7 +140,7 @@ $objWriter->save($baseFilename. $id_usuario . $id_paralelo . $id_asignatura . $i
 	header ("Cache-Control: no-cache, must-revalidate");  
 	header ("Pragma: no-cache");  
 	header ("Content-type: application/x-msexcel");
-	header ("Content-Disposition: attachment; filename=\"" . $baseFilename. $id_usuario . $id_paralelo . $id_asignatura . $id_periodo_lectivo . $id_aporte_evaluacion . ".xls" . "\"" );
-	readfile($baseFilename. $id_usuario . $id_paralelo . $id_asignatura . $id_periodo_lectivo . $id_aporte_evaluacion . ".xls");
+	header ("Content-Disposition: attachment; filename=\"" . $baseFilename . " " . $nombreParalelo . " " . $nombreAsignatura . " " . $nombreAporte . " " . $nombrePeriodoLectivo . ".xls" . "\"" );
+	readfile($baseFilename . " " . $nombreParalelo . " " . $nombreAsignatura . " " . $nombreAporte . " " . $nombrePeriodoLectivo . ".xls");
 
 ?>

@@ -12,7 +12,7 @@
                             <label class="control-label" style="position:relative; top:7px;">Nombre:</label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control fuente9" id="ds_nombre" value="" onfocus="sel_texto(this)" onkeypress="return permite(event,'car')">
+                            <input type="text" class="form-control fuente9" id="ds_nombre" value="" onfocus="sel_texto(this)">
                             <span class="help-desk error" id="mensaje1"></span>
                         </div>
                     </div>
@@ -72,36 +72,6 @@
         cargarDiasSemana();
         $("#mensaje1").html("");
         $("#mensaje2").html("");
-        // Código para editar un dia de la semana
-        /* $('#btn-add-item').click(function(event){
-
-                if($(this).html() == "Añadir"){
-                    
-                }else if($(this).html() == "Actualizar"){
-                    var id = $("#id_dia").val();
-                    $.ajax({
-                        url: "dias_semana/actualizar_dia_semana.php",
-                        method: "POST",
-                        data: {
-                            id_dia_semana: id,
-                            ds_nombre: nombre,
-                            ds_ordinal: ordinal
-                        },
-                        type: "html",
-                        success: function(response){
-                            $('#text_message').html(response);
-                            $("#ds_nombre").val("");
-                            $("#ds_ordinal").val("0");
-                            $("#enviar").val("Añadir");
-                            cargarDiasSemana();
-                        },
-                        error: function(xhr, status, error) {
-                            alert(xhr.responseText);
-                        }
-                    });
-                }
-            }
-        }); */
     });
 
 	function sel_texto(input) {
