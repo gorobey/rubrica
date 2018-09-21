@@ -78,7 +78,8 @@ $objPHPExcel->getActiveSheet()->setCellValue('B6', $nombrePeriodoLectivo)
 							  ->setCellValue('F8', $nombreAporte)
 							  ->setCellValue('C9', $nombreUsuario)
 							  ->setCellValue('F9', $nombreParalelo)
-							  ->setCellValue('C10', $nombreAsignatura);
+							  ->setCellValue('C10', $nombreAsignatura)
+							  ->setCellValue('C59', $nombreUsuario);
 
 // Aqui va el codigo para calcular el promedio del aporte de cada estudiante
 $db = new MySQL();
@@ -131,7 +132,7 @@ if($num_total_estudiantes > 0)
 }
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-$objWriter->save($baseFilename . " " . $nombreParalelo . " " . $nombreAsignatura . " " . $nombreAporte . " " . $nombrePeriodoLectivo . ".xls");
+$objWriter->save($baseFilename . " " . $nombreParalelo . " " . $nombreAsignatura . " " . $nombreAporte . " PARCIAL " . $nombrePeriodoLectivo . ".xls");
 
 // Codigo para abrir la caja de dialogo Abrir o Guardar Archivo
 
@@ -140,7 +141,7 @@ $objWriter->save($baseFilename . " " . $nombreParalelo . " " . $nombreAsignatura
 	header ("Cache-Control: no-cache, must-revalidate");  
 	header ("Pragma: no-cache");  
 	header ("Content-type: application/x-msexcel");
-	header ("Content-Disposition: attachment; filename=\"" . $baseFilename . " " . $nombreParalelo . " " . $nombreAsignatura . " " . $nombreAporte . " " . $nombrePeriodoLectivo . ".xls" . "\"" );
-	readfile($baseFilename . " " . $nombreParalelo . " " . $nombreAsignatura . " " . $nombreAporte . " " . $nombrePeriodoLectivo . ".xls");
+	header ("Content-Disposition: attachment; filename=\"" . $baseFilename . " " . $nombreParalelo . " " . $nombreAsignatura . " " . $nombreAporte . " PARCIAL " . $nombrePeriodoLectivo . ".xls" . "\"" );
+	readfile($baseFilename . " " . $nombreParalelo . " " . $nombreAsignatura . " " . $nombreAporte . " PARCIAL " . $nombrePeriodoLectivo . ".xls");
 
 ?>
