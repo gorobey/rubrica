@@ -4,42 +4,42 @@ class inspectores extends MySQL
 {
 	
 	var $code = "";
-        var $id_curso = "";
+    var $id_curso = "";
 	var $id_usuario = "";
 	var $id_paralelo = "";
-        var $id_estudiante = "";
+    var $id_estudiante = "";
 	var $id_periodo_lectivo = "";
-        var $id_aporte_evaluacion = "";
-        var $id_escala_comportamiento = "";
+    var $id_aporte_evaluacion = "";
+    var $id_escala_comportamiento = "";
         
-        function equivalencia($promedio) {
-            $record = parent::consulta("SELECT ec_equivalencia"
-                       . " FROM sw_escala_comportamiento"
-                      . " WHERE ec_nota_minima <= " . $promedio
-                        . " AND ec_nota_maxima >= " . $promedio);
-            $escala = parent::fetch_assoc($record);
-            return $escala["ec_equivalencia"];            
-        }
-        
-        function obtenerEscalaComportamiento($calificacion) {
-            $consulta = parent::consulta("SELECT * "
-                                       . "  FROM sw_escala_comportamiento "
-                                       . " WHERE ec_equivalencia = '" . $calificacion . "'");
-            return json_encode(parent::fetch_assoc($consulta));
-        }
+    function equivalencia($promedio) {
+        $record = parent::consulta("SELECT ec_equivalencia"
+                    . " FROM sw_escala_comportamiento"
+                    . " WHERE ec_nota_minima <= " . $promedio
+                    . " AND ec_nota_maxima >= " . $promedio);
+        $escala = parent::fetch_assoc($record);
+        return $escala["ec_equivalencia"];            
+    }
+    
+    function obtenerEscalaComportamiento($calificacion) {
+        $consulta = parent::consulta("SELECT * "
+                                    . "  FROM sw_escala_comportamiento "
+                                    . " WHERE ec_equivalencia = '" . $calificacion . "'");
+        return json_encode(parent::fetch_assoc($consulta));
+    }
 
-        function obtenerIdComportamientoInspector($id_paralelo, $id_estudiante, $id_aporte_evaluacion) {
-            $consulta = parent::consulta("SELECT id_comportamiento_inspector "
-                                       . "  FROM sw_comportamiento_inspector "
-                                       . " WHERE id_paralelo = " . $id_paralelo 
-                                       . "   AND id_estudiante = " . $id_estudiante
-                                       . "   AND id_aporte_evaluacion = " . $id_aporte_evaluacion);
-            if(parent::num_rows($consulta) > 0) {
-                return json_encode(parent::fetch_assoc($consulta));
-            } else {
-                return json_encode(array('id_comportamiento_inspector' => 0));
-            }
+    function obtenerIdComportamientoInspector($id_paralelo, $id_estudiante, $id_aporte_evaluacion) {
+        $consulta = parent::consulta("SELECT id_comportamiento_inspector "
+                                    . "  FROM sw_comportamiento_inspector "
+                                    . " WHERE id_paralelo = " . $id_paralelo 
+                                    . "   AND id_estudiante = " . $id_estudiante
+                                    . "   AND id_aporte_evaluacion = " . $id_aporte_evaluacion);
+        if(parent::num_rows($consulta) > 0) {
+            return json_encode(parent::fetch_assoc($consulta));
+        } else {
+            return json_encode(array('id_comportamiento_inspector' => 0));
         }
+    }
 
 	function truncateFloat($number, $digitos) {
 		/*$base = 10;
@@ -105,6 +105,53 @@ class inspectores extends MySQL
 		}
 		$cadena .= "</table>";
 		return $cadena;
+	}
+
+	function cargarParalelosInspectores()
+	{
+		$consulta = parent::consulta("SELECT id_paralelo_inspector, 
+                                             cu_nombre, 
+                                             es_figura, 
+                                             pa_nombre, 
+                                             us_titulo, 
+                                             us_fullname 
+                                        FROM sw_paralelo_inspector pi, 
+                                             sw_paralelo p, 
+                                             sw_curso c, 
+                                             sw_especialidad e, 
+                                             sw_usuario u 
+                                       WHERE pi.id_paralelo = p.id_paralelo 
+                                         AND p.id_curso = c.id_curso 
+                                         AND c.id_especialidad = e.id_especialidad 
+                                         AND pi.id_usuario = u.id_usuario 
+                                         AND pi.id_periodo_lectivo = " . $this->id_periodo_lectivo
+                                   . " ORDER BY cu_orden, e.id_especialidad, pa_nombre");
+		$num_total_registros = parent::num_rows($consulta);
+		$cadena = ""; $total_inspectores = 0;
+		if($num_total_registros>0)
+		{
+			while($inspector = parent::fetch_assoc($consulta))
+			{
+				$total_inspectores++;
+				$cadena .= "<tr>\n";
+				$code = $inspector["id_paralelo_inspector"];
+				$paralelo = $inspector["cu_nombre"] . " " . $inspector["pa_nombre"] . " - [" . $inspector["es_figura"] . "]";
+				$inspector = $inspector["us_titulo"] . " " . $inspector["us_fullname"];
+				$cadena .= "<td>$code</td>\n";
+				$cadena .= "<td>$paralelo</td>\n";
+				$cadena .= "<td>$inspector</td>\n";
+				$cadena .= "<td><button onclick='eliminarAsociacion(".$code.")' class='btn btn-block btn-danger'>Eliminar</button></td>";
+				$cadena .= "</tr>\n";
+			}
+		}
+		else {
+			$cadena .= "<tr>\n";
+			$cadena .= "<td colspan='4' align='center'>No se han asociado inspectores...</td>\n";
+			$cadena .= "</tr>\n";
+		}
+		$datos = array('cadena' => $cadena, 
+				       'total_inspectores' => $total_inspectores);
+        return json_encode($datos);
 	}
 
 	function listarParalelosInspector()
