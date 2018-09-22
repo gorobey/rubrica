@@ -3,16 +3,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>R&uacute;brica Web 2.0</title>
-<style>
-	textarea {
-		width: 330px;
-		height: 30px;
-		font: 8pt helvetica;
-    	/*text-transform:uppercase;*/
-    	color: #000;
-    	border: 1px solid #696969;
-	}
-</style>
 <script type="text/javascript" src="js/funciones.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -200,50 +190,6 @@
 
 		Plotly.newPlot(idDiv, data, layout);
 	}
-
-	function guardar_recomendaciones()
-	{
-		//Procedimiento para guardar en la base de datos los campos de tipo input = text
-		var id_paralelo = document.getElementById("id_paralelo").value;
-		var id_asignatura = document.getElementById("id_asignatura").value;
-		var id_aporte_evaluacion = document.getElementById("cboAportesEvaluacion").value;
-		$.post("scripts/obtener_id_paralelo_asignatura.php", 
-			{ 
-				id_paralelo: id_paralelo,
-				id_asignatura: id_asignatura
-			},
-			function(resultado)
-			{
-				var id_paralelo_asignatura = resultado;
-				var id_escala_calificaciones = 0;
-				for (i=0; ele=document.forms[0].elements[i]; i++)
-				  if (ele.type == 'hidden') // para obtener el id_escala_calificaciones
-				    {
-						var id_escala_calificaciones = ele.value;
-					}
-				  else if (ele.type == 'textarea') // quita esto si quieres que afecte a todos los elementos
-					{
-						var plandemejora = ele.value;
-						// Saco los espacios en blanco al comienzo y al final de la cadena
-						plandemejora = eliminaEspacios(plandemejora);
-						$("#mensaje_salida").html("<img src='imagenes/ajax-loader.gif' alt='procesando...' />");
-						$.post("scripts/editar_recomendaciones.php", 
-							{ 
-								id_escala_calificaciones: id_escala_calificaciones,
-								id_paralelo_asignatura: id_paralelo_asignatura,
-								id_aporte_evaluacion: id_aporte_evaluacion,
-								plandemejora: plandemejora
-							},
-							function(resultado)
-							{
-								$("#mensaje_salida").html(resultado);
-							}
-						);
-					}		    
-			}
-		);
-	}
-	
 </script>
 </head>
 

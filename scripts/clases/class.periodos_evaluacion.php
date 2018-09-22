@@ -39,6 +39,13 @@ class periodos_evaluacion extends MySQL
 		return $periodo_evaluacion->pe_nombre;
 	}
 
+	function getNombrePeriodoEvaluacion($id)
+	{
+		$consulta = parent::consulta("SELECT pe_shortname FROM sw_periodo_evaluacion WHERE id_periodo_evaluacion = $id");
+		$periodo_evaluacion = parent::fetch_object($consulta);
+		return $periodo_evaluacion->pe_shortname;
+	}
+
 	function obtenerIdPeriodoEvaluacion($nombre)
 	{
 		$consulta = parent::consulta("SELECT id_periodo_evaluacion FROM sw_periodo_evaluacion WHERE pe_nombre = '$nombre'");

@@ -290,127 +290,52 @@ class asignaturas extends MySQL
 
 	function listarEscalaCalificacionesQuimestrales($id_periodo_evaluacion, $id_paralelo, $id_asignatura, $id_periodo_lectivo)
 	{
-		$contadores[0] = 0;$suma_parciales[0] = 0;$promedio_parciales[0] = 0;$suma_examen[0] = 0;$promedio_examen[0] = 0;
-		$contadores[1] = 0;$suma_parciales[1] = 0;$promedio_parciales[1] = 0;$suma_examen[1] = 0;$promedio_examen[1] = 0;
-		$contadores[2] = 0;$suma_parciales[2] = 0;$promedio_parciales[2] = 0;$suma_examen[2] = 0;$promedio_examen[2] = 0;
-		$contadores[3] = 0;$suma_parciales[3] = 0;$promedio_parciales[3] = 0;$suma_examen[3] = 0;$promedio_examen[3] = 0;
-		$contadores[4] = 0;$suma_parciales[4] = 0;$promedio_parciales[4] = 0;$suma_examen[4] = 0;$promedio_examen[4] = 0;
-                // Arrays para almacenar los nombres completos y los promedios quimestrales de los estudiantes de acuerdo a la escala de calificación que corresponda
-                for($i = 0;$i < 50;$i++) {
-                    $codigo_estudiante[$i] = 0;
-                    $promedio_quimestre[$i] = 0;
-                }
+		// Primero consulto las escalas de calificaciones
+		$query = "SELECT ec_cuantitativa, ec_nota_minima, ec_nota_maxima FROM sw_escala_calificaciones WHERE id_periodo_lectivo = $id_periodo_lectivo ORDER BY ec_orden";
+		$result = parent::consulta($query);
+		$escala = array();
+		while($dato = parent::fetch_array($result)){
+			$escala[] = array('escala' => $dato['ec_cuantitativa'],
+							 'minima' => $dato['ec_nota_minima'],
+							 'maxima' => $dato['ec_nota_maxima'],
+							 'contador' => 0);
+		}
 		// Aqui va el codigo para calcular el promedio del aporte de cada estudiante
-		$estudiantes = parent::consulta("SELECT e.id_estudiante, es_apellidos, es_nombres FROM sw_estudiante e, sw_estudiante_periodo_lectivo ep WHERE e.id_estudiante = ep.id_estudiante AND id_paralelo = $id_paralelo AND es_retirado = 'N' ORDER BY es_apellidos, es_nombres");
-		$num_total_estudiantes = parent::num_rows($estudiantes);
-                
+		$datos = array();
+		$estudiantes = parent::consulta("SELECT id_estudiante FROM sw_estudiante_periodo_lectivo WHERE id_paralelo = $id_paralelo AND id_periodo_lectivo = $id_periodo_lectivo AND es_retirado = 'N'");
+		$num_total_estudiantes = parent::num_rows($estudiantes);                
 		if($num_total_estudiantes > 0)
 		{
-                        //echo $num_total_estudiantes . "<br>";
-                        
-                        $cont_estudiante = 0;
-                        
 			while($estudiante = parent::fetch_assoc($estudiantes))
 			{
 					
-                            $id_estudiante = $estudiante["id_estudiante"];
-
-                            $query = parent::consulta("SELECT calcular_promedio_quimestre($id_periodo_evaluacion,$id_estudiante,$id_paralelo,$id_asignatura) AS calificacion");
-
-                            //echo "SELECT calcular_promedio_quimestre($id_periodo_evaluacion,$id_estudiante,$id_paralelo,$id_asignatura) AS calificacion";
-
-                            $calificacion = parent::fetch_assoc($query);
-                            $calificacion_quimestral = $calificacion["calificacion"];
-                                        
-                            $promedio_quimestre[$cont_estudiante] = $calificacion_quimestral;
-                            $codigo_estudiante[$cont_estudiante] = $id_estudiante;
-                            
-                            //echo $codigo_estudiante[$cont_estudiante] . " - ";
-
-                            // Calculo de promedios 80% 20% de acuerdo a la escala de calificaciones
-                            $escala_calificacion = parent::consulta("SELECT * FROM sw_escala_calificaciones WHERE id_periodo_lectivo = $id_periodo_lectivo");
-                            $cont_escala = 0;
-                            while ($escala = parent::fetch_assoc($escala_calificacion))
-                            {
-                                    $nota_minima = $escala["ec_nota_minima"];
-                                    $nota_maxima = $escala["ec_nota_maxima"];
-                                    if ($calificacion_quimestral >= $nota_minima && $calificacion_quimestral <= $nota_maxima) {
-                                            $contadores[$cont_escala] = $contadores[$cont_escala] + 1;
-                                            $suma_parciales[$cont_escala] += $ponderado_aportes;
-                                            $suma_examen[$cont_escala] += $ponderado_examen;
-                                    }	
-                                    $cont_escala++;
-                            }
-                            $cont_estudiante++;
-			}
-
-                        //echo "<br>";
-                        // Esto es solamente para verificar si está ordenado el vector
-                        //for($i=0;$i<$num_total_estudiantes;$i++)
-                        //    echo $i . "> " . $codigo_estudiante[$i] . " -";
-                        
-                        // Procedimiento para ordenar el array de calificaciones de mayor a menor
-                        for($i=0;$i<$num_total_estudiantes-1;$i++)
-                            for($j=$i+1;$j<$num_total_estudiantes;$j++)
-                                if($promedio_quimestre[$i]<$promedio_quimestre[$j]) {
-                                    $temporal = $promedio_quimestre[$i];
-                                    $temp_codigo = $codigo_estudiante[$i];
-                                    $promedio_quimestre[$i] = $promedio_quimestre[$j];
-                                    $codigo_estudiante[$i] = $codigo_estudiante[$j];
-                                    $promedio_quimestre[$j] = $temporal;
-                                    $codigo_estudiante[$j] = $temp_codigo;
-                                }
-                                
-                        //echo "<br>" . $num_total_estudiantes . "<br>";
-                        
-                        // Esto es solamente para verificar si está ordenado el vector
-                        //for($i=0;$i<$num_total_estudiantes;$i++)
-                        //    echo $i . "> " . $codigo_estudiante[$i] . " -";
-                        
-                        // Calculo de los promedios 80% 20% de acuerdo a la escala de calificaciones				
-			for($cont=0;$cont<5;$cont++) {
-				if($contadores[$cont]>0) {
-					$promedio_parciales[$cont]=$suma_parciales[$cont]/$contadores[$cont];
-					$promedio_examen[$cont]=$suma_examen[$cont]/$contadores[$cont];
-				} else {
-					$promedio_parciales[$cont]=0;
-					$promedio_examen[$cont]=0;
+                $id_estudiante = $estudiante["id_estudiante"];
+                $query = parent::consulta("SELECT calcular_promedio_quimestre($id_periodo_evaluacion,$id_estudiante,$id_paralelo,$id_asignatura) AS calificacion");
+                $calificacion = parent::fetch_assoc($query);
+                $calificacion_quimestral = $calificacion["calificacion"];
+				// Calculo de cantidad de estudiantes de acuerdo a la escala de calificaciones
+				for ($i = 0; $i < count($escala); $i++) {
+					$nota_minima = $escala[$i]['minima'];
+					$nota_maxima = $escala[$i]['maxima'];
+					if ($calificacion_quimestral >= $nota_minima && $calificacion_quimestral <= $nota_maxima) {
+						$escala[$i]['contador'] = $escala[$i]['contador'] + 1;
+					}
 				}
 			}
-		}
 
-		$consulta = parent::consulta("SELECT id_paralelo_asignatura FROM sw_paralelo_asignatura WHERE id_paralelo = $id_paralelo and id_asignatura = $id_asignatura");
-		$registro = parent::fetch_assoc($consulta);
-		$id_paralelo_asignatura = $registro["id_paralelo_asignatura"];
-		$consulta = parent::consulta("SELECT id_escala_calificaciones, ec_cualitativa, ec_cuantitativa FROM sw_escala_calificaciones WHERE id_periodo_lectivo = $id_periodo_lectivo ORDER BY ec_orden");
-		$num_total_registros = parent::num_rows($consulta);
-		$cadena = "<table class=\"fuente8\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
-		if($num_total_registros>0)
-		{
-			$contador = 0;
-			while($escalas = parent::fetch_assoc($consulta))
-			{
-				$contador++;
-				$fondolinea = ($contador % 2 == 0) ? "itemParTabla" : "itemImparTabla";
-				$cadena .= "<tr class=\"$fondolinea\" onmouseover=\"className='itemEncimaTabla'\" onmouseout=\"className='$fondolinea'\">\n";
-				$id_escala_calificaciones = $escalas["id_escala_calificaciones"];
-				$cualitativa = $escalas["ec_cualitativa"];
-				$cuantitativa = $escalas["ec_cuantitativa"];
-				$qry = parent::consulta("SELECT re_plan_de_mejora_quimestral FROM sw_recomendaciones_quimestrales WHERE id_escala_calificaciones = $id_escala_calificaciones AND id_paralelo_asignatura = $id_paralelo_asignatura AND id_periodo_evaluacion = $id_periodo_evaluacion");
-				$registro = parent::fetch_assoc($qry);
-				$plan_de_mejora = $registro["re_plan_de_mejora_quimestral"];
-				$cadena .= "<td width=\"0%\"><input type=\"hidden\" id=\"id_".$id_escala_calificaciones."\" value=\"$id_escala_calificaciones\"></td>\n";
-				$cadena .= "<td width=\"20%\" align=\"center\">$cualitativa</td>\n";
-				$cadena .= "<td width=\"20%\" align=\"center\">$cuantitativa</td>\n";
-				$cadena .= "<td width=\"10%\" align=\"center\">".$contadores[$contador - 1]."</td>\n";
-				$cadena .= "<td width=\"10%\" align=\"center\">".number_format($promedio_parciales[$contador - 1],2)."</td>\n";
-				$cadena .= "<td width=\"10%\" align=\"center\">".number_format($promedio_examen[$contador - 1],2)."</td>\n";
-				$cadena .= "<td width=\"30%\" align=\"center\"><textarea id=\"txtplandemejora_".$contador."\" >".$plan_de_mejora."</textarea></td>\n";
-				$cadena .= "</tr>\n";	
+			// Calculo de porcentajes de acuerdo a la escala de calificaciones				
+			for($i = 0; $i < count($escala); $i++) {
+				if($escala[$i]['contador'] == 1)
+					$terminacion = "";
+				else
+					$terminacion = "s";
+				$datos[] = array('escala' => $escala[$i]['escala']." (".$escala[$i]['contador']." estudiante".$terminacion.")",
+								 'porcentaje' => $escala[$i]['contador'] / $num_total_estudiantes * 100);
 			}
 		}
-		$cadena .= "</table>";	
-		return $cadena;
+
+		return json_encode($datos);
+
 	}
 
 	function listarEscalaCalificaciones($id_aporte_evaluacion, $id_paralelo, $id_asignatura, $id_periodo_lectivo)
@@ -431,7 +356,6 @@ class asignaturas extends MySQL
 		$num_total_estudiantes = parent::num_rows($estudiantes);
 		if($num_total_estudiantes > 0)
 		{
-            $cont_estudiante = 0;
 			while($estudiante = parent::fetch_assoc($estudiantes))
 			{
 				// Consulta de las calificaciones correspondientes al aporte de evaluacion					
@@ -455,8 +379,6 @@ class asignaturas extends MySQL
 						$suma_rubricas += $calificacion;
 					}
 					$promedio = $suma_rubricas / $contador_rubricas;
-					$promedio_parcial[$cont_estudiante] = $promedio;
-					$codigo_estudiante[$cont_estudiante] = $id_estudiante;
 					// Calculo de cantidad de estudiantes de acuerdo a la escala de calificaciones
 					for ($i = 0; $i < count($escala); $i++) {
 						$nota_minima = $escala[$i]['minima'];
@@ -466,7 +388,6 @@ class asignaturas extends MySQL
 						}
 					}
 				}
-                $cont_estudiante++;
 			}
                         
 			// Calculo de porcentajes de acuerdo a la escala de calificaciones				

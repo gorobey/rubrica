@@ -3,16 +3,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>R&uacute;brica Web 2.0</title>
-<style>
-	textarea {
-		width: 330px;
-		height: 30px;
-		font: 8pt helvetica;
-    	/*text-transform:uppercase;*/
-    	color: #000;
-    	border: 1px solid #696969;
-	}
-</style>
 <script type="text/javascript" src="js/funciones.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -114,6 +104,7 @@
 		} else {
 			$("#escala_calificaciones").html("");
 			$("#tituloNomina").html("ESCALA DE CALIFICACIONES [" + asignatura + " - " + curso + " " + paralelo + "]");
+			$("#titulo").val("ESCALA DE CALIFICACIONES [" + asignatura + "]<br>" + curso + " " + paralelo);
 			//Aqui va la llamada a ajax para recuperar la nómina de estudiantes con sus respectivas calificaciones
 			cargarEscalaCalificaciones(id_paralelo, id_asignatura);
 			$("#ver_reporte").show();
@@ -126,21 +117,54 @@
 		document.getElementById("id_paralelo").value = id_paralelo;
 		var id_periodo_evaluacion = document.getElementById("cboPeriodosEvaluacion").value;
 		$("#escala_calificaciones").html("<img src='imagenes/ajax-loader.gif' alt='procesando...' />");
-		$.post("scripts/informe_quimestral.php", 
-			{ 
+		$.ajax({
+            url: "scripts/informe_quimestral.php",
+            type: "POST",
+            data: {
 				id_paralelo: id_paralelo,
 				id_asignatura: id_asignatura,
 				id_periodo_evaluacion: id_periodo_evaluacion
 			},
-			function(resultado)
-			{
-				$("#escala_calificaciones").html(resultado);
-				$("#ver_reporte").show();
-			}
-		);
+            dataType: "json",
+            success: function(data){
+				$("#escala_calificaciones").html("");
+                var escalas = new Array();
+                var porcentajes = new Array();
+                $.each(data,function(key,value){
+                    escalas.push(value.escala);
+                    porcentaje = Number(value.porcentaje);
+                    porcentajes.push(porcentaje);
+                });
+                graficar(escalas, porcentajes, "escala_calificaciones");
+				$("#ver_reporte").css("display","block");
+            }
+        });
 	}
 
-	function guardar_recomendaciones()
+	function graficar(escalas, porcentajes, idDiv)
+	{
+		var title = $("#titulo").val()
+					+"<br>"
+					+$("#cboPeriodosEvaluacion option:selected").text();
+		var data = [{
+			values: porcentajes,
+			labels: escalas,
+			hoverinfo: "label",
+			type: 'pie',
+			sort: false
+		}];
+
+		var layout = {
+            title: title,
+			"titlefont": {
+				"size": 12
+			},
+        };
+
+		Plotly.newPlot(idDiv, data, layout);
+	}
+
+	/*function guardar_recomendaciones()
 	{
 		//Procedimiento para guardar en la base de datos los campos de tipo input = text
 		var id_paralelo = document.getElementById("id_paralelo").value;
@@ -183,7 +207,7 @@
 					}		    
 			}
 		);
-	}
+	}*/
 	
 </script>
 </head>
@@ -240,19 +264,7 @@
     <div id="mensaje_salida" class="text-center"></div>
     <div id="pag_nomina_estudiantes" style="margin-top:2px;">
       <div id="tituloNomina" class="header2"> ESCALA DE CALIFICACIONES </div>
-      <div class="cabeceraTabla">
-        <table class="fuente8" width="100%" cellspacing=0 cellpadding=0 border=0>
-            <tr class="cabeceraTabla">
-                <td width="20%" align="center">ESCALA CUALITATIVA</td>
-                <td width="20%" align="center">ESCALA CUANTITATIVA</td>
-                <td width="10%" align="center">Nro. Estudiantes</td>
-                <td width="10%" align="center">80%</td>
-                <td width="10%" align="center">20%</td>
-                <td width="30%" align="center">PLAN DE MEJORA</td>
-                <!-- <td width="18%" align="center">Acciones</td> -->
-            </tr>
-        </table>
-	  </div>
+	  <input type="hidden" id="titulo" value="">
       <form id="formulario_periodo" action="php_excel/informe_quimestral.php" method="post">
       	 <div id="escala_calificaciones" style="text-align:center"> Debe elegir un per&iacute;odo de evaluaci&oacute;n.... </div>
 	     <div id="ver_reporte" style="text-align:center;margin-top:2px;display:none">
@@ -260,8 +272,7 @@
 	        <input id="id_paralelo" name="id_paralelo" type="hidden" />
             <input id="id_periodo_evaluacion" name="id_periodo_evaluacion" type="hidden" />
             <input id="id_paralelo_asignatura" name="id_paralelo_asignatura" type="hidden"  />
-            <input type="button" value="Guardar" onclick="guardar_recomendaciones()" />
-            <input type="submit" value="Exportar a Excel" />
+            <input type="submit" value="Generar Informe" />
          </div>
       </form>
    </div>

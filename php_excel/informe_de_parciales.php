@@ -132,7 +132,7 @@ if($num_total_estudiantes > 0)
 }
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-$objWriter->save($baseFilename . " " . $nombreParalelo . " " . $nombreAsignatura . " " . $nombreAporte . " PARCIAL " . $nombrePeriodoLectivo . ".xls");
+$objWriter->save($baseFilename . " " . $nombreParalelo . " " . $nombreAsignatura . " PARCIAL " . $nombreAporte . " " . $nombrePeriodoLectivo . ".xls");
 
 // Codigo para abrir la caja de dialogo Abrir o Guardar Archivo
 
@@ -141,7 +141,7 @@ $objWriter->save($baseFilename . " " . $nombreParalelo . " " . $nombreAsignatura
 	header ("Cache-Control: no-cache, must-revalidate");  
 	header ("Pragma: no-cache");  
 	header ("Content-type: application/x-msexcel");
-	header ("Content-Disposition: attachment; filename=\"" . $baseFilename . " " . $nombreParalelo . " " . $nombreAsignatura . " " . $nombreAporte . " PARCIAL " . $nombrePeriodoLectivo . ".xls" . "\"" );
-	readfile($baseFilename . " " . $nombreParalelo . " " . $nombreAsignatura . " " . $nombreAporte . " PARCIAL " . $nombrePeriodoLectivo . ".xls");
+	header ("Content-Disposition: attachment; filename=\"" . $baseFilename . " " . $nombreParalelo . " " . $nombreAsignatura . " PARCIAL " . $nombreAporte . " " . $nombrePeriodoLectivo . ".xls" . "\"" );
+	readfile($baseFilename . " " . $nombreParalelo . " " . $nombreAsignatura . " PARCIAL " . $nombreAporte . " " . $nombrePeriodoLectivo . ".xls");
 
 ?>
