@@ -3,16 +3,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>R&uacute;brica Web 2.0</title>
-<style>
-	textarea {
-		width: 330px;
-		height: 30px;
-		font:8pt helvetica;
-    	color:#000;
-    	border: 1px solid #696969;
-	}
-</style>
-<script type="text/javascript" src="js/funciones.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		cargarAsignaturasDocente();
@@ -80,12 +70,13 @@
 		);
 	}
 
-	function seleccionarParalelo(id_paralelo, id_asignatura, asignatura, curso, paralelo)
+	function seleccionarParalelo(id_curso, id_paralelo, id_asignatura, asignatura, curso, paralelo)
 	{
 		document.getElementById("id_asignatura").value = id_asignatura;
 		document.getElementById("id_paralelo").value = id_paralelo;
 		$("#escala_calificaciones").html("");
 		$("#tituloNomina").html("ESCALA DE CALIFICACIONES [" + asignatura + " - " + curso + " " + paralelo + "]");
+		$("#titulo").val("ESCALA DE CALIFICACIONES [" + asignatura + "]<br>" + curso + " " + paralelo);
 		//Aqui va la llamada a ajax para recuperar la nómina de estudiantes con sus respectivas calificaciones
 		cargarEscalaCalificaciones(id_paralelo, id_asignatura);
 		$("#ver_reporte").css("display","block");
@@ -96,57 +87,49 @@
 		document.getElementById("id_asignatura").value = id_asignatura;
 		document.getElementById("id_paralelo").value = id_paralelo;
 		$("#escala_calificaciones").html("<img src='imagenes/ajax-loader.gif' alt='procesando...' />");
-		$.post("scripts/informe_anual.php", 
-			{ 
+		$.ajax({
+            url: "scripts/informe_anual.php",
+            type: "POST",
+            data: {
 				id_paralelo: id_paralelo,
 				id_asignatura: id_asignatura
 			},
-			function(resultado)
-			{
-				$("#escala_calificaciones").html(resultado);
+            dataType: "json",
+            success: function(data){
+				$("#escala_calificaciones").html("");
+                var escalas = new Array();
+                var porcentajes = new Array();
+                $.each(data,function(key,value){
+                    escalas.push(value.escala);
+                    porcentaje = Number(value.porcentaje);
+                    porcentajes.push(porcentaje);
+                });
+                graficar(escalas, porcentajes, "escala_calificaciones");
 				$("#ver_reporte").css("display","block");
-			}
-		);
-	}
-
-	function guardarRecomendaciones()
-	{
-		//Procedimiento para guardar en la base de datos los campos de tipo input = text
-		var id_paralelo = document.getElementById("id_paralelo").value;
-		var id_asignatura = document.getElementById("id_asignatura").value;
-		$.post("scripts/obtener_id_paralelo_asignatura.php", 
-			{ 
-				id_paralelo: id_paralelo,
-				id_asignatura: id_asignatura
-			},
-			function(resultado)
-			{
-				var id_paralelo_asignatura = resultado;
-				for (i=0; ele=document.forms[0].elements[i]; i++)
-				  if (ele.type == 'textarea') // quita esto si quieres que afecte a todos los elementos
-					{
-						var id = ele.id;
-						var fila = id.substr(id.indexOf("_")+1);
-						var plandemejora = ele.value;
-						// Saco los espacios en blanco al comienzo y al final de la cadena
-						plandemejora = eliminaEspacios(plandemejora);
-						$("#mensajes").html("<img src='imagenes/ajax-loader.gif' alt='procesando...' />");
-						$.post("scripts/editar_recomendaciones_anuales.php", 
-							{ 
-								id_escala_calificaciones: fila,
-								id_paralelo_asignatura: id_paralelo_asignatura,
-								plandemejora: plandemejora
-							},
-							function(resultado)
-							{
-								$("#mensajes").html(resultado);
-							}
-						);
-					}		    
-			}
-		);
+            }
+        });
 	}
 	
+	function graficar(escalas, porcentajes, idDiv)
+	{
+		var title = $("#titulo").val();
+		var data = [{
+			values: porcentajes,
+			labels: escalas,
+			hoverinfo: "label",
+			type: 'pie',
+			sort: false
+		}];
+
+		var layout = {
+            title: title,
+			"titlefont": {
+				"size": 12
+			},
+        };
+
+		Plotly.newPlot(idDiv, data, layout);
+	}
 </script>
 </head>
 
@@ -187,25 +170,13 @@
     </div>
     <div id="pag_nomina_estudiantes" style="margin-top:2px;">
       <div id="tituloNomina" class="header2"> ESCALA DE CALIFICACIONES </div>
-      <div class="cabeceraTabla">
-        <table class="fuente8" width="100%" cellspacing=0 cellpadding=0 border=0>
-            <tr class="cabeceraTabla">
-                <td width="20%">ESCALA CUALITATIVA</td>
-                <td width="20%">ESCALA CUANTITATIVA</td>
-                <td width="10%">Nro. Estudiantes</td>
-                <td width="20%">PORCENTAJE</td>
-                <td width="30%">PLAN DE MEJORA</td>
-                <!-- <td width="18%" align="center">Acciones</td> -->
-            </tr>
-        </table>
-	  </div>
+	  <input type="hidden" id="titulo" value="">
       <form id="formulario_periodo" action="php_excel/informe_anual.php" method="post">
       	 <div id="escala_calificaciones" style="text-align:center"> Debe elegir una asignatura.... </div>
 	     <div id="ver_reporte" style="text-align:center;margin-top:2px;display:none">
 	        <input id="id_asignatura" name="id_asignatura" type="hidden" />
 	        <input id="id_paralelo" name="id_paralelo" type="hidden" />
-            <input type="button" value="Guardar" onclick="guardarRecomendaciones()" />
-            <input type="submit" value="Exportar a Excel" />
+            <input type="submit" value="Generar Informe" />
          </div>
       </form>
    </div>
