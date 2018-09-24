@@ -65,6 +65,7 @@ $objPHPExcel->setActiveSheetIndex(0);
 $db = new MySQL();
 if($id_dia_semana == 0){
     $dia = date("w");
+    $id_dia_semana = date("w");
     $fecha = date('d')."/".date('n')."/".date('Y');
     $fecha2 = date('d')."-".date('n')."-".date('Y');
 }else{
