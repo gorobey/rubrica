@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 23-08-2018 a las 03:21:07
--- Versión del servidor: 10.1.31-MariaDB-cll-lve
+-- Tiempo de generación: 24-09-2018 a las 02:16:11
+-- Versión del servidor: 10.1.35-MariaDB-cll-lve
 -- Versión de PHP: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -21,14 +21,11 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `colegion_1`
 --
-CREATE DATABASE IF NOT EXISTS `colegion_1` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `colegion_1`;
 
 DELIMITER $$
 --
 -- Procedimientos
 --
-DROP PROCEDURE IF EXISTS `sp_actualizar_usuario`$$
 CREATE DEFINER=`colegion`@`localhost` PROCEDURE `sp_actualizar_usuario` (IN `IdUsuario` INT, IN `IdPerfil` INT, IN `UsTitulo` VARCHAR(5), IN `UsApellidos` VARCHAR(32), IN `UsNombres` VARCHAR(32), IN `UsNombreCompleto` VARCHAR(64), IN `UsLogin` VARCHAR(24), IN `UsPassword` VARCHAR(64), IN `UsActivo` INT)  NO SQL
 BEGIN
 	UPDATE sw_usuario SET
@@ -42,7 +39,6 @@ BEGIN
 	WHERE id_usuario = IdUsuario;
 END$$
 
-DROP PROCEDURE IF EXISTS `sp_insertar_institucion`$$
 CREATE DEFINER=`colegion`@`localhost` PROCEDURE `sp_insertar_institucion` (IN `In_nombre` VARCHAR(64), IN `In_direccion` VARCHAR(45), IN `In_telefono1` VARCHAR(12), IN `In_nom_rector` VARCHAR(45), IN `In_nom_secretario` VARCHAR(45))  NO SQL
 BEGIN
 	IF (EXISTS (SELECT * FROM sw_institucion)) THEN
@@ -62,7 +58,6 @@ BEGIN
 	END IF;
 END$$
 
-DROP PROCEDURE IF EXISTS `sp_insertar_periodo_lectivo`$$
 CREATE DEFINER=`colegion`@`localhost` PROCEDURE `sp_insertar_periodo_lectivo` (IN `AnioInicial` INT, IN `AnioFinal` INT)  NO SQL
 BEGIN
 
@@ -117,7 +112,6 @@ BEGIN
 
 END$$
 
-DROP PROCEDURE IF EXISTS `sp_insertar_usuario`$$
 CREATE DEFINER=`colegion`@`localhost` PROCEDURE `sp_insertar_usuario` (IN `IdPeriodoLectivo` INT, IN `IdPerfil` INT, IN `UsTitulo` VARCHAR(5), IN `UsApellidos` VARCHAR(32), IN `UsNombres` VARCHAR(32), IN `UsFullname` VARCHAR(64), IN `UsLogin` VARCHAR(24), IN `UsPassword` VARCHAR(64))  NO SQL
 BEGIN
 	DECLARE max_id INT;
@@ -149,7 +143,6 @@ END$$
 --
 -- Funciones
 --
-DROP FUNCTION IF EXISTS `aprueba_todas_asignaturas`$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `aprueba_todas_asignaturas` (`IdPeriodoLectivo` INT, `IdEstudiante` INT, `IdParalelo` INT) RETURNS TINYINT(1) NO SQL
 BEGIN
 	DECLARE IdAsignatura INT;
@@ -184,7 +177,6 @@ BEGIN
 	
 END$$
 
-DROP FUNCTION IF EXISTS `aprueba_todos_remediales`$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `aprueba_todos_remediales` (`IdPeriodoLectivo` INT, `IdEstudiante` INT, `IdParalelo` INT) RETURNS TINYINT(4) NO SQL
 BEGIN
 	DECLARE IdAsignatura INT;
@@ -236,7 +228,6 @@ BEGIN
 
 END$$
 
-DROP FUNCTION IF EXISTS `aprueba_todos_supletorios`$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `aprueba_todos_supletorios` (`IdPeriodoLectivo` INT, `IdEstudiante` INT, `IdParalelo` INT) RETURNS TINYINT(4) NO SQL
 BEGIN
 	DECLARE IdAsignatura INT;
@@ -279,7 +270,6 @@ BEGIN
 	
 END$$
 
-DROP FUNCTION IF EXISTS `calcular_comp_anual`$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `calcular_comp_anual` (`IdPeriodoLectivo` INT, `IdEstudiante` INT, `IdParalelo` INT, `IdAsignatura` INT) RETURNS FLOAT NO SQL
 BEGIN
 	DECLARE done INT DEFAULT 0;
@@ -317,7 +307,6 @@ BEGIN
 	RETURN Promedio;
 END$$
 
-DROP FUNCTION IF EXISTS `calcular_comp_asignatura`$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `calcular_comp_asignatura` (`IdPeriodoEvaluacion` INT, `IdEstudiante` INT, `IdParalelo` INT, `IdAsignatura` INT) RETURNS FLOAT NO SQL
 BEGIN
 	DECLARE done INT DEFAULT 0;     
@@ -364,7 +353,6 @@ BEGIN
 	RETURN Promedio;
 END$$
 
-DROP FUNCTION IF EXISTS `calcular_comp_insp_quimestre`$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `calcular_comp_insp_quimestre` (`IdPeriodoEvaluacion` INT, `IdEstudiante` INT, `IdParalelo` INT) RETURNS FLOAT NO SQL
 BEGIN
 	DECLARE done INT DEFAULT 0;     
@@ -416,7 +404,6 @@ BEGIN
 	RETURN Promedio;
 END$$
 
-DROP FUNCTION IF EXISTS `calcular_examen_supletorio`$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `calcular_examen_supletorio` (`IdPeriodoLectivo` INT, `IdEstudiante` INT, `IdParalelo` INT, `IdAsignatura` INT, `PePrincipal` INT) RETURNS FLOAT NO SQL
 BEGIN
 	DECLARE IdRubricaEvaluacion INT DEFAULT 0;
@@ -441,7 +428,6 @@ BEGIN
 	RETURN IFNULL(examen_supletorio, 0);
 END$$
 
-DROP FUNCTION IF EXISTS `calcular_promedio_anual`$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `calcular_promedio_anual` (`IdPeriodoLectivo` INT, `IdEstudiante` INT, `IdParalelo` INT, `IdAsignatura` INT) RETURNS FLOAT NO SQL
 BEGIN
 	DECLARE done INT DEFAULT 0;
@@ -478,7 +464,6 @@ BEGIN
 	RETURN promedio_anual;
 END$$
 
-DROP FUNCTION IF EXISTS `calcular_promedio_anual_proyectos`$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `calcular_promedio_anual_proyectos` (`IdPeriodoLectivo` INT, `IdEstudiante` INT) RETURNS FLOAT NO SQL
 BEGIN
 	DECLARE done INT DEFAULT 0;
@@ -521,7 +506,6 @@ BEGIN
 	RETURN promedio_anual;
 END$$
 
-DROP FUNCTION IF EXISTS `calcular_promedio_aporte`$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `calcular_promedio_aporte` (`IdAporteEvaluacion` INT, `IdEstudiante` INT, `IdParalelo` INT, `IdAsignatura` INT) RETURNS FLOAT NO SQL
 BEGIN
 	DECLARE done INT DEFAULT 0;
@@ -565,7 +549,6 @@ BEGIN
 	RETURN promedio_aporte;
 END$$
 
-DROP FUNCTION IF EXISTS `calcular_promedio_aporte_club`$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `calcular_promedio_aporte_club` (`IdAporteEvaluacion` INT, `IdEstudiante` INT, `IdClub` INT) RETURNS FLOAT READS SQL DATA
     DETERMINISTIC
 BEGIN
@@ -610,7 +593,6 @@ BEGIN
 	RETURN promedio_aporte;
 END$$
 
-DROP FUNCTION IF EXISTS `calcular_promedio_final`$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `calcular_promedio_final` (`IdPeriodoLectivo` INT, `IdEstudiante` INT, `IdParalelo` INT, `IdAsignatura` INT) RETURNS FLOAT NO SQL
 BEGIN
 	DECLARE promedio_final FLOAT DEFAULT 0; 	DECLARE examen_supletorio FLOAT DEFAULT 0;
@@ -651,7 +633,6 @@ BEGIN
 
 END$$
 
-DROP FUNCTION IF EXISTS `calcular_promedio_general`$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `calcular_promedio_general` (`IdPeriodoLectivo` INT, `IdEstudiante` INT, `IdParalelo` INT) RETURNS FLOAT NO SQL
 BEGIN
 	DECLARE done INT DEFAULT 0;
@@ -685,7 +666,6 @@ BEGIN
 	RETURN promedio_general;
 END$$
 
-DROP FUNCTION IF EXISTS `calcular_promedio_quimestre`$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `calcular_promedio_quimestre` (`IdPeriodoEvaluacion` INT, `IdEstudiante` INT, `IdParalelo` INT, `IdAsignatura` INT) RETURNS FLOAT NO SQL
 BEGIN
     DECLARE done INT DEFAULT 0;
@@ -734,7 +714,6 @@ BEGIN
     
 END$$
 
-DROP FUNCTION IF EXISTS `calcular_promedio_quimestre_club`$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `calcular_promedio_quimestre_club` (`IdPeriodoEvaluacion` INT, `IdEstudiante` INT, `IdClub` INT) RETURNS FLOAT NO SQL
 BEGIN
     DECLARE done INT DEFAULT 0;
@@ -782,7 +761,6 @@ BEGIN
     
 END$$
 
-DROP FUNCTION IF EXISTS `calc_max_nro_matricula`$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `calc_max_nro_matricula` () RETURNS VARCHAR(4) CHARSET ascii NO SQL
 BEGIN
 	DECLARE max_nro_matricula VARCHAR(4);
@@ -792,7 +770,6 @@ BEGIN
 
 END$$
 
-DROP FUNCTION IF EXISTS `contar_remediales`$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `contar_remediales` (`IdPeriodoLectivo` INT, `IdEstudiante` INT, `IdParalelo` INT) RETURNS INT(11) NO SQL
 BEGIN
 	DECLARE IdAsignatura INT;
@@ -828,7 +805,6 @@ BEGIN
 
 END$$
 
-DROP FUNCTION IF EXISTS `contar_remediales_no_aprobados`$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `contar_remediales_no_aprobados` (`IdPeriodoLectivo` INT, `IdEstudiante` INT, `IdParalelo` INT) RETURNS INT(11) NO SQL
 BEGIN
 	DECLARE IdAsignatura INT;
@@ -878,7 +854,6 @@ BEGIN
 
 END$$
 
-DROP FUNCTION IF EXISTS `contar_supletorios`$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `contar_supletorios` (`IdPeriodoLectivo` INT, `IdEstudiante` INT, `IdParalelo` INT) RETURNS INT(11) NO SQL
 BEGIN
 	DECLARE IdAsignatura INT;
@@ -911,7 +886,6 @@ BEGIN
 
 END$$
 
-DROP FUNCTION IF EXISTS `determinar_asignatura_de_gracia`$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `determinar_asignatura_de_gracia` (`IdPeriodoLectivo` INT, `IdEstudiante` INT, `IdParalelo` INT) RETURNS INT(11) NO SQL
 BEGIN
 	DECLARE IdAsignatura INT;
@@ -970,7 +944,6 @@ BEGIN
 
 END$$
 
-DROP FUNCTION IF EXISTS `es_promocionado`$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `es_promocionado` (`IdEstudiante` INT, `IdPeriodoLectivo` INT, `IdParalelo` INT) RETURNS TINYINT(4) NO SQL
 BEGIN
 	DECLARE aprueba BOOL DEFAULT TRUE; -- variable de salida de la funcion
@@ -1005,7 +978,6 @@ BEGIN
 
 END$$
 
-DROP FUNCTION IF EXISTS `secuencial_curso_asignatura`$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `secuencial_curso_asignatura` (`IdCurso` INT) RETURNS INT(11) NO SQL
 BEGIN
 	DECLARE Secuencial INT;
@@ -1020,7 +992,6 @@ BEGIN
 	RETURN Secuencial + 1;
 END$$
 
-DROP FUNCTION IF EXISTS `secuencial_curso_especialidad`$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `secuencial_curso_especialidad` (`IdEspecialidad` INT) RETURNS INT(11) NO SQL
 BEGIN
 
@@ -1037,7 +1008,6 @@ BEGIN
 
 END$$
 
-DROP FUNCTION IF EXISTS `secuencial_hora_clase_dia_semana`$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `secuencial_hora_clase_dia_semana` (`IdDiaSemana` INT) RETURNS INT(11) NO SQL
 BEGIN
 
@@ -1054,7 +1024,6 @@ BEGIN
 
 END$$
 
-DROP FUNCTION IF EXISTS `secuencial_menu_nivel_perfil_padre`$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `secuencial_menu_nivel_perfil_padre` (`Nivel` INT, `IdPerfil` INT, `Padre` INT) RETURNS INT(11) NO SQL
 BEGIN
 	DECLARE Secuencial INT;
@@ -1071,7 +1040,6 @@ BEGIN
 	RETURN Secuencial + 1;
 END$$
 
-DROP FUNCTION IF EXISTS `secuencial_paralelo_periodo_lectivo`$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `secuencial_paralelo_periodo_lectivo` (`IdPeriodoLectivo` INT) RETURNS INT(11) NO SQL
 BEGIN
 
@@ -1104,7 +1072,6 @@ DELIMITER ;
 -- Estructura de tabla para la tabla `sw_aporte_curso_cierre`
 --
 
-DROP TABLE IF EXISTS `sw_aporte_curso_cierre`;
 CREATE TABLE `sw_aporte_curso_cierre` (
   `id_aporte_evaluacion` int(11) NOT NULL,
   `id_curso` int(11) NOT NULL,
@@ -1119,19 +1086,17 @@ CREATE TABLE `sw_aporte_curso_cierre` (
 -- Estructura de tabla para la tabla `sw_aporte_evaluacion`
 --
 
-DROP TABLE IF EXISTS `sw_aporte_evaluacion`;
 CREATE TABLE `sw_aporte_evaluacion` (
   `id_aporte_evaluacion` int(11) NOT NULL,
   `id_periodo_evaluacion` int(11) NOT NULL,
   `id_tipo_aporte` int(11) NOT NULL,
   `ap_nombre` varchar(24) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `ap_shortname` varchar(45) NOT NULL,
   `ap_abreviatura` varchar(8) NOT NULL,
   `ap_tipo` tinyint(4) NOT NULL,
   `ap_estado` varchar(1) NOT NULL,
   `ap_fecha_apertura` date NOT NULL,
-  `ap_fecha_cierre` date NOT NULL,
-  `ap_fecha_inicio` date NOT NULL,
-  `ap_fecha_fin` date NOT NULL
+  `ap_fecha_cierre` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1140,7 +1105,6 @@ CREATE TABLE `sw_aporte_evaluacion` (
 -- Estructura de tabla para la tabla `sw_area`
 --
 
-DROP TABLE IF EXISTS `sw_area`;
 CREATE TABLE `sw_area` (
   `id_area` int(11) NOT NULL,
   `ar_nombre` varchar(45) NOT NULL
@@ -1152,17 +1116,15 @@ CREATE TABLE `sw_area` (
 -- Estructura de tabla para la tabla `sw_asignatura`
 --
 
-DROP TABLE IF EXISTS `sw_asignatura`;
 CREATE TABLE `sw_asignatura` (
   `id_asignatura` int(11) NOT NULL,
   `id_area` int(11) NOT NULL,
-  `id_curso` int(11) NOT NULL,
   `id_tipo_asignatura` int(11) NOT NULL,
-  `as_nombre` varchar(84) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
-  `as_abreviatura` varchar(8) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
-  `as_carga_horaria` int(11) NOT NULL,
+  `as_nombre` varchar(84) COLLATE latin1_spanish_ci NOT NULL,
+  `as_abreviatura` varchar(12) COLLATE latin1_spanish_ci NOT NULL,
+  `as_shortname` varchar(45) COLLATE latin1_spanish_ci NOT NULL,
   `as_orden` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -1170,7 +1132,6 @@ CREATE TABLE `sw_asignatura` (
 -- Estructura de tabla para la tabla `sw_asignatura_curso`
 --
 
-DROP TABLE IF EXISTS `sw_asignatura_curso`;
 CREATE TABLE `sw_asignatura_curso` (
   `id_asignatura_curso` int(11) NOT NULL,
   `id_curso` int(11) NOT NULL,
@@ -1186,14 +1147,13 @@ CREATE TABLE `sw_asignatura_curso` (
 -- Estructura de tabla para la tabla `sw_asistencia_estudiante`
 --
 
-DROP TABLE IF EXISTS `sw_asistencia_estudiante`;
 CREATE TABLE `sw_asistencia_estudiante` (
   `id_asistencia_estudiante` int(11) NOT NULL,
+  `id_dia_semana` int(11) NOT NULL,
+  `id_hora_clase` int(11) NOT NULL,
   `id_estudiante` int(11) NOT NULL,
   `id_asignatura` int(11) NOT NULL,
   `id_paralelo` int(11) NOT NULL,
-  `id_dia_semana` int(11) NOT NULL,
-  `id_hora_clase` int(11) NOT NULL,
   `id_inasistencia` int(11) NOT NULL,
   `ae_fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -1204,7 +1164,6 @@ CREATE TABLE `sw_asistencia_estudiante` (
 -- Estructura de tabla para la tabla `sw_asociar_curso_superior`
 --
 
-DROP TABLE IF EXISTS `sw_asociar_curso_superior`;
 CREATE TABLE `sw_asociar_curso_superior` (
   `id_asociar_curso_superior` int(11) NOT NULL,
   `id_curso_inferior` int(11) DEFAULT NULL,
@@ -1218,7 +1177,6 @@ CREATE TABLE `sw_asociar_curso_superior` (
 -- Estructura de tabla para la tabla `sw_calificacion_comportamiento`
 --
 
-DROP TABLE IF EXISTS `sw_calificacion_comportamiento`;
 CREATE TABLE `sw_calificacion_comportamiento` (
   `id_paralelo` int(11) NOT NULL,
   `id_estudiante` int(11) NOT NULL,
@@ -1234,7 +1192,6 @@ CREATE TABLE `sw_calificacion_comportamiento` (
 -- Estructura de tabla para la tabla `sw_club`
 --
 
-DROP TABLE IF EXISTS `sw_club`;
 CREATE TABLE `sw_club` (
   `id_club` int(11) NOT NULL,
   `cl_nombre` varchar(32) NOT NULL,
@@ -1248,7 +1205,6 @@ CREATE TABLE `sw_club` (
 -- Estructura de tabla para la tabla `sw_club_docente`
 --
 
-DROP TABLE IF EXISTS `sw_club_docente`;
 CREATE TABLE `sw_club_docente` (
   `id_club_docente` int(11) NOT NULL,
   `id_club` int(11) NOT NULL,
@@ -1262,7 +1218,6 @@ CREATE TABLE `sw_club_docente` (
 -- Estructura de tabla para la tabla `sw_comentario`
 --
 
-DROP TABLE IF EXISTS `sw_comentario`;
 CREATE TABLE `sw_comentario` (
   `id_comentario` int(11) NOT NULL,
   `co_id_usuario` int(11) NOT NULL,
@@ -1279,7 +1234,6 @@ CREATE TABLE `sw_comentario` (
 -- Estructura de tabla para la tabla `sw_comportamiento`
 --
 
-DROP TABLE IF EXISTS `sw_comportamiento`;
 CREATE TABLE `sw_comportamiento` (
   `id_paralelo` int(11) NOT NULL,
   `id_estudiante` int(11) NOT NULL,
@@ -1293,7 +1247,6 @@ CREATE TABLE `sw_comportamiento` (
 -- Estructura de tabla para la tabla `sw_comportamiento_inspector`
 --
 
-DROP TABLE IF EXISTS `sw_comportamiento_inspector`;
 CREATE TABLE `sw_comportamiento_inspector` (
   `id_comportamiento_inspector` int(11) NOT NULL,
   `id_paralelo` int(11) NOT NULL,
@@ -1311,11 +1264,11 @@ CREATE TABLE `sw_comportamiento_inspector` (
 -- Estructura de tabla para la tabla `sw_curso`
 --
 
-DROP TABLE IF EXISTS `sw_curso`;
 CREATE TABLE `sw_curso` (
   `id_curso` int(11) NOT NULL,
   `id_especialidad` int(11) NOT NULL,
   `cu_nombre` varchar(128) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `cu_shortname` varchar(45) NOT NULL,
   `cu_orden` int(11) NOT NULL,
   `id_curso_superior` int(11) NOT NULL,
   `bol_proyectos` tinyint(1) NOT NULL,
@@ -1328,7 +1281,6 @@ CREATE TABLE `sw_curso` (
 -- Estructura de tabla para la tabla `sw_curso_superior`
 --
 
-DROP TABLE IF EXISTS `sw_curso_superior`;
 CREATE TABLE `sw_curso_superior` (
   `id_curso_superior` int(11) NOT NULL,
   `id_periodo_lectivo` int(11) NOT NULL,
@@ -1341,7 +1293,6 @@ CREATE TABLE `sw_curso_superior` (
 -- Estructura de tabla para la tabla `sw_dia_semana`
 --
 
-DROP TABLE IF EXISTS `sw_dia_semana`;
 CREATE TABLE `sw_dia_semana` (
   `id_dia_semana` int(11) NOT NULL,
   `id_periodo_lectivo` int(11) NOT NULL,
@@ -1352,10 +1303,24 @@ CREATE TABLE `sw_dia_semana` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `sw_distributivo`
+--
+
+CREATE TABLE `sw_distributivo` (
+  `id_distributivo` int(11) NOT NULL,
+  `id_periodo_lectivo` int(11) NOT NULL,
+  `id_malla_curricular` int(11) NOT NULL,
+  `id_paralelo` int(11) NOT NULL,
+  `id_asignatura` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `sw_escala_calificaciones`
 --
 
-DROP TABLE IF EXISTS `sw_escala_calificaciones`;
 CREATE TABLE `sw_escala_calificaciones` (
   `id_escala_calificaciones` int(11) NOT NULL,
   `id_periodo_lectivo` int(11) NOT NULL,
@@ -1373,7 +1338,6 @@ CREATE TABLE `sw_escala_calificaciones` (
 -- Estructura de tabla para la tabla `sw_escala_comportamiento`
 --
 
-DROP TABLE IF EXISTS `sw_escala_comportamiento`;
 CREATE TABLE `sw_escala_comportamiento` (
   `id_escala_comportamiento` int(11) NOT NULL,
   `ec_relacion` varchar(32) NOT NULL,
@@ -1391,7 +1355,6 @@ CREATE TABLE `sw_escala_comportamiento` (
 -- Estructura de tabla para la tabla `sw_escala_proyectos`
 --
 
-DROP TABLE IF EXISTS `sw_escala_proyectos`;
 CREATE TABLE `sw_escala_proyectos` (
   `id_escala_proyectos` int(11) NOT NULL,
   `ec_cualitativa` varchar(256) NOT NULL,
@@ -1409,14 +1372,12 @@ CREATE TABLE `sw_escala_proyectos` (
 -- Estructura de tabla para la tabla `sw_especialidad`
 --
 
-DROP TABLE IF EXISTS `sw_especialidad`;
 CREATE TABLE `sw_especialidad` (
   `id_especialidad` int(11) NOT NULL,
   `id_tipo_educacion` int(11) NOT NULL,
   `es_nombre` varchar(64) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   `es_figura` varchar(50) NOT NULL,
-  `es_orden` int(11) NOT NULL,
-  `es_abreviatura` varchar(5) NOT NULL
+  `es_abreviatura` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1425,7 +1386,6 @@ CREATE TABLE `sw_especialidad` (
 -- Estructura de tabla para la tabla `sw_estudiante`
 --
 
-DROP TABLE IF EXISTS `sw_estudiante`;
 CREATE TABLE `sw_estudiante` (
   `id_estudiante` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
@@ -1447,7 +1407,6 @@ CREATE TABLE `sw_estudiante` (
 -- Estructura de tabla para la tabla `sw_estudiante_club`
 --
 
-DROP TABLE IF EXISTS `sw_estudiante_club`;
 CREATE TABLE `sw_estudiante_club` (
   `id_estudiante` int(11) NOT NULL,
   `id_periodo_lectivo` int(11) NOT NULL,
@@ -1461,7 +1420,6 @@ CREATE TABLE `sw_estudiante_club` (
 -- Estructura de tabla para la tabla `sw_estudiante_periodo_lectivo`
 --
 
-DROP TABLE IF EXISTS `sw_estudiante_periodo_lectivo`;
 CREATE TABLE `sw_estudiante_periodo_lectivo` (
   `id_estudiante_periodo_lectivo` int(11) NOT NULL,
   `id_estudiante` int(11) NOT NULL,
@@ -1469,7 +1427,7 @@ CREATE TABLE `sw_estudiante_periodo_lectivo` (
   `id_paralelo` int(11) NOT NULL,
   `es_estado` char(1) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   `es_retirado` varchar(1) NOT NULL DEFAULT 'N'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1477,7 +1435,6 @@ CREATE TABLE `sw_estudiante_periodo_lectivo` (
 -- Estructura de tabla para la tabla `sw_foro`
 --
 
-DROP TABLE IF EXISTS `sw_foro`;
 CREATE TABLE `sw_foro` (
   `id_foro` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
@@ -1492,7 +1449,6 @@ CREATE TABLE `sw_foro` (
 -- Estructura de tabla para la tabla `sw_horario`
 --
 
-DROP TABLE IF EXISTS `sw_horario`;
 CREATE TABLE `sw_horario` (
   `id_horario` int(11) NOT NULL,
   `id_asignatura` int(11) NOT NULL,
@@ -1507,14 +1463,26 @@ CREATE TABLE `sw_horario` (
 -- Estructura de tabla para la tabla `sw_hora_clase`
 --
 
-DROP TABLE IF EXISTS `sw_hora_clase`;
 CREATE TABLE `sw_hora_clase` (
   `id_hora_clase` int(11) NOT NULL,
-  `id_dia_semana` int(11) NOT NULL,
+  `id_periodo_lectivo` int(11) NOT NULL,
   `hc_nombre` varchar(10) NOT NULL,
   `hc_hora_inicio` time NOT NULL,
   `hc_hora_fin` time NOT NULL,
-  `hc_ordinal` int(11) NOT NULL
+  `hc_ordinal` int(11) NOT NULL,
+  `hc_tipo` char(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sw_hora_dia`
+--
+
+CREATE TABLE `sw_hora_dia` (
+  `id_hora_dia` int(11) NOT NULL,
+  `id_dia_semana` int(11) NOT NULL,
+  `id_hora_clase` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1523,7 +1491,6 @@ CREATE TABLE `sw_hora_clase` (
 -- Estructura de tabla para la tabla `sw_inasistencia`
 --
 
-DROP TABLE IF EXISTS `sw_inasistencia`;
 CREATE TABLE `sw_inasistencia` (
   `id_inasistencia` int(11) NOT NULL,
   `in_nombre` varchar(32) NOT NULL,
@@ -1536,7 +1503,6 @@ CREATE TABLE `sw_inasistencia` (
 -- Estructura de tabla para la tabla `sw_indice_evaluacion`
 --
 
-DROP TABLE IF EXISTS `sw_indice_evaluacion`;
 CREATE TABLE `sw_indice_evaluacion` (
   `id_indice_evaluacion` int(11) NOT NULL,
   `valores_t` float NOT NULL,
@@ -1558,7 +1524,6 @@ CREATE TABLE `sw_indice_evaluacion` (
 -- Estructura de tabla para la tabla `sw_indice_evaluacion_def`
 --
 
-DROP TABLE IF EXISTS `sw_indice_evaluacion_def`;
 CREATE TABLE `sw_indice_evaluacion_def` (
   `id_indice_evaluacion` int(11) NOT NULL,
   `ie_descripcion` varchar(64) NOT NULL,
@@ -1572,15 +1537,32 @@ CREATE TABLE `sw_indice_evaluacion_def` (
 -- Estructura de tabla para la tabla `sw_institucion`
 --
 
-DROP TABLE IF EXISTS `sw_institucion`;
 CREATE TABLE `sw_institucion` (
   `id_institucion` int(11) NOT NULL,
   `in_nombre` varchar(64) NOT NULL,
   `in_direccion` varchar(45) NOT NULL,
   `in_telefono1` varchar(12) NOT NULL,
   `in_nom_rector` varchar(45) NOT NULL,
+  `in_nom_vicerrector` varchar(45) NOT NULL,
   `in_nom_secretario` varchar(45) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sw_malla_curricular`
+--
+
+CREATE TABLE `sw_malla_curricular` (
+  `id_malla_curricular` int(11) NOT NULL,
+  `id_periodo_lectivo` int(11) NOT NULL,
+  `id_paralelo` int(11) NOT NULL,
+  `id_asignatura` int(11) NOT NULL,
+  `ma_horas_presenciales` int(11) NOT NULL,
+  `ma_horas_autonomas` int(11) NOT NULL,
+  `ma_horas_tutorias` int(11) NOT NULL,
+  `ma_subtotal` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1588,7 +1570,6 @@ CREATE TABLE `sw_institucion` (
 -- Estructura de tabla para la tabla `sw_mensaje`
 --
 
-DROP TABLE IF EXISTS `sw_mensaje`;
 CREATE TABLE `sw_mensaje` (
   `id_mensaje` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
@@ -1603,7 +1584,6 @@ CREATE TABLE `sw_mensaje` (
 -- Estructura de tabla para la tabla `sw_menu`
 --
 
-DROP TABLE IF EXISTS `sw_menu`;
 CREATE TABLE `sw_menu` (
   `id_menu` int(11) NOT NULL,
   `id_perfil` int(11) NOT NULL,
@@ -1623,7 +1603,6 @@ CREATE TABLE `sw_menu` (
 -- Estructura de tabla para la tabla `sw_modalidad`
 --
 
-DROP TABLE IF EXISTS `sw_modalidad`;
 CREATE TABLE `sw_modalidad` (
   `id_modalidad` int(11) NOT NULL,
   `mo_nombre` varchar(32) NOT NULL
@@ -1635,7 +1614,6 @@ CREATE TABLE `sw_modalidad` (
 -- Estructura de tabla para la tabla `sw_paralelo`
 --
 
-DROP TABLE IF EXISTS `sw_paralelo`;
 CREATE TABLE `sw_paralelo` (
   `id_paralelo` int(11) NOT NULL,
   `id_curso` int(11) NOT NULL,
@@ -1649,7 +1627,6 @@ CREATE TABLE `sw_paralelo` (
 -- Estructura de tabla para la tabla `sw_paralelo_asignatura`
 --
 
-DROP TABLE IF EXISTS `sw_paralelo_asignatura`;
 CREATE TABLE `sw_paralelo_asignatura` (
   `id_paralelo_asignatura` int(11) NOT NULL,
   `id_paralelo` int(11) NOT NULL,
@@ -1664,7 +1641,6 @@ CREATE TABLE `sw_paralelo_asignatura` (
 -- Estructura de tabla para la tabla `sw_paralelo_inspector`
 --
 
-DROP TABLE IF EXISTS `sw_paralelo_inspector`;
 CREATE TABLE `sw_paralelo_inspector` (
   `id_paralelo_inspector` int(11) NOT NULL,
   `id_paralelo` int(11) NOT NULL,
@@ -1678,7 +1654,6 @@ CREATE TABLE `sw_paralelo_inspector` (
 -- Estructura de tabla para la tabla `sw_paralelo_tutor`
 --
 
-DROP TABLE IF EXISTS `sw_paralelo_tutor`;
 CREATE TABLE `sw_paralelo_tutor` (
   `id_paralelo_tutor` int(11) NOT NULL,
   `id_paralelo` int(11) NOT NULL,
@@ -1692,7 +1667,6 @@ CREATE TABLE `sw_paralelo_tutor` (
 -- Estructura de tabla para la tabla `sw_perfil`
 --
 
-DROP TABLE IF EXISTS `sw_perfil`;
 CREATE TABLE `sw_perfil` (
   `id_perfil` int(11) NOT NULL,
   `pe_nombre` varchar(16) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
@@ -1706,7 +1680,6 @@ CREATE TABLE `sw_perfil` (
 -- Estructura de tabla para la tabla `sw_periodo_estado`
 --
 
-DROP TABLE IF EXISTS `sw_periodo_estado`;
 CREATE TABLE `sw_periodo_estado` (
   `id_periodo_estado` int(11) NOT NULL,
   `pe_descripcion` varchar(15) NOT NULL
@@ -1718,13 +1691,13 @@ CREATE TABLE `sw_periodo_estado` (
 -- Estructura de tabla para la tabla `sw_periodo_evaluacion`
 --
 
-DROP TABLE IF EXISTS `sw_periodo_evaluacion`;
 CREATE TABLE `sw_periodo_evaluacion` (
   `id_periodo_evaluacion` int(11) NOT NULL,
   `id_periodo_lectivo` int(11) NOT NULL,
   `id_tipo_periodo` int(11) NOT NULL,
   `pe_nombre` varchar(24) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   `pe_abreviatura` varchar(6) NOT NULL,
+  `pe_shortname` varchar(15) NOT NULL,
   `pe_principal` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -1734,14 +1707,14 @@ CREATE TABLE `sw_periodo_evaluacion` (
 -- Estructura de tabla para la tabla `sw_periodo_lectivo`
 --
 
-DROP TABLE IF EXISTS `sw_periodo_lectivo`;
 CREATE TABLE `sw_periodo_lectivo` (
   `id_periodo_lectivo` int(11) NOT NULL,
   `id_periodo_estado` int(11) NOT NULL,
   `id_institucion` int(11) NOT NULL,
   `pe_anio_inicio` int(11) NOT NULL,
   `pe_anio_fin` int(11) NOT NULL,
-  `pe_estado` char(1) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL
+  `pe_estado` char(1) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `pe_fecha_inicio` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1750,7 +1723,6 @@ CREATE TABLE `sw_periodo_lectivo` (
 -- Estructura de tabla para la tabla `sw_permiso`
 --
 
-DROP TABLE IF EXISTS `sw_permiso`;
 CREATE TABLE `sw_permiso` (
   `id_permiso` int(11) NOT NULL,
   `id_menu` int(11) NOT NULL,
@@ -1767,7 +1739,6 @@ CREATE TABLE `sw_permiso` (
 -- Estructura de tabla para la tabla `sw_plan_rubrica`
 --
 
-DROP TABLE IF EXISTS `sw_plan_rubrica`;
 CREATE TABLE `sw_plan_rubrica` (
   `id_plan_rubrica` int(11) NOT NULL,
   `pr_tema` varchar(50) NOT NULL,
@@ -1782,14 +1753,14 @@ CREATE TABLE `sw_plan_rubrica` (
 -- Estructura de tabla para la tabla `sw_recomendaciones`
 --
 
-DROP TABLE IF EXISTS `sw_recomendaciones`;
 CREATE TABLE `sw_recomendaciones` (
+  `id_recomendacion` int(11) NOT NULL,
   `id_escala_calificaciones` int(11) NOT NULL,
-  `id_paralelo_asignatura` int(11) NOT NULL,
+  `id_paralelo` int(11) NOT NULL,
+  `id_asignatura` int(11) NOT NULL,
   `id_aporte_evaluacion` int(11) NOT NULL,
-  `re_recomendaciones` varchar(255) NOT NULL,
   `re_plan_de_mejora` varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1797,7 +1768,6 @@ CREATE TABLE `sw_recomendaciones` (
 -- Estructura de tabla para la tabla `sw_recomendaciones_anuales`
 --
 
-DROP TABLE IF EXISTS `sw_recomendaciones_anuales`;
 CREATE TABLE `sw_recomendaciones_anuales` (
   `id_escala_calificaciones` int(11) NOT NULL,
   `id_paralelo_asignatura` int(11) NOT NULL,
@@ -1811,7 +1781,6 @@ CREATE TABLE `sw_recomendaciones_anuales` (
 -- Estructura de tabla para la tabla `sw_recomendaciones_quimestrales`
 --
 
-DROP TABLE IF EXISTS `sw_recomendaciones_quimestrales`;
 CREATE TABLE `sw_recomendaciones_quimestrales` (
   `id_escala_calificaciones` int(11) NOT NULL,
   `id_paralelo_asignatura` int(11) NOT NULL,
@@ -1825,7 +1794,6 @@ CREATE TABLE `sw_recomendaciones_quimestrales` (
 -- Estructura de tabla para la tabla `sw_representante`
 --
 
-DROP TABLE IF EXISTS `sw_representante`;
 CREATE TABLE `sw_representante` (
   `id_representante` int(11) NOT NULL,
   `id_estudiante` int(11) DEFAULT NULL,
@@ -1848,7 +1816,6 @@ CREATE TABLE `sw_representante` (
 -- Estructura de tabla para la tabla `sw_respuesta`
 --
 
-DROP TABLE IF EXISTS `sw_respuesta`;
 CREATE TABLE `sw_respuesta` (
   `id_respuesta` int(11) NOT NULL,
   `id_tema` int(11) NOT NULL,
@@ -1864,7 +1831,6 @@ CREATE TABLE `sw_respuesta` (
 -- Estructura de tabla para la tabla `sw_rubrica_club`
 --
 
-DROP TABLE IF EXISTS `sw_rubrica_club`;
 CREATE TABLE `sw_rubrica_club` (
   `id_rubrica_club` int(11) NOT NULL,
   `id_estudiante` int(11) NOT NULL,
@@ -1879,7 +1845,6 @@ CREATE TABLE `sw_rubrica_club` (
 -- Estructura de tabla para la tabla `sw_rubrica_docente`
 --
 
-DROP TABLE IF EXISTS `sw_rubrica_docente`;
 CREATE TABLE `sw_rubrica_docente` (
   `id_rubrica_evaluacion` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
@@ -1898,7 +1863,6 @@ CREATE TABLE `sw_rubrica_docente` (
 -- Estructura de tabla para la tabla `sw_rubrica_estudiante`
 --
 
-DROP TABLE IF EXISTS `sw_rubrica_estudiante`;
 CREATE TABLE `sw_rubrica_estudiante` (
   `id_rubrica_estudiante` int(11) NOT NULL,
   `id_estudiante` int(11) NOT NULL,
@@ -1914,7 +1878,6 @@ CREATE TABLE `sw_rubrica_estudiante` (
 -- Estructura de tabla para la tabla `sw_rubrica_evaluacion`
 --
 
-DROP TABLE IF EXISTS `sw_rubrica_evaluacion`;
 CREATE TABLE `sw_rubrica_evaluacion` (
   `id_rubrica_evaluacion` int(11) NOT NULL,
   `id_aporte_evaluacion` int(11) NOT NULL,
@@ -1929,7 +1892,6 @@ CREATE TABLE `sw_rubrica_evaluacion` (
 -- Estructura de tabla para la tabla `sw_rubrica_evaluacion_club`
 --
 
-DROP TABLE IF EXISTS `sw_rubrica_evaluacion_club`;
 CREATE TABLE `sw_rubrica_evaluacion_club` (
   `id_rubrica_evaluacion_club` int(11) NOT NULL,
   `id_aporte_evaluacion` int(11) NOT NULL,
@@ -1943,7 +1905,6 @@ CREATE TABLE `sw_rubrica_evaluacion_club` (
 -- Estructura de tabla para la tabla `sw_rubrica_personalizada`
 --
 
-DROP TABLE IF EXISTS `sw_rubrica_personalizada`;
 CREATE TABLE `sw_rubrica_personalizada` (
   `id_rubrica_personalizada` int(11) NOT NULL,
   `id_rubrica_evaluacion` int(11) NOT NULL,
@@ -1961,7 +1922,6 @@ CREATE TABLE `sw_rubrica_personalizada` (
 -- Estructura de tabla para la tabla `sw_rubrica_proyecto`
 --
 
-DROP TABLE IF EXISTS `sw_rubrica_proyecto`;
 CREATE TABLE `sw_rubrica_proyecto` (
   `id_rubrica_proyecto` int(11) NOT NULL,
   `id_aporte_evaluacion` int(11) DEFAULT NULL,
@@ -1975,7 +1935,6 @@ CREATE TABLE `sw_rubrica_proyecto` (
 -- Estructura de tabla para la tabla `sw_submenu`
 --
 
-DROP TABLE IF EXISTS `sw_submenu`;
 CREATE TABLE `sw_submenu` (
   `id_submenu` int(11) NOT NULL,
   `id_menu` int(11) NOT NULL,
@@ -1991,7 +1950,6 @@ CREATE TABLE `sw_submenu` (
 -- Estructura de tabla para la tabla `sw_tarea`
 --
 
-DROP TABLE IF EXISTS `sw_tarea`;
 CREATE TABLE `sw_tarea` (
   `id` int(11) NOT NULL,
   `tarea` varchar(255) NOT NULL,
@@ -2005,7 +1963,6 @@ CREATE TABLE `sw_tarea` (
 -- Estructura de tabla para la tabla `sw_tema`
 --
 
-DROP TABLE IF EXISTS `sw_tema`;
 CREATE TABLE `sw_tema` (
   `id_tema` int(11) NOT NULL,
   `id_foro` int(11) NOT NULL,
@@ -2020,7 +1977,6 @@ CREATE TABLE `sw_tema` (
 -- Estructura de tabla para la tabla `sw_tipo_aporte`
 --
 
-DROP TABLE IF EXISTS `sw_tipo_aporte`;
 CREATE TABLE `sw_tipo_aporte` (
   `id_tipo_aporte` int(11) NOT NULL,
   `ta_descripcion` varchar(45) DEFAULT NULL
@@ -2032,7 +1988,6 @@ CREATE TABLE `sw_tipo_aporte` (
 -- Estructura de tabla para la tabla `sw_tipo_asignatura`
 --
 
-DROP TABLE IF EXISTS `sw_tipo_asignatura`;
 CREATE TABLE `sw_tipo_asignatura` (
   `id_tipo_asignatura` int(11) NOT NULL,
   `ta_descripcion` varchar(64) NOT NULL
@@ -2044,13 +1999,11 @@ CREATE TABLE `sw_tipo_asignatura` (
 -- Estructura de tabla para la tabla `sw_tipo_educacion`
 --
 
-DROP TABLE IF EXISTS `sw_tipo_educacion`;
 CREATE TABLE `sw_tipo_educacion` (
   `id_tipo_educacion` int(11) NOT NULL,
   `id_periodo_lectivo` int(11) NOT NULL,
   `te_nombre` varchar(48) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
-  `te_bachillerato` int(11) NOT NULL,
-  `te_orden` int(11) NOT NULL
+  `te_bachillerato` tinyint(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -2059,7 +2012,6 @@ CREATE TABLE `sw_tipo_educacion` (
 -- Estructura de tabla para la tabla `sw_tipo_periodo`
 --
 
-DROP TABLE IF EXISTS `sw_tipo_periodo`;
 CREATE TABLE `sw_tipo_periodo` (
   `id_tipo_periodo` int(11) NOT NULL,
   `tp_descripcion` varchar(45) NOT NULL
@@ -2071,7 +2023,6 @@ CREATE TABLE `sw_tipo_periodo` (
 -- Estructura de tabla para la tabla `sw_tipo_rubrica`
 --
 
-DROP TABLE IF EXISTS `sw_tipo_rubrica`;
 CREATE TABLE `sw_tipo_rubrica` (
   `id_tipo_rubrica` int(11) NOT NULL,
   `tr_descripcion` varchar(16) NOT NULL
@@ -2083,7 +2034,6 @@ CREATE TABLE `sw_tipo_rubrica` (
 -- Estructura de tabla para la tabla `sw_usuario`
 --
 
-DROP TABLE IF EXISTS `sw_usuario`;
 CREATE TABLE `sw_usuario` (
   `id_usuario` int(11) NOT NULL,
   `id_periodo_lectivo` int(11) NOT NULL,
@@ -2091,6 +2041,7 @@ CREATE TABLE `sw_usuario` (
   `us_titulo` varchar(5) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   `us_apellidos` varchar(32) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   `us_nombres` varchar(32) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `us_shortname` varchar(45) NOT NULL,
   `us_fullname` varchar(64) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   `us_login` varchar(24) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   `us_password` varchar(64) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
@@ -2098,7 +2049,7 @@ CREATE TABLE `sw_usuario` (
   `us_foto` varchar(100) NOT NULL,
   `us_alias` varchar(15) NOT NULL,
   `us_activo` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -2106,11 +2057,23 @@ CREATE TABLE `sw_usuario` (
 -- Estructura de tabla para la tabla `sw_usuario_perfil`
 --
 
-DROP TABLE IF EXISTS `sw_usuario_perfil`;
 CREATE TABLE `sw_usuario_perfil` (
   `id_usuario` int(11) NOT NULL,
   `id_perfil` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sw_valor_mes`
+--
+
+CREATE TABLE `sw_valor_mes` (
+  `id_valor_mes` int(11) NOT NULL,
+  `id_periodo_lectivo` int(11) NOT NULL,
+  `vm_mes` int(11) NOT NULL,
+  `vm_valor` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Índices para tablas volcadas
@@ -2140,7 +2103,8 @@ ALTER TABLE `sw_area`
 -- Indices de la tabla `sw_asignatura`
 --
 ALTER TABLE `sw_asignatura`
-  ADD PRIMARY KEY (`id_asignatura`);
+  ADD PRIMARY KEY (`id_asignatura`),
+  ADD KEY `id_area` (`id_area`);
 
 --
 -- Indices de la tabla `sw_asignatura_curso`
@@ -2155,12 +2119,12 @@ ALTER TABLE `sw_asignatura_curso`
 --
 ALTER TABLE `sw_asistencia_estudiante`
   ADD PRIMARY KEY (`id_asistencia_estudiante`),
-  ADD KEY `id_estudiante` (`id_estudiante`,`id_asignatura`,`id_paralelo`,`id_hora_clase`,`id_inasistencia`),
+  ADD KEY `id_estudiante` (`id_estudiante`,`id_asignatura`,`id_paralelo`,`id_inasistencia`),
   ADD KEY `id_asignatura` (`id_asignatura`),
   ADD KEY `id_paralelo` (`id_paralelo`),
-  ADD KEY `id_dia_semana` (`id_dia_semana`),
-  ADD KEY `id_hora_clase` (`id_hora_clase`),
-  ADD KEY `id_inasistencia` (`id_inasistencia`);
+  ADD KEY `id_inasistencia` (`id_inasistencia`),
+  ADD KEY `sw_asistencia_estudiante_ibfk_1` (`id_hora_clase`),
+  ADD KEY `id_dia_semana` (`id_dia_semana`);
 
 --
 -- Indices de la tabla `sw_asociar_curso_superior`
@@ -2226,6 +2190,17 @@ ALTER TABLE `sw_dia_semana`
   ADD KEY `id_periodo_lectivo` (`id_periodo_lectivo`);
 
 --
+-- Indices de la tabla `sw_distributivo`
+--
+ALTER TABLE `sw_distributivo`
+  ADD PRIMARY KEY (`id_distributivo`),
+  ADD KEY `id_asignatura` (`id_asignatura`),
+  ADD KEY `id_malla_curricular` (`id_malla_curricular`),
+  ADD KEY `id_paralelo` (`id_paralelo`),
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `id_periodo_lectivo` (`id_periodo_lectivo`);
+
+--
 -- Indices de la tabla `sw_escala_calificaciones`
 --
 ALTER TABLE `sw_escala_calificaciones`
@@ -2283,7 +2258,15 @@ ALTER TABLE `sw_horario`
 --
 ALTER TABLE `sw_hora_clase`
   ADD PRIMARY KEY (`id_hora_clase`),
-  ADD KEY `id_dia_semana` (`id_dia_semana`);
+  ADD KEY `id_periodo_lectivo` (`id_periodo_lectivo`);
+
+--
+-- Indices de la tabla `sw_hora_dia`
+--
+ALTER TABLE `sw_hora_dia`
+  ADD PRIMARY KEY (`id_hora_dia`),
+  ADD KEY `id_dia_semana` (`id_dia_semana`),
+  ADD KEY `id_hora_clase` (`id_hora_clase`);
 
 --
 -- Indices de la tabla `sw_inasistencia`
@@ -2308,6 +2291,15 @@ ALTER TABLE `sw_indice_evaluacion_def`
 --
 ALTER TABLE `sw_institucion`
   ADD PRIMARY KEY (`id_institucion`);
+
+--
+-- Indices de la tabla `sw_malla_curricular`
+--
+ALTER TABLE `sw_malla_curricular`
+  ADD PRIMARY KEY (`id_malla_curricular`),
+  ADD KEY `id_asignatura` (`id_asignatura`),
+  ADD KEY `id_paralelo` (`id_paralelo`),
+  ADD KEY `id_periodo_lectivo` (`id_periodo_lectivo`);
 
 --
 -- Indices de la tabla `sw_mensaje`
@@ -2403,8 +2395,11 @@ ALTER TABLE `sw_plan_rubrica`
 -- Indices de la tabla `sw_recomendaciones`
 --
 ALTER TABLE `sw_recomendaciones`
-  ADD KEY `id_escala_calificaciones` (`id_escala_calificaciones`,`id_paralelo_asignatura`),
-  ADD KEY `id_paralelo_asignatura` (`id_paralelo_asignatura`);
+  ADD PRIMARY KEY (`id_recomendacion`),
+  ADD KEY `id_escala_calificaciones` (`id_escala_calificaciones`),
+  ADD KEY `id_aporte_evaluacion` (`id_aporte_evaluacion`),
+  ADD KEY `id_asignatura` (`id_asignatura`),
+  ADD KEY `id_paralelo` (`id_paralelo`);
 
 --
 -- Indices de la tabla `sw_recomendaciones_quimestrales`
@@ -2549,6 +2544,13 @@ ALTER TABLE `sw_usuario_perfil`
   ADD PRIMARY KEY (`id_usuario`,`id_perfil`);
 
 --
+-- Indices de la tabla `sw_valor_mes`
+--
+ALTER TABLE `sw_valor_mes`
+  ADD PRIMARY KEY (`id_valor_mes`),
+  ADD KEY `id_periodo_lectivo` (`id_periodo_lectivo`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -2556,31 +2558,31 @@ ALTER TABLE `sw_usuario_perfil`
 -- AUTO_INCREMENT de la tabla `sw_aporte_evaluacion`
 --
 ALTER TABLE `sw_aporte_evaluacion`
-  MODIFY `id_aporte_evaluacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id_aporte_evaluacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT de la tabla `sw_area`
 --
 ALTER TABLE `sw_area`
-  MODIFY `id_area` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_area` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `sw_asignatura`
 --
 ALTER TABLE `sw_asignatura`
-  MODIFY `id_asignatura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157;
+  MODIFY `id_asignatura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=172;
 
 --
 -- AUTO_INCREMENT de la tabla `sw_asignatura_curso`
 --
 ALTER TABLE `sw_asignatura_curso`
-  MODIFY `id_asignatura_curso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=637;
+  MODIFY `id_asignatura_curso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=770;
 
 --
 -- AUTO_INCREMENT de la tabla `sw_asistencia_estudiante`
 --
 ALTER TABLE `sw_asistencia_estudiante`
-  MODIFY `id_asistencia_estudiante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12644;
+  MODIFY `id_asistencia_estudiante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
 
 --
 -- AUTO_INCREMENT de la tabla `sw_asociar_curso_superior`
@@ -2616,7 +2618,7 @@ ALTER TABLE `sw_comportamiento_inspector`
 -- AUTO_INCREMENT de la tabla `sw_curso`
 --
 ALTER TABLE `sw_curso`
-  MODIFY `id_curso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id_curso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT de la tabla `sw_curso_superior`
@@ -2628,13 +2630,19 @@ ALTER TABLE `sw_curso_superior`
 -- AUTO_INCREMENT de la tabla `sw_dia_semana`
 --
 ALTER TABLE `sw_dia_semana`
-  MODIFY `id_dia_semana` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_dia_semana` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT de la tabla `sw_distributivo`
+--
+ALTER TABLE `sw_distributivo`
+  MODIFY `id_distributivo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=453;
 
 --
 -- AUTO_INCREMENT de la tabla `sw_escala_calificaciones`
 --
 ALTER TABLE `sw_escala_calificaciones`
-  MODIFY `id_escala_calificaciones` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_escala_calificaciones` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `sw_escala_comportamiento`
@@ -2652,19 +2660,19 @@ ALTER TABLE `sw_escala_proyectos`
 -- AUTO_INCREMENT de la tabla `sw_especialidad`
 --
 ALTER TABLE `sw_especialidad`
-  MODIFY `id_especialidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_especialidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `sw_estudiante`
 --
 ALTER TABLE `sw_estudiante`
-  MODIFY `id_estudiante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1693;
+  MODIFY `id_estudiante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1699;
 
 --
 -- AUTO_INCREMENT de la tabla `sw_estudiante_periodo_lectivo`
 --
 ALTER TABLE `sw_estudiante_periodo_lectivo`
-  MODIFY `id_estudiante_periodo_lectivo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2472;
+  MODIFY `id_estudiante_periodo_lectivo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2660;
 
 --
 -- AUTO_INCREMENT de la tabla `sw_foro`
@@ -2676,13 +2684,19 @@ ALTER TABLE `sw_foro`
 -- AUTO_INCREMENT de la tabla `sw_horario`
 --
 ALTER TABLE `sw_horario`
-  MODIFY `id_horario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=997;
+  MODIFY `id_horario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1436;
 
 --
 -- AUTO_INCREMENT de la tabla `sw_hora_clase`
 --
 ALTER TABLE `sw_hora_clase`
-  MODIFY `id_hora_clase` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id_hora_clase` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `sw_hora_dia`
+--
+ALTER TABLE `sw_hora_dia`
+  MODIFY `id_hora_dia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT de la tabla `sw_inasistencia`
@@ -2709,6 +2723,12 @@ ALTER TABLE `sw_institucion`
   MODIFY `id_institucion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT de la tabla `sw_malla_curricular`
+--
+ALTER TABLE `sw_malla_curricular`
+  MODIFY `id_malla_curricular` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=384;
+
+--
 -- AUTO_INCREMENT de la tabla `sw_mensaje`
 --
 ALTER TABLE `sw_mensaje`
@@ -2718,7 +2738,7 @@ ALTER TABLE `sw_mensaje`
 -- AUTO_INCREMENT de la tabla `sw_menu`
 --
 ALTER TABLE `sw_menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=206;
 
 --
 -- AUTO_INCREMENT de la tabla `sw_modalidad`
@@ -2730,7 +2750,7 @@ ALTER TABLE `sw_modalidad`
 -- AUTO_INCREMENT de la tabla `sw_paralelo`
 --
 ALTER TABLE `sw_paralelo`
-  MODIFY `id_paralelo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `id_paralelo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT de la tabla `sw_paralelo_asignatura`
@@ -2742,13 +2762,13 @@ ALTER TABLE `sw_paralelo_asignatura`
 -- AUTO_INCREMENT de la tabla `sw_paralelo_inspector`
 --
 ALTER TABLE `sw_paralelo_inspector`
-  MODIFY `id_paralelo_inspector` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+  MODIFY `id_paralelo_inspector` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 
 --
 -- AUTO_INCREMENT de la tabla `sw_paralelo_tutor`
 --
 ALTER TABLE `sw_paralelo_tutor`
-  MODIFY `id_paralelo_tutor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id_paralelo_tutor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
 
 --
 -- AUTO_INCREMENT de la tabla `sw_perfil`
@@ -2766,13 +2786,13 @@ ALTER TABLE `sw_periodo_estado`
 -- AUTO_INCREMENT de la tabla `sw_periodo_evaluacion`
 --
 ALTER TABLE `sw_periodo_evaluacion`
-  MODIFY `id_periodo_evaluacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_periodo_evaluacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `sw_periodo_lectivo`
 --
 ALTER TABLE `sw_periodo_lectivo`
-  MODIFY `id_periodo_lectivo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_periodo_lectivo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `sw_permiso`
@@ -2785,6 +2805,12 @@ ALTER TABLE `sw_permiso`
 --
 ALTER TABLE `sw_plan_rubrica`
   MODIFY `id_plan_rubrica` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `sw_recomendaciones`
+--
+ALTER TABLE `sw_recomendaciones`
+  MODIFY `id_recomendacion` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `sw_representante`
@@ -2808,13 +2834,13 @@ ALTER TABLE `sw_rubrica_club`
 -- AUTO_INCREMENT de la tabla `sw_rubrica_estudiante`
 --
 ALTER TABLE `sw_rubrica_estudiante`
-  MODIFY `id_rubrica_estudiante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=632716;
+  MODIFY `id_rubrica_estudiante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=632935;
 
 --
 -- AUTO_INCREMENT de la tabla `sw_rubrica_evaluacion`
 --
 ALTER TABLE `sw_rubrica_evaluacion`
-  MODIFY `id_rubrica_evaluacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
+  MODIFY `id_rubrica_evaluacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=190;
 
 --
 -- AUTO_INCREMENT de la tabla `sw_rubrica_evaluacion_club`
@@ -2844,7 +2870,7 @@ ALTER TABLE `sw_submenu`
 -- AUTO_INCREMENT de la tabla `sw_tarea`
 --
 ALTER TABLE `sw_tarea`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT de la tabla `sw_tema`
@@ -2868,7 +2894,7 @@ ALTER TABLE `sw_tipo_asignatura`
 -- AUTO_INCREMENT de la tabla `sw_tipo_educacion`
 --
 ALTER TABLE `sw_tipo_educacion`
-  MODIFY `id_tipo_educacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_tipo_educacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `sw_tipo_periodo`
@@ -2886,7 +2912,13 @@ ALTER TABLE `sw_tipo_rubrica`
 -- AUTO_INCREMENT de la tabla `sw_usuario`
 --
 ALTER TABLE `sw_usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=594;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=595;
+
+--
+-- AUTO_INCREMENT de la tabla `sw_valor_mes`
+--
+ALTER TABLE `sw_valor_mes`
+  MODIFY `id_valor_mes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas
@@ -2899,10 +2931,33 @@ ALTER TABLE `sw_aporte_evaluacion`
   ADD CONSTRAINT `sw_aporte_evaluacion_ibfk_1` FOREIGN KEY (`id_periodo_evaluacion`) REFERENCES `sw_periodo_evaluacion` (`id_periodo_evaluacion`);
 
 --
+-- Filtros para la tabla `sw_asignatura`
+--
+ALTER TABLE `sw_asignatura`
+  ADD CONSTRAINT `sw_asignatura_ibfk_1` FOREIGN KEY (`id_area`) REFERENCES `sw_area` (`id_area`);
+
+--
+-- Filtros para la tabla `sw_asistencia_estudiante`
+--
+ALTER TABLE `sw_asistencia_estudiante`
+  ADD CONSTRAINT `sw_asistencia_estudiante_ibfk_1` FOREIGN KEY (`id_hora_clase`) REFERENCES `sw_hora_clase` (`id_hora_clase`),
+  ADD CONSTRAINT `sw_asistencia_estudiante_ibfk_2` FOREIGN KEY (`id_dia_semana`) REFERENCES `sw_dia_semana` (`id_dia_semana`);
+
+--
 -- Filtros para la tabla `sw_curso`
 --
 ALTER TABLE `sw_curso`
   ADD CONSTRAINT `sw_curso_ibfk_1` FOREIGN KEY (`id_especialidad`) REFERENCES `sw_especialidad` (`id_especialidad`);
+
+--
+-- Filtros para la tabla `sw_distributivo`
+--
+ALTER TABLE `sw_distributivo`
+  ADD CONSTRAINT `sw_distributivo_ibfk_1` FOREIGN KEY (`id_asignatura`) REFERENCES `sw_asignatura` (`id_asignatura`),
+  ADD CONSTRAINT `sw_distributivo_ibfk_2` FOREIGN KEY (`id_malla_curricular`) REFERENCES `sw_malla_curricular` (`id_malla_curricular`),
+  ADD CONSTRAINT `sw_distributivo_ibfk_3` FOREIGN KEY (`id_paralelo`) REFERENCES `sw_paralelo` (`id_paralelo`),
+  ADD CONSTRAINT `sw_distributivo_ibfk_4` FOREIGN KEY (`id_usuario`) REFERENCES `sw_usuario` (`id_usuario`),
+  ADD CONSTRAINT `sw_distributivo_ibfk_5` FOREIGN KEY (`id_periodo_lectivo`) REFERENCES `sw_periodo_lectivo` (`id_periodo_lectivo`);
 
 --
 -- Filtros para la tabla `sw_especialidad`
@@ -2911,16 +2966,45 @@ ALTER TABLE `sw_especialidad`
   ADD CONSTRAINT `sw_especialidad_ibfk_1` FOREIGN KEY (`id_tipo_educacion`) REFERENCES `sw_tipo_educacion` (`id_tipo_educacion`);
 
 --
+-- Filtros para la tabla `sw_estudiante_periodo_lectivo`
+--
+ALTER TABLE `sw_estudiante_periodo_lectivo`
+  ADD CONSTRAINT `sw_estudiante_periodo_lectivo_ibfk_1` FOREIGN KEY (`id_paralelo`) REFERENCES `sw_paralelo` (`id_paralelo`);
+
+--
 -- Filtros para la tabla `sw_hora_clase`
 --
 ALTER TABLE `sw_hora_clase`
-  ADD CONSTRAINT `sw_hora_clase_ibfk_1` FOREIGN KEY (`id_dia_semana`) REFERENCES `sw_dia_semana` (`id_dia_semana`);
+  ADD CONSTRAINT `sw_hora_clase_ibfk_1` FOREIGN KEY (`id_periodo_lectivo`) REFERENCES `sw_periodo_lectivo` (`id_periodo_lectivo`);
+
+--
+-- Filtros para la tabla `sw_hora_dia`
+--
+ALTER TABLE `sw_hora_dia`
+  ADD CONSTRAINT `sw_hora_dia_ibfk_1` FOREIGN KEY (`id_dia_semana`) REFERENCES `sw_dia_semana` (`id_dia_semana`),
+  ADD CONSTRAINT `sw_hora_dia_ibfk_2` FOREIGN KEY (`id_hora_clase`) REFERENCES `sw_hora_clase` (`id_hora_clase`);
+
+--
+-- Filtros para la tabla `sw_malla_curricular`
+--
+ALTER TABLE `sw_malla_curricular`
+  ADD CONSTRAINT `sw_malla_curricular_ibfk_1` FOREIGN KEY (`id_asignatura`) REFERENCES `sw_asignatura` (`id_asignatura`),
+  ADD CONSTRAINT `sw_malla_curricular_ibfk_2` FOREIGN KEY (`id_paralelo`) REFERENCES `sw_paralelo` (`id_paralelo`),
+  ADD CONSTRAINT `sw_malla_curricular_ibfk_3` FOREIGN KEY (`id_periodo_lectivo`) REFERENCES `sw_periodo_lectivo` (`id_periodo_lectivo`);
 
 --
 -- Filtros para la tabla `sw_paralelo`
 --
 ALTER TABLE `sw_paralelo`
   ADD CONSTRAINT `sw_paralelo_ibfk_1` FOREIGN KEY (`id_curso`) REFERENCES `sw_curso` (`id_curso`);
+
+--
+-- Filtros para la tabla `sw_recomendaciones`
+--
+ALTER TABLE `sw_recomendaciones`
+  ADD CONSTRAINT `sw_recomendaciones_ibfk_1` FOREIGN KEY (`id_aporte_evaluacion`) REFERENCES `sw_aporte_evaluacion` (`id_aporte_evaluacion`),
+  ADD CONSTRAINT `sw_recomendaciones_ibfk_2` FOREIGN KEY (`id_asignatura`) REFERENCES `sw_asignatura` (`id_asignatura`),
+  ADD CONSTRAINT `sw_recomendaciones_ibfk_3` FOREIGN KEY (`id_paralelo`) REFERENCES `sw_paralelo` (`id_paralelo`);
 
 --
 -- Filtros para la tabla `sw_rubrica_evaluacion`
@@ -2933,6 +3017,12 @@ ALTER TABLE `sw_rubrica_evaluacion`
 --
 ALTER TABLE `sw_tipo_educacion`
   ADD CONSTRAINT `sw_tipo_educacion_ibfk_1` FOREIGN KEY (`id_periodo_lectivo`) REFERENCES `sw_periodo_lectivo` (`id_periodo_lectivo`);
+
+--
+-- Filtros para la tabla `sw_valor_mes`
+--
+ALTER TABLE `sw_valor_mes`
+  ADD CONSTRAINT `sw_valor_mes_ibfk_1` FOREIGN KEY (`id_periodo_lectivo`) REFERENCES `sw_periodo_lectivo` (`id_periodo_lectivo`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

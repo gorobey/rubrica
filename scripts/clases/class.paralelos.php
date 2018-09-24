@@ -49,12 +49,12 @@ class paralelos extends MySQL
 		return $paralelo->te_bachillerato;
 	}
         
-        function obtenerIdCurso($id_paralelo)
-        {
-            $consulta = parent::consulta("SELECT cu.id_curso FROM sw_curso cu, sw_paralelo pa WHERE cu.id_curso = pa.id_curso AND pa.id_paralelo = $id_paralelo");
-            $resultado = parent::fetch_object($consulta);
-            return $resultado->id_curso;
-        }
+	function obtenerIdCurso($id_paralelo)
+	{
+		$consulta = parent::consulta("SELECT cu.id_curso FROM sw_curso cu, sw_paralelo pa WHERE cu.id_curso = pa.id_curso AND pa.id_paralelo = $id_paralelo");
+		$resultado = parent::fetch_object($consulta);
+		return $resultado->id_curso;
+	}
 
 	function obtenerNombreParalelo($id)
 	{
@@ -94,6 +94,12 @@ class paralelos extends MySQL
 	{
 		$consulta = parent::consulta("SELECT cu_nombre FROM sw_curso cu, sw_paralelo pa WHERE pa.id_curso = cu.id_curso AND pa.id_paralelo = $id");
 		return (parent::fetch_object($consulta)->cu_nombre);
+	}
+
+	function getNombreCurso($id)
+	{
+		$consulta = parent::consulta("SELECT cu_shortname FROM sw_curso cu, sw_paralelo pa WHERE pa.id_curso = cu.id_curso AND pa.id_paralelo = $id");
+		return (parent::fetch_object($consulta)->cu_shortname);
 	}
 
 	function insertarParalelo()

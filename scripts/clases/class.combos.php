@@ -43,6 +43,23 @@ class selects extends MySQL
 		return $cadena;
 	}
 	
+	function cargarOrdinalDiasSemana()
+	{
+		$consulta = parent::consulta("SELECT ds_ordinal, ds_nombre FROM sw_dia_semana WHERE id_periodo_lectivo = " . $this->id_periodo_lectivo . " ORDER BY ds_ordinal ASC");
+		$num_total_registros = parent::num_rows($consulta);
+		$cadena = "";
+		if($num_total_registros>0)
+		{
+			while($dia_semana = parent::fetch_assoc($consulta))
+			{
+				$code = $dia_semana["ds_ordinal"];
+				$name = $dia_semana["ds_nombre"];
+				$cadena .= "<option value=\"$code\">$name</option>";
+			}
+		}
+		return $cadena;
+	}
+
 	function cargarDiasSemana()
 	{
 		$consulta = parent::consulta("SELECT id_dia_semana, ds_nombre FROM sw_dia_semana WHERE id_periodo_lectivo = " . $this->id_periodo_lectivo . " ORDER BY ds_ordinal ASC");

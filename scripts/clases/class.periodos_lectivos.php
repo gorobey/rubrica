@@ -2,6 +2,26 @@
 
 class periodos_lectivos extends MySQL
 {
+	function getDiasLaborados($id_periodo_lectivo)
+	{
+		$qry = "SELECT pe_fecha_inicio FROM sw_periodo_lectivo WHERE id_periodo_lectivo = $id_periodo_lectivo";
+		$fecha_inicio = parent::fetch_object(parent::consulta($qry))->pe_fecha_inicio;
+		$fecha1 = strtotime($fecha_inicio);
+		$fecha2 = strtotime(date("Y-m-d"));
+		$cont_dias = 0;
+		for($fecha1;$fecha1<=$fecha2;$fecha1=strtotime('+1 day ' . date('Y-m-d',$fecha1))){ 
+			if((date('w',strtotime($fecha1))!=0) && (date('w',strtotime($fecha1))!=6)){
+				$cont_dias++; 
+			}
+		}
+		return $cont_dias;
+	}
+
+	function obtenerValorMes($id_periodo_lectivo, $mes)
+	{
+		$consulta = parent::consulta("SELECT vm_valor FROM sw_valor_mes WHERE id_periodo_lectivo = $id_periodo_lectivo AND vm_mes = $mes");
+		return parent::fetch_object($consulta)->vm_valor;
+	}
 	
 	function existePeriodoLectivo($anio_inicio,$anio_fin)
 	{
@@ -138,7 +158,7 @@ class periodos_lectivos extends MySQL
 				$cadena .= "<a href=\"#\" onclick=\"obtenerDetallePeriodoEvaluacion(".$id_periodo_evaluacion.")\">DETALLE DEL " . $nombre . "</a>";
 				$cadena .= "</td>\n";
 			}
-			$cadena .= "<td width=\"*\">&nbsp;</td>\n"; // Esto es para igualar el tamaño de las columnas
+			$cadena .= "<td width=\"*\">&nbsp;</td>\n"; // Esto es para igualar el tamaï¿½o de las columnas
 			$cadena .= "</tr>\n";
 		}
 		else {
@@ -167,7 +187,7 @@ class periodos_lectivos extends MySQL
 				$cadena .= "<a href=\"#\" onclick=\"obtenerDetalleAporteEvaluacion(".$id_aporte_evaluacion.")\">DETALLE DEL " . $nombre . "</a>";
 				$cadena .= "</td>\n";
 			}
-			$cadena .= "<td width=\"*\">&nbsp;</td>\n"; // Esto es para igualar el tamaño de las columnas
+			$cadena .= "<td width=\"*\">&nbsp;</td>\n"; // Esto es para igualar el tamaï¿½o de las columnas
 			$cadena .= "</tr>\n";
 		}
 		else {
@@ -218,7 +238,7 @@ class periodos_lectivos extends MySQL
 				$mensaje .= "<td width=\"*\" align=\"".$alineacion."\">OBSERVACION</td>\n";
 			}
 		}		
-		//$mensaje .= "<td width=\"*\">&nbsp;</td>\n"; // Esto es para igualar el tamaño de las columnas
+		//$mensaje .= "<td width=\"*\">&nbsp;</td>\n"; // Esto es para igualar el tamaï¿½o de las columnas
 		$mensaje .= "</tr>\n";
 		$mensaje .= "</table>\n";
 		return $mensaje;

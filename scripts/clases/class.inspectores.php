@@ -186,35 +186,35 @@ class inspectores extends MySQL
             return $cadena;
 	}
 
-        function contarParalelosInspector()
+    function contarParalelosInspector()
 	{
-            $consulta = parent::consulta("SELECT COUNT(*) AS num_registros FROM sw_paralelo_inspector WHERE id_usuario = " . $this->id_usuario . " AND id_periodo_lectivo = " . $this->id_periodo_lectivo);
-            return json_encode(parent::fetch_assoc($consulta));
+        $consulta = parent::consulta("SELECT COUNT(*) AS num_registros FROM sw_paralelo_inspector WHERE id_usuario = " . $this->id_usuario . " AND id_periodo_lectivo = " . $this->id_periodo_lectivo);
+        return json_encode(parent::fetch_assoc($consulta));
 	}
 
-       	function paginarParalelosInspector($cantidad_registros,$numero_pagina,$total_registros)
+    function paginarParalelosInspector($cantidad_registros,$numero_pagina,$total_registros)
 	{
-            $total_paginas = ceil($total_registros / $cantidad_registros);
-            $mensaje = "<< <span class='link_table'> <a href='#' onclick='paginarParalelosInspector(".$cantidad_registros.",1,".$total_registros.")'> Primero </a> </span>";
-            if (($numero_pagina - 1) > 0) {
-                $mensaje .= "<span class='link_table'> < <a href='#' onclick='paginarParalelosInspector(".$cantidad_registros.",".($numero_pagina-1).",".$total_registros.")'>Anterior</a></span>";
+        $total_paginas = ceil($total_registros / $cantidad_registros);
+        $mensaje = "<< <span class='link_table'> <a href='#' onclick='paginarParalelosInspector(".$cantidad_registros.",1,".$total_registros.")'> Primero </a> </span>";
+        if (($numero_pagina - 1) > 0) {
+            $mensaje .= "<span class='link_table'> < <a href='#' onclick='paginarParalelosInspector(".$cantidad_registros.",".($numero_pagina-1).",".$total_registros.")'>Anterior</a></span>";
+        } else {
+            $mensaje .= "<span> < Anterior</span>";
+        }
+        for ($i=1; $i <= $total_paginas; $i++) {
+            if ($numero_pagina == $i) {
+                $mensaje .= "<b> P&aacute;gina ".$numero_pagina."</b>";
             } else {
-                $mensaje .= "<span> < Anterior</span>";
+                $mensaje .= "<span class='link_table'> <a href='#' onclick='paginarParalelosInspector(".$cantidad_registros.",".$i.",".$total_registros.")'>$i</a></span>";
             }
-            for ($i=1; $i <= $total_paginas; $i++) {
-                if ($numero_pagina == $i) {
-                    $mensaje .= "<b> P&aacute;gina ".$numero_pagina."</b>";
-                } else {
-                    $mensaje .= "<span class='link_table'> <a href='#' onclick='paginarParalelosInspector(".$cantidad_registros.",".$i.",".$total_registros.")'>$i</a></span>";
-                }
-            }
-            if (($numero_pagina+1) <= $total_paginas) {
-                $mensaje .= " <span class='link_table'><a href='#' onclick='paginarParalelosInspector(".$cantidad_registros.",".($numero_pagina+1).",".$total_registros.")'>Siguiente</a> > </span>";
-            } else {
-                $mensaje .= " <span>Siguiente</a> > </span>";
-            }
-            $mensaje .= " <span class='link_table'><a href='#' onclick='paginarParalelosInspector(".$cantidad_registros.",".$total_paginas.",".$total_registros.")'>Ultimo</a></span> >>"; 
-            return $mensaje;
+        }
+        if (($numero_pagina+1) <= $total_paginas) {
+            $mensaje .= " <span class='link_table'><a href='#' onclick='paginarParalelosInspector(".$cantidad_registros.",".($numero_pagina+1).",".$total_registros.")'>Siguiente</a> > </span>";
+        } else {
+            $mensaje .= " <span>Siguiente</a> > </span>";
+        }
+        $mensaje .= " <span class='link_table'><a href='#' onclick='paginarParalelosInspector(".$cantidad_registros.",".$total_paginas.",".$total_registros.")'>Ultimo</a></span> >>"; 
+        return $mensaje;
 	}
 
 	function listarParalelosPorInspector($cantidad_registros, $numero_pagina)
@@ -259,7 +259,7 @@ class inspectores extends MySQL
             return $cadena;
 	}
 
-       	function mostrarTitulosIndices($alineacion)
+    function mostrarTitulosIndices($alineacion)
 	{
             if(!isset($alineacion)) $alineacion = "center";
 
@@ -285,7 +285,7 @@ class inspectores extends MySQL
             return $mensaje;
 	}
 
-       	function listarEstudiantesParaleloInspector($id_paralelo, $id_aporte_evaluacion, $id_curso)
+    function listarEstudiantesParaleloInspector($id_paralelo, $id_aporte_evaluacion, $id_curso)
 	{
             $consulta = parent::consulta("SELECT e.id_estudiante, "
                                        . "       e.es_apellidos, "
@@ -367,7 +367,7 @@ class inspectores extends MySQL
 		return($num_total_registros > 0);
 	}
 
-       	function insertarCalifComportamiento()
+    function insertarCalifComportamiento()
 	{
 		$qry = "INSERT INTO sw_comportamiento_inspector SET ";
 		$qry .= "id_estudiante = " . $this->id_estudiante . ",";
@@ -382,7 +382,7 @@ class inspectores extends MySQL
 		return $mensaje;
 	}
 
-        function actualizarCalifComportamiento()
+    function actualizarCalifComportamiento()
 	{
 		$qry = "UPDATE sw_comportamiento_inspector SET ";
 		$qry .= "co_calificacion = '" . $this->co_calificacion . "'";
@@ -397,7 +397,7 @@ class inspectores extends MySQL
 		return $mensaje;
 	}
 
-        function eliminarCalifComportamiento($id_comportamiento_inspector)
+    function eliminarCalifComportamiento($id_comportamiento_inspector)
 	{
 		$qry = "DELETE FROM sw_comportamiento_inspector ";
 		$qry .= " WHERE id_comportamiento_inspector = " . $id_comportamiento_inspector;
