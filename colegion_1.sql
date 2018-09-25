@@ -509,7 +509,8 @@ END$$
 CREATE DEFINER=`colegion`@`localhost` FUNCTION `calcular_promedio_aporte` (`IdAporteEvaluacion` INT, `IdEstudiante` INT, `IdParalelo` INT, `IdAsignatura` INT) RETURNS FLOAT NO SQL
 BEGIN
 	DECLARE done INT DEFAULT 0;
-	DECLARE promedio_aporte FLOAT; 	DECLARE IdRubricaEvaluacion INT;
+	DECLARE promedio_aporte FLOAT; 	
+  DECLARE IdRubricaEvaluacion INT;
 	DECLARE ReCalificacion FLOAT;
 	DECLARE Suma FLOAT DEFAULT 0;
 	DECLARE Contador INT DEFAULT 0;

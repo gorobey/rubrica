@@ -143,36 +143,10 @@ if($num_total_estudiantes > 0)
 			// Calculo e impresion del promedio de asignaturas
 			$promedioAsignaturas = $sumaPromedios / $total_asignaturas;
 			$objPHPExcel->getActiveSheet()->setCellValue($colPromedio.$row, number_format($promedioAsignaturas,2));
-			
-//			if($tipoEducacion==0) 
-//			{
-//				$objPHPExcel->getActiveSheet()->setCellValue($colAsignaturas[$contAsignatura].$rowAsignatura, "PROYECTOS ESCOLARES");
-//				
-//				// Aqui obtengo el id_club del estudiante
-//				$qry = $db->consulta("SELECT id_club FROM sw_estudiante_club WHERE id_estudiante = $id_estudiante AND id_periodo_lectivo = $id_periodo_lectivo");
-//				$total_registros = $db->num_rows($qry);
-//				if($total_registros > 0) {
-//					$registro = $db->fetch_assoc($qry);
-//					$id_club = $registro["id_club"];
-//				
-//					// Aca calculo el promedio quimestral del club al que pertenece el estudiante
-//					$query = $db->consulta("SELECT calcular_promedio_quimestre_club($id_periodo_evaluacion, $id_estudiante, $id_club) AS promedio");
-//					$calificacion = $db->fetch_assoc($query);
-//					$promedio_quimestral = $calificacion["promedio"];
-//
-//					// Aqui obtengo la equivalencia cualitativa para el promedio quimestral de clubes
-//					$qry = $db->consulta("SELECT ec_abreviatura FROM sw_escala_proyectos WHERE ec_nota_minima <= $promedio_quimestral AND ec_nota_maxima >= $promedio_quimestral");
-//					$registro = $db->fetch_assoc($qry);
-//					$equivalencia = $registro["ec_abreviatura"];
-//										
-//					$objPHPExcel->getActiveSheet()->setCellValue($colAsignaturas[$contAsignatura].$row, $equivalencia);
-//				} else {
-//					$objPHPExcel->getActiveSheet()->setCellValue($colAsignaturas[$contAsignatura].$row, number_format(0,2));
-//				}
-//			}
+
 		} // fin if $total_asignatura
 		$row++;
-	}
+	}	
 }
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
