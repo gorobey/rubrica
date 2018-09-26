@@ -108,8 +108,15 @@ switch ($numAsignaturas) {
 }
 
 // Aqui va el codigo para calcular el promedio del aporte de cada estudiante
+// Se utilizara el store procedure sp_calcular_prom_aporte que tiene los siguientes parametros:
+//    IdAporteEvaluacion : $id_aporte_evaluacion (parametro POST)
+//    IdParalelo : $id_paralelo (parametro POST)
 $db = new MySQL();
-$estudiantes = $db->consulta("SELECT e.id_estudiante, es_apellidos, es_nombres FROM sw_estudiante e, sw_estudiante_periodo_lectivo p WHERE e.id_estudiante = p.id_estudiante AND p.id_paralelo = $id_paralelo AND es_retirado = 'N' ORDER BY es_apellidos, es_nombres");
+$qry = "CALL sp_calcular_prom_aporte($id_aporte_evaluacion,$id_paralelo)";
+$res = $db->consulta($qry);
+
+$qry = "SELECT e.id_estudiante, es_apellidos, es_nombres, ep_promedio FROM sw_estudiante e, sw_estudiante_promedio_parcial ep WHERE e.id_estudiante = ep.id_estudiante AND id_paralelo = $id_paralelo ORDER BY ep_promedio DESC";
+$estudiantes = $db->consulta($qry);
 $num_total_estudiantes = $db->num_rows($estudiantes);
 if($num_total_estudiantes > 0)
 {
@@ -118,7 +125,8 @@ if($num_total_estudiantes > 0)
 	{
 		$id_estudiante = $estudiante["id_estudiante"];
 		$apellidos = $estudiante["es_apellidos"];
-		$nombres = $estudiante["es_nombres"];
+        $nombres = $estudiante["es_nombres"];
+        $promedio_aporte = $estudiante["ep_promedio"];
 
 		$objPHPExcel->getActiveSheet()->setCellValue('B'.$row, $apellidos." ".$nombres);
 		
@@ -126,7 +134,7 @@ if($num_total_estudiantes > 0)
 		$total_asignaturas = $db->num_rows($asignaturas);
 		if($total_asignaturas > 0)
 		{
-			$rowAsignatura = 6; $contAsignatura = 0; $sumaPromedios = 0;
+			$rowAsignatura = 6; $contAsignatura = 0;
 			while ($asignatura = $db->fetch_assoc($asignaturas))
 			{
 				// Aqui proceso los promedios de cada asignatura
@@ -139,7 +147,6 @@ if($num_total_estudiantes > 0)
 				$query = $db->consulta("SELECT calcular_promedio_aporte($id_aporte_evaluacion, $id_estudiante, $id_paralelo, $id_asignatura) AS promedio");
 				$calificacion = $db->fetch_assoc($query);
 				$promedio_quimestral = $calificacion["promedio"];
-				$sumaPromedios += $promedio_quimestral;
 				
 				$objPHPExcel->getActiveSheet()->setCellValue($colAsignaturas[$contAsignatura].$row, truncar($promedio_quimestral,2));
 
@@ -147,8 +154,7 @@ if($num_total_estudiantes > 0)
 			} // fin while $asignatura
 			
 			// Calculo e impresion del promedio de asignaturas
-			$promedioAsignaturas = $sumaPromedios / $total_asignaturas;
-			$objPHPExcel->getActiveSheet()->setCellValue($colPromedio.$row, truncar($promedioAsignaturas,2));
+			$objPHPExcel->getActiveSheet()->setCellValue($colPromedio.$row, truncar($promedio_aporte,2));
 
 		} // fin if $total_asignatura
 		$row++;
