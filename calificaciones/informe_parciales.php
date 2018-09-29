@@ -177,7 +177,10 @@
 			labels: escalas,
 			hoverinfo: "label",
 			type: 'pie',
-			sort: false
+			sort: false,
+			marker: {
+				colors: ['rgb(51, 153, 102)', 'rgb(255, 255, 0)', 'rgb(255, 192, 0)', 'rgb(255, 80, 80)']
+			}
 		}];
 
 		var layout = {

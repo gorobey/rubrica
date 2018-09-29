@@ -68,8 +68,7 @@ $nombrePeriodoLectivo = $periodo_lectivo->obtenerNombrePeriodoLectivo($id_period
 
 $paralelo = new paralelos();
 $id_curso = $paralelo->obtenerIdCurso($id_paralelo);
-$nomParalelo = $paralelo->obtenerNomParalelo($id_paralelo);
-$nombreParalelo = $paralelo->obtenerNombreParalelo($id_paralelo);
+$nombreParalelo = $paralelo->obtenerNomParalelo($id_paralelo);
 //$tipoEducacion = $paralelo->obtenerTipoEducacion($id_paralelo); // 0: Educacion Basica Superior  1: Bachillerato
 
 $cursos = new cursos();
@@ -98,23 +97,23 @@ $colAsignaturas = array('C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', '
 
 // Columna para escribir el promedio de las asignaturas
 switch ($numAsignaturas) {
-    case 6: $colPromedio = 'I'; $colNomPerLectivo = 'F'; $colComportamiento = 'J'; $colNomParalelo = 'I'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 1); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
-    case 7: $colPromedio = 'J'; $colNomPerLectivo = 'F'; $colComportamiento = 'K'; $colNomParalelo = 'J'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 1); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
-    case 8: $colPromedio = 'K'; $colNomPerLectivo = 'F'; $colComportamiento = 'M'; $colNomParalelo = 'K'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 1); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
-    case 9: $colPromedio = 'L'; $colNomPerLectivo = 'F'; $colComportamiento = 'M'; $colNomParalelo = 'L'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 1); $colNomRector = 'D61'; $colNomSecre = 'O61'; break;
-    case 10: $colPromedio = 'M'; $colNomPerLectivo = 'F'; $colComportamiento = 'O'; $colNomParalelo = 'M'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 2); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
-    case 11: $colPromedio = 'N'; $colNomPerLectivo = 'F'; $colComportamiento = 'P'; $colNomParalelo = 'N'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 2); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
-    case 12: $colPromedio = 'O'; $colNomPerLectivo = 'F'; $colComportamiento = 'P'; $colNomParalelo = 'O'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 1); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
-    case 13: $colPromedio = 'P'; $colNomPerLectivo = 'F'; $colComportamiento = 'Q'; $colNomParalelo = 'P'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 2); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
-    case 14: $colPromedio = 'Q'; $colNomPerLectivo = 'F'; $colComportamiento = 'R'; $colNomParalelo = 'Q'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 2); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
-    case 15: $colPromedio = 'R'; $colNomPerLectivo = 'I'; $colComportamiento = 'S'; $colNomParalelo = 'R'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 2); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
-    case 16: $colPromedio = 'S'; $colNomPerLectivo = 'I'; $colComportamiento = 'T'; $colNomParalelo = 'S'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 2); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
-    case 17: $colPromedio = 'T'; $colNomPerLectivo = 'F'; $colComportamiento = 'V'; $colNomParalelo = 'T'; $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 2); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 6: $colPromedio = 'I'; $colNomPerLectivo = 'F'; $colComportamiento = 'J'; $colNomParalelo = 'I'; $nombreCurso = $paralelo->getNombreCurso($id_paralelo); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 7: $colPromedio = 'J'; $colNomPerLectivo = 'F'; $colComportamiento = 'K'; $colNomParalelo = 'J'; $nombreCurso = $paralelo->getNombreCurso($id_paralelo); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 8: $colPromedio = 'K'; $colNomPerLectivo = 'F'; $colComportamiento = 'M'; $colNomParalelo = 'K'; $nombreCurso = $paralelo->getNombreCurso($id_paralelo); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 9: $colPromedio = 'L'; $colNomPerLectivo = 'F'; $colComportamiento = 'M'; $colNomParalelo = 'L'; $nombreCurso = $paralelo->getNombreCurso($id_paralelo); $colNomRector = 'D61'; $colNomSecre = 'O61'; break;
+    case 10: $colPromedio = 'M'; $colNomPerLectivo = 'F'; $colComportamiento = 'O'; $colNomParalelo = 'M'; $nombreCurso = $paralelo->getNombreCurso($id_paralelo); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 11: $colPromedio = 'N'; $colNomPerLectivo = 'F'; $colComportamiento = 'P'; $colNomParalelo = 'N'; $nombreCurso = $paralelo->getNombreCurso($id_paralelo); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 12: $colPromedio = 'O'; $colNomPerLectivo = 'F'; $colComportamiento = 'P'; $colNomParalelo = 'O'; $nombreCurso = $paralelo->getNombreCurso($id_paralelo); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 13: $colPromedio = 'P'; $colNomPerLectivo = 'F'; $colComportamiento = 'Q'; $colNomParalelo = 'P'; $nombreCurso = $paralelo->getNombreCurso($id_paralelo); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 14: $colPromedio = 'Q'; $colNomPerLectivo = 'F'; $colComportamiento = 'R'; $colNomParalelo = 'Q'; $nombreCurso = $paralelo->getNombreCurso($id_paralelo); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 15: $colPromedio = 'R'; $colNomPerLectivo = 'I'; $colComportamiento = 'S'; $colNomParalelo = 'R'; $nombreCurso = $paralelo->getNombreCurso($id_paralelo); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 16: $colPromedio = 'S'; $colNomPerLectivo = 'I'; $colComportamiento = 'T'; $colNomParalelo = 'S'; $nombreCurso = $paralelo->getNombreCurso($id_paralelo); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 17: $colPromedio = 'T'; $colNomPerLectivo = 'F'; $colComportamiento = 'V'; $colNomParalelo = 'T'; $nombreCurso = $paralelo->getNombreCurso($id_paralelo); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
 }
 
 $objPHPExcel->getActiveSheet()->setCellValue('A10', $nombreCurso);
 $objPHPExcel->getActiveSheet()->setCellValue($colNomPerLectivo.'9', $nombrePeriodoLectivo);
-$objPHPExcel->getActiveSheet()->setCellValue($colNomParalelo.'12', 'PARALELO '.$nomParalelo);
+$objPHPExcel->getActiveSheet()->setCellValue($colNomParalelo.'12', 'PARALELO '.str_replace('"','',$nombreParalelo));
 
 $objPHPExcel->getActiveSheet()->setCellValue($colNomRector, $nombreRector);
 $objPHPExcel->getActiveSheet()->setCellValue($colNomSecre, $nombreSecretario);
@@ -249,13 +248,13 @@ $docentes = $db->consulta("SELECT us_titulo,
 								  us_apellidos, 
 								  us_nombres, 
 								  as_nombre 
-							 FROM sw_paralelo_asignatura pa,
+							 FROM sw_distributivo di,
 							      sw_asignatura_curso ac, 
 							 	  sw_usuario u, 
 								  sw_asignatura a 
-							WHERE u.id_usuario = pa.id_usuario 
-							  AND a.id_asignatura = pa.id_asignatura
-							  AND ac.id_asignatura = pa.id_asignatura
+							WHERE u.id_usuario = di.id_usuario 
+							  AND a.id_asignatura = di.id_asignatura
+							  AND ac.id_asignatura = di.id_asignatura
 							  AND ac.id_curso = $id_curso 
 							  AND id_paralelo = $id_paralelo");
 $num_total_docentes = $db->num_rows($docentes);
@@ -271,7 +270,7 @@ if ($num_total_docentes > 0) {
 }
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-$objWriter->save("CUADRO QUIMESTRAL " . $nombreCurso . " " . str_replace('"','',$nomParalelo) . " " . $nombrePeriodoLectivo . ".xls");
+$objWriter->save("CUADRO QUIMESTRAL " . $nombreCurso . str_replace('"','',$nombreParalelo) . " " . $nombrePeriodoLectivo . ".xls");
 
 // Codigo para abrir la caja de dialogo Abrir o Guardar Archivo
 
@@ -280,7 +279,7 @@ $objWriter->save("CUADRO QUIMESTRAL " . $nombreCurso . " " . str_replace('"','',
 	header ("Cache-Control: no-cache, must-revalidate");  
 	header ("Pragma: no-cache");  
 	header ("Content-type: application/x-msexcel");
-	header ("Content-Disposition: attachment; filename=\"" . "CUADRO QUIMESTRAL " . $nombreCurso . " " . str_replace('"','',$nomParalelo) . " " . $nombrePeriodoLectivo . ".xls" . "\"" );
-	readfile("CUADRO QUIMESTRAL " . $nombreCurso . " " . str_replace('"','',$nomParalelo) . " " . $nombrePeriodoLectivo . ".xls");
+	header ("Content-Disposition: attachment; filename=\"" . "CUADRO QUIMESTRAL " . $nombreCurso . str_replace('"','',$nombreParalelo) . " " . $nombrePeriodoLectivo . ".xls" . "\"" );
+	readfile("CUADRO QUIMESTRAL " . $nombreCurso . str_replace('"','',$nombreParalelo) . " " . $nombrePeriodoLectivo . ".xls");
 
 ?>

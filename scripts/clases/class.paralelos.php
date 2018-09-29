@@ -25,17 +25,6 @@ class paralelos extends MySQL
 		return $escala["ec_equivalencia"];            
 	}
 
-	function truncateFloat($number, $digitos) {
-		/*$base = 10;
-		$numero = $number * pow($base, $digitos);
-		$decimales = explode(".", $numero);
-		return $decimales[0] / pow($base, $digitos);*/
-		if ($number > 0)
-			return round($number - 5 * pow(10, -($digitos + 1)), $digitos);
-		else
-			return $number;
-	}
-
 	function obtenerParalelo()
 	{
 		$consulta = parent::consulta("SELECT id_paralelo, p.id_curso, es_figura, cu_nombre, pa_nombre FROM sw_paralelo p, sw_curso c, sw_especialidad e WHERE c.id_curso = p.id_curso AND e.id_especialidad = c.id_especialidad AND id_paralelo = " . $this->code);
@@ -232,7 +221,7 @@ class paralelos extends MySQL
 
 	function contarAsignaturas($id_paralelo)
 	{
-		$consulta = parent::consulta("SELECT COUNT(*) AS total_registros FROM sw_paralelo_asignatura WHERE id_paralelo = $id_paralelo");
+		$consulta = parent::consulta("SELECT COUNT(*) AS total_registros FROM sw_malla_curricular WHERE id_paralelo = $id_paralelo");
 		$registro = parent::fetch_assoc($consulta);
 		return $registro["total_registros"];
 	}
