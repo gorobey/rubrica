@@ -126,7 +126,7 @@ if($num_total_estudiantes > 0)
 		$id_estudiante = $estudiante["id_estudiante"];
 		$apellidos = $estudiante["es_apellidos"];
         $nombres = $estudiante["es_nombres"];
-        $promedio_aporte = $estudiante["ep_promedio"];
+        $promedio_aporte_total = $estudiante["ep_promedio"];
 
 		$objPHPExcel->getActiveSheet()->setCellValue('B'.$row, $apellidos." ".$nombres);
 		
@@ -143,18 +143,18 @@ if($num_total_estudiantes > 0)
 				
 				$objPHPExcel->getActiveSheet()->setCellValue($colAsignaturas[$contAsignatura].$rowAsignatura, $asignatura);
 				
-				// Aca voy a llamar a una funcion almacenada que calcula el promedio quimestral de la asignatura
+				// Aca voy a llamar a una funcion almacenada que calcula el promedio del parcial de la asignatura
 				$query = $db->consulta("SELECT calcular_promedio_aporte($id_aporte_evaluacion, $id_estudiante, $id_paralelo, $id_asignatura) AS promedio");
 				$calificacion = $db->fetch_assoc($query);
-				$promedio_quimestral = $calificacion["promedio"];
+				$promedio_aporte = $calificacion["promedio"];
 				
-				$objPHPExcel->getActiveSheet()->setCellValue($colAsignaturas[$contAsignatura].$row, truncar($promedio_quimestral,2));
+				$objPHPExcel->getActiveSheet()->setCellValue($colAsignaturas[$contAsignatura].$row, truncar($promedio_aporte,2));
 
 				$contAsignatura++;
 			} // fin while $asignatura
 			
 			// Calculo e impresion del promedio de asignaturas
-			$objPHPExcel->getActiveSheet()->setCellValue($colPromedio.$row, truncar($promedio_aporte,2));
+			$objPHPExcel->getActiveSheet()->setCellValue($colPromedio.$row, truncar($promedio_aporte_total,2));
 
 		} // fin if $total_asignatura
 		$row++;
