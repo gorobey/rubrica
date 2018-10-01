@@ -123,7 +123,7 @@ class aportes_evaluacion extends MySQL
 	
 	function asociarAporteCurso()
 	{
-		//Primero compruebo que el registro no est� insertado...
+		//Primero compruebo que el registro no está insertado...
 		$qry = "SELECT * FROM sw_aporte_curso_cierre WHERE id_curso = " . $this->id_curso . " AND id_aporte_evaluacion = " . $this->code;
 		$consulta = parent::consulta($qry);
 		$num_total_registros = parent::num_rows($consulta);

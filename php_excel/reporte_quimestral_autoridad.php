@@ -151,7 +151,7 @@ if($num_total_estudiantes > 0)
 
                 $objPHPExcel->getActiveSheet()->setCellValue($colAsignaturas[$contAsignatura].$row, truncar($promedio_quimestral,2));
                 
-                $contAsignatura++;                
+                $contAsignatura++;
 			} // fin while $asignatura
 			
 			// Calculo e impresion del promedio de asignaturas
