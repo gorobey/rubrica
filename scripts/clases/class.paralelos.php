@@ -16,6 +16,12 @@ class paralelos extends MySQL
 	var $id_aporte_evaluacion = 0;
 	var $id_periodo_evaluacion = 0;
 
+	function truncar($numero, $digitos)
+	{
+		$truncar = pow(10,$digitos);
+		return intval($numero * $truncar) / $truncar;
+	}
+
 	function equivalencia($promedio) {
 		$record = parent::consulta("SELECT ec_equivalencia"
 					. " FROM sw_escala_comportamiento"
@@ -632,7 +638,7 @@ class paralelos extends MySQL
 										}
 									}
 									// Aqui calculo el promedio del aporte de evaluacion
-									$promedio = $this->truncateFloat($suma_rubricas / $contador_rubricas,2);
+									$promedio = $this->truncar($suma_rubricas / $contador_rubricas,2);
 									if($contador_aportes <= $num_total_registros - 1) {
 										$suma_promedios += $promedio;
 									} else {
@@ -787,7 +793,7 @@ class paralelos extends MySQL
 										}
 									}
 									// Aqui calculo el promedio del aporte de evaluacion
-									$promedio = $this->truncateFloat($suma_rubricas / $contador_rubricas,2);
+									$promedio = $this->truncar($suma_rubricas / $contador_rubricas,2);
 									if($contador_aportes <= $num_total_registros - 1) {
 										$suma_promedios += $promedio;
 									} else {
@@ -1260,7 +1266,7 @@ class paralelos extends MySQL
 									}
 								}
 								// Aqui calculo el promedio del aporte de evaluacion
-								$promedio = $this->truncateFloat($suma_rubricas / $contador_rubricas,2);
+								$promedio = $this->truncar($suma_rubricas / $contador_rubricas,2);
 								if($contador_aportes <= $num_total_registros - 1) {
 									$suma_promedios += $promedio;
 								} else {
@@ -1269,16 +1275,16 @@ class paralelos extends MySQL
 							}
 						}
 						// Aqui se calculan las calificaciones del periodo de evaluacion
-						$promedio_aportes = $this->truncateFloat($suma_promedios / ($contador_aportes - 1),2);
-						$ponderado_aportes = $this->truncateFloat(0.8 * $promedio_aportes,2);
-						$ponderado_examen = $this->truncateFloat(0.2 * $examen_quimestral,2);
+						$promedio_aportes = $this->truncar($suma_promedios / ($contador_aportes - 1),2);
+						$ponderado_aportes = $this->truncar(0.8 * $promedio_aportes,2);
+						$ponderado_examen = $this->truncar(0.2 * $examen_quimestral,2);
 						$calificacion_quimestral = $ponderado_aportes + $ponderado_examen;
 						$suma_periodos += $calificacion_quimestral;
 						$cadena .= "<td width=\"5%\" align=\"left\">".number_format($calificacion_quimestral,2)."</td>\n";
 					} // fin while $periodo_evaluacion
 				} // fin if $periodo_evaluacion
 				// Calculo la suma y el promedio de los dos quimestres
-				$promedio_quimestral = $this->truncateFloat($suma_periodos / $contador_periodos,2);
+				$promedio_quimestral = $this->truncar($suma_periodos / $contador_periodos,2);
 				$promedio_periodos = $promedio_quimestral;
 				$examen_supletorio = 0; $examen_remedial = 0; $examen_de_gracia = 0;
 				if($promedio_periodos >= 5 && $promedio_periodos < 7) {
@@ -1371,7 +1377,7 @@ class paralelos extends MySQL
 					} // fin while $periodo_evaluacion
 				} // fin if $periodo_evaluacion
 				// Calculo la suma y el promedio de los dos quimestres
-				$promedio_quimestral = $this->truncateFloat($suma_periodos / $contador_periodos,2);
+				$promedio_quimestral = $this->truncar($suma_periodos / $contador_periodos,2);
 
                 //$equiv_final = equiv_anual($promedio_periodos, $retirado, $terminacion);
 				$cadena .= "<td width=\"5%\" align=\"left\">".number_format($suma_periodos,2)."</td>\n"; // Suma
@@ -2120,7 +2126,7 @@ class paralelos extends MySQL
 								$suma_rubricas += $calificacion;
 							}
 						}
-						$promedio = $this->truncateFloat($suma_rubricas / $contador_rubricas,2);
+						$promedio = $this->truncar($suma_rubricas / $contador_rubricas,2);
 						if($contador_aportes < $num_total_registros)
 						{
 							if($tipo_reporte==1)
@@ -2133,9 +2139,9 @@ class paralelos extends MySQL
 						}
 					}
 					// Aqui debo calcular el ponderado de los promedios parciales
-					$promedio_aportes = $this->truncateFloat($suma_promedios / ($contador_aportes - 1),2);
-					$ponderado_aportes = $this->truncateFloat(0.8 * $promedio_aportes,2);
-					$ponderado_examen = $this->truncateFloat(0.2 * $examen_quimestral,2);
+					$promedio_aportes = $this->truncar($suma_promedios / ($contador_aportes - 1),2);
+					$ponderado_aportes = $this->truncar(0.8 * $promedio_aportes,2);
+					$ponderado_examen = $this->truncar(0.2 * $examen_quimestral,2);
 					$calificacion_quimestral = $ponderado_aportes + $ponderado_examen;
 					if($tipo_reporte==1) 
 					{
@@ -2673,7 +2679,7 @@ class paralelos extends MySQL
 							$cadena .= " disabled /></td>\n";
 						}
 					}
-					$promedio = $this->truncateFloat($suma_rubricas / $contador_rubricas,2);
+					$promedio = $this->truncar($suma_rubricas / $contador_rubricas,2);
 					$cadena .= "<td width=\"60px\" align=\"left\"><input type=\"text\" class=\"inputPequenio\" id=\"promedio_".$contador."\" disabled value=\"".number_format($promedio,2)."\" style=\"color:#666;\" /></td>\n";
 					// Aqui va el codigo para obtener el comportamiento
 					$qry = parent::consulta("SELECT co_cualitativa FROM sw_calificacion_comportamiento WHERE id_estudiante = ".$paralelos["id_estudiante"]." AND id_paralelo = ".$this->id_paralelo." AND id_asignatura = ".$this->id_asignatura. " AND id_aporte_evaluacion = ".$this->id_aporte_evaluacion);

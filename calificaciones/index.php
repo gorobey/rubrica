@@ -355,10 +355,14 @@
 
     function mostrarLeyendasRubricas(id_aporte_evaluacion){
         
-        $.post("calificaciones/mostrar_leyendas_rubricas.php", {id_aporte_evaluacion: id_aporte_evaluacion },
-        function(resultado){
-                $("#leyendas_rubricas").html(resultado);
-            }
+		$.post("calificaciones/mostrar_leyendas_rubricas.php", 
+			{
+				id_aporte_evaluacion: id_aporte_evaluacion,
+				id_periodo_evaluacion: $("#cboPeriodosEvaluacion").val()
+			},
+			function(resultado){
+				$("#leyendas_rubricas").html(resultado);
+			}
         );
     }
 
