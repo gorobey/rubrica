@@ -283,7 +283,7 @@ if($num_total_registros > 0)
 		$suma_promedio += $promedio_comp;
 	}
 
-	$promedio_anual = $suma_promedio / $num_total_registros;
+	$promedio_anual = ceil($suma_promedio / $num_total_registros);
 }
 
 $query = $db->consulta("SELECT ec_equivalencia, ec_cualitativa FROM sw_escala_comportamiento WHERE ec_correlativa = $promedio_anual");

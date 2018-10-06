@@ -92,7 +92,7 @@
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="admin2.php?id_usuario=<?php echo $id_usuario?>&id_perfil=<?php echo $id_perfil?>&enlace=central.php&nivel=0">SIAE</a>
+				<a class="navbar-brand" href="admin2.php?id_usuario=<?php echo $id_usuario?>&id_perfil=<?php echo $id_perfil?>&enlace=central.php&nivel=0">SIAE <?php echo $nombrePeriodoLectivo; ?></a>
 			</div>
 			<ul class="nav navbar-nav">
 				<!-- <li class="active"><a href="admin2.php?id_usuario=$id_usuario&id_perfil=$id_perfil">Inicio</a></li> -->
