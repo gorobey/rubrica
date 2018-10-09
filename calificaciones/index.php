@@ -32,7 +32,7 @@
 			$("#div_estado_rubrica").html("");
 			$("#div_fecha_cierre").html("");
 			$("#mensaje_rubrica").html("");
-			mostrarTitulosRubricas();
+			//mostrarTitulosRubricas();
 			document.getElementById('id_aporte_evaluacion').value = $(this).val();
 			$("#mensaje_rubrica").html("");
 			$("#ver_reporte").hide();
@@ -394,6 +394,7 @@
 
 	function seleccionarParalelo(id_curso, id_paralelo, id_asignatura, asignatura, curso, paralelo)
 	{
+		mostrarTitulosRubricas();
 		document.getElementById("id_asignatura").value = id_asignatura;
 		document.getElementById("id_paralelo").value = id_paralelo;
 		document.getElementById("id_periodo_evaluacion").value = document.getElementById("cboPeriodosEvaluacion").value;

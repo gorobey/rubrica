@@ -13,6 +13,10 @@
                 <select id="cboApoEval" class="form-control">
                     <option value="0">Seleccione ...</option>
                 </select>
+                <h4 id="subtitulo" class="text-center">Selecciona un Tipo de Asignatura</h4>
+                <select id="cboTipoAsignatura" class="form-control">
+                    <option value="0">Seleccione ...</option>
+                </select>
                 <button id="btn-new" type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addnew">
                     Nueva R&uacute;brica de Evaluaci&oacute;n
                 </button>
@@ -135,11 +139,12 @@
         // JQuery Listo para utilizar
         $("#btn-new").attr("disabled",true);
         cargarPeriodosEvaluacion();
+        cargarTiposAsignatura();
         $("#cboPerEval").change(function(e){
             // Código para recuperar los aportes de evaluación asociados al período de evaluación seleccionado
             cargarAportesEvaluacion();
         });
-        $("#cboApoEval").change(function(e){
+        $("#cboTipoAsignatura").change(function(e){
             // Código para recuperar las rúbricas de evaluación asociadas al aporte de evaluación seleccionado
             listarRubricasEvaluacion();
         });
@@ -157,6 +162,22 @@
                 else
                 {
                     $("#cboPerEval").append(resultado);
+                }
+            }
+        );
+	}
+    function cargarTiposAsignatura()
+	{
+        $.get("scripts/cargar_tipos_asignatura.php", { },
+            function(resultado)
+            {
+                if(resultado == false)
+                {
+                    alert("Error");
+                }
+                else
+                {
+                    $("#cboTipoAsignatura").append(resultado);
                 }
             }
         );
