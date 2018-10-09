@@ -8,6 +8,7 @@ class rubricas_evaluacion extends MySQL
 	var $ru_abreviatura = "";
 	var $id_aporte_evaluacion = "";
 	var $id_tipo_rubrica = "";
+	var $id_tipo_asignatura = "";
 	// Para rubricas personalizadas
 	var $id_rubrica_evaluacion = "";
 	var $id_estudiante = "";
@@ -21,30 +22,12 @@ class rubricas_evaluacion extends MySQL
 	var $re_calificacion = "";
 	var $re_fec_entrega = "";
 	// Para comportamiento
-	var $id_indice_evaluacion = 0;
 	var $id_periodo_evaluacion = 0;
-	var $nombre_campo = "";
-	var $calificacion = 0;
-	var $total = 0;
-	var $promedio = 0;
-	var $equivalencia = "";
 	// Para clubes
 	var $id_club = "";
 	var $rc_calificacion = "";
 	var $rc_fec_entrega = "";
 
-	function editarComportamiento()
-	{
-		$qry = "UPDATE sw_indice_evaluacion SET ";
-		$qry .= $this->nombre_campo . " = " . $this->calificacion;
-		$qry .= ", total = " . $this->total;
-		$qry .= ", promedio = " . $this->promedio;
-		$qry .= ", equivalencia = '". $this->equivalencia . "'";
-		$qry .= " WHERE id_indice_evaluacion = " . $this->id_indice_evaluacion;
-		$exec = parent::consulta($qry);
-		return $qry;
-	}
-	
 	function existeRubricaEvaluacion($nombre)
 	{
 		$consulta = parent::consulta("SELECT * FROM sw_rubrica_evaluacion WHERE ru_nombre = '$nombre'");
@@ -135,7 +118,7 @@ class rubricas_evaluacion extends MySQL
 
 	function cargarRubricasEvaluacion()
 	{
-		$consulta = parent::consulta("SELECT * FROM sw_rubrica_evaluacion WHERE id_aporte_evaluacion = " . $this->id_aporte_evaluacion . " ORDER BY id_rubrica_evaluacion ASC");
+		$consulta = parent::consulta("SELECT * FROM sw_rubrica_evaluacion WHERE id_aporte_evaluacion = " . $this->id_aporte_evaluacion . " AND id_tipo_asignatura = " . $this->id_tipo_asignatura . " ORDER BY id_rubrica_evaluacion ASC");
 		$num_total_registros = parent::num_rows($consulta);
 		$cadena = "";
 		if($num_total_registros>0)
@@ -226,9 +209,10 @@ class rubricas_evaluacion extends MySQL
 
 	function insertarRubricaEvaluacion()
 	{
-		$qry = "INSERT INTO sw_rubrica_evaluacion (id_aporte_evaluacion, id_tipo_rubrica, ru_nombre, ru_abreviatura) VALUES (";
+		$qry = "INSERT INTO sw_rubrica_evaluacion (id_aporte_evaluacion, id_tipo_rubrica, id_tipo_asignatura, ru_nombre, ru_abreviatura) VALUES (";
 		$qry .= $this->id_aporte_evaluacion .",";
 		$qry .= $this->id_tipo_rubrica . ",";
+		$qry .= $this->id_tipo_asignatura . ",";
 		$qry .= "'" . $this->ru_nombre . "',";
 		$qry .= "'" . $this->ru_abreviatura . "')";
 		$consulta = parent::consulta($qry);

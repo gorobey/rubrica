@@ -138,12 +138,26 @@
     $(document).ready(function(){
         // JQuery Listo para utilizar
         $("#btn-new").attr("disabled",true);
+        $("#cboApoEval").attr("disabled",true);
+        $("#cboTipoAsignatura").attr("disabled",true);
         cargarPeriodosEvaluacion();
         cargarTiposAsignatura();
         $("#cboPerEval").change(function(e){
             // Código para recuperar los aportes de evaluación asociados al período de evaluación seleccionado
-            cargarAportesEvaluacion();
+            if($(this).val()==0){
+                $("#cboApoEval").attr("disabled",true);
+                $("#cboTipoAsignatura").attr("disabled",true);
+            }else{
+                cargarAportesEvaluacion();
+                $("#cboApoEval").attr("disabled",false);
+                $("#cboTipoAsignatura").attr("disabled",false);
+            }
         });
+        $("#cboApoEval").change(function(e){
+            if($("#cboTipoAsignatura").val()!=0){
+                listarRubricasEvaluacion();
+            }
+        })
         $("#cboTipoAsignatura").change(function(e){
             // Código para recuperar las rúbricas de evaluación asociadas al aporte de evaluación seleccionado
             listarRubricasEvaluacion();
@@ -212,13 +226,21 @@
 	}
     function listarRubricasEvaluacion()
     {
-        var id = $("#cboApoEval").val();
-        if (id==0){
+        var id_aporte = $("#cboApoEval").val();
+        var id_tipo = $("#cboTipoAsignatura").val();
+        if (id_aporte==0){
             $("#rub_eval").html("<tr><td colspan='5' align='center'>Debes seleccionar un aporte de evaluacion...</td></tr>");
+            $("#btn-new").attr("disabled",true);
+        } else if (id_tipo==0){
+            $("#rub_eval").html("<tr><td colspan='5' align='center'>Debes seleccionar un tipo de asignatura...</td></tr>");
             $("#btn-new").attr("disabled",true);
         } else {
             $("#btn-new").attr("disabled",false);
-            $.get("rubricas_evaluacion/cargar_rubricas.php", { id_aporte_evaluacion: id },
+            $.post("rubricas_evaluacion/cargar_rubricas.php", 
+                { 
+                    id_aporte_evaluacion: id_aporte,
+                    id_tipo_asignatura: id_tipo
+                },
                 function(resultado)
                 {
                     if(resultado == false)
@@ -314,7 +336,8 @@
         });
     }
     function addRubEval(){
-        var id = $("#cboApoEval").val();
+        var id_aporte = $("#cboApoEval").val();
+        var id_tipo = $("#cboTipoAsignatura").val();
         var ru_nombre = $("#new_ru_nombre").val();
         var ru_abreviatura = $("#new_ru_abreviatura").val();
         var tipo_rubrica = $("#new_tipo_rubrica").val();
@@ -330,7 +353,8 @@
                 method: "POST",
                 type: "html",
                 data: {
-                    id_aporte_evaluacion: id,
+                    id_aporte_evaluacion: id_aporte,
+                    id_tipo_asignatura: id_tipo,
                     id_tipo_rubrica: tipo_rubrica,
                     ru_nombre: ru_nombre,
                     ru_abreviatura: ru_abreviatura
