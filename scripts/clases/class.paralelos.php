@@ -2683,13 +2683,15 @@ class paralelos extends MySQL
 															   ac.ap_estado 
 														  FROM sw_rubrica_evaluacion r, 
 														  	   sw_aporte_evaluacion a, 
-															   sw_aporte_curso_cierre ac
+															   sw_aporte_curso_cierre ac,
+															   sw_asignatura asignatura
 														 WHERE r.id_aporte_evaluacion = a.id_aporte_evaluacion 
 														   AND r.id_aporte_evaluacion = ac.id_aporte_evaluacion 
 														   AND a.id_aporte_evaluacion = ac.id_aporte_evaluacion 
+														   AND r.id_tipo_asignatura = asignatura.id_tipo_asignatura
+														   AND asignatura.id_asignatura = $id_asignatura
 														   AND r.id_aporte_evaluacion = " . $this->id_aporte_evaluacion
-													   . " AND ac.id_curso = " . $this->id_curso
-													   . " AND r.id_tipo_asignatura = $id_tipo_asignatura");
+													   . " AND ac.id_curso = " . $this->id_curso);
 				$num_total_registros = parent::num_rows($rubrica_evaluacion);
 				if($num_total_registros>0)
 				{

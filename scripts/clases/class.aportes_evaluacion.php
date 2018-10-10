@@ -507,7 +507,6 @@ class aportes_evaluacion extends MySQL
         
 	function mostrarTitulosRubricas($alineacion)
 	{
-		if(!isset($alineacion)) $alineacion = "center";
 		// Consulto el tipo de aporte (1: aporte parcial; 2: examen quimestral; 3: supletorio/remedial/de gracia)
 		$consulta = parent::consulta("SELECT ap_tipo FROM sw_aporte_evaluacion WHERE id_aporte_evaluacion = " . $this->code);
 		$aporte = parent::fetch_assoc($consulta);
@@ -518,7 +517,12 @@ class aportes_evaluacion extends MySQL
 
 		if($tipo_aporte==1)
 		{
-			$consulta = parent::consulta("SELECT ru_abreviatura FROM sw_rubrica_evaluacion WHERE id_aporte_evaluacion = " . $this->code);
+			$consulta = parent::consulta("SELECT ru_abreviatura 
+											FROM sw_rubrica_evaluacion r,
+											     sw_asignatura a
+										   WHERE r.id_tipo_asignatura = a.id_tipo_asignatura
+										     AND a.id_asignatura = " . $this->id_asignatura
+									     . " AND id_aporte_evaluacion = " . $this->code);
 			$num_total_registros = parent::num_rows($consulta);
 			if($num_total_registros>0)
 			{

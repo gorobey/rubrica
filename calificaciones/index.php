@@ -32,7 +32,6 @@
 			$("#div_estado_rubrica").html("");
 			$("#div_fecha_cierre").html("");
 			$("#mensaje_rubrica").html("");
-			//mostrarTitulosRubricas();
 			document.getElementById('id_aporte_evaluacion').value = $(this).val();
 			$("#mensaje_rubrica").html("");
 			$("#ver_reporte").hide();
@@ -195,7 +194,7 @@
 			
 	}
 
-	function mostrarTitulosRubricas()
+	function mostrarTitulosRubricas(alineacion, id_asignatura)
 	{
 		var id_periodo_evaluacion = $("#cboPeriodosEvaluacion").val();
 		var id_aporte_evaluacion = $("#cboAportesEvaluacion").val();
@@ -203,7 +202,8 @@
 			{
 				id_periodo_evaluacion: id_periodo_evaluacion,
 				id_aporte_evaluacion: id_aporte_evaluacion,
-				alineacion: "center"
+				alineacion: alineacion,
+				id_asignatura: id_asignatura
 			},
 			function(resultado)
 			{
@@ -394,7 +394,7 @@
 
 	function seleccionarParalelo(id_curso, id_paralelo, id_asignatura, asignatura, curso, paralelo)
 	{
-		mostrarTitulosRubricas();
+		mostrarTitulosRubricas("center", id_asignatura);
 		document.getElementById("id_asignatura").value = id_asignatura;
 		document.getElementById("id_paralelo").value = id_paralelo;
 		document.getElementById("id_periodo_evaluacion").value = document.getElementById("cboPeriodosEvaluacion").value;
