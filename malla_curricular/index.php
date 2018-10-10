@@ -207,7 +207,7 @@
             $("#mensaje3").html("Debe ingresar el número de horas presenciales.");
             $("#mensaje3").fadeIn();
             cont_errores++;
-        } else if (parseInt(presenciales) <= 0) {
+        } else if (parseInt(presenciales) < 0) {
             $("#mensaje3").html("Debe ingresar un valor entero mayor que cero! para el número de horas presenciales.");
             $("#mensaje3").fadeIn();
             cont_errores++;
@@ -294,7 +294,7 @@
             $("#mensaje3").html("Debe ingresar el número de horas presenciales.");
             $("#mensaje3").fadeIn();
             cont_errores++;
-        } else if (parseInt(presenciales) <= 0) {
+        } else if (parseInt(presenciales) < 0) {
             $("#mensaje3").html("Debe ingresar un valor entero mayor que cero! para el número de horas presenciales.");
             $("#mensaje3").fadeIn();
             cont_errores++;

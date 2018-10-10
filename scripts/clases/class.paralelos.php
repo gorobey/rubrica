@@ -2627,7 +2627,32 @@ class paralelos extends MySQL
 
 	function listarEstudiantesParalelo()
 	{
-		$consulta = parent::consulta("SELECT e.id_estudiante, c.id_curso, d.id_paralelo, d.id_asignatura, e.es_apellidos, e.es_nombres, es_retirado, as_nombre, cu_nombre, pa_nombre FROM sw_distributivo d, sw_estudiante_periodo_lectivo ep, sw_estudiante e, sw_asignatura a, sw_curso c, sw_paralelo p WHERE d.id_paralelo = ep.id_paralelo AND d.id_periodo_lectivo = ep.id_periodo_lectivo AND ep.id_estudiante = e.id_estudiante AND d.id_asignatura = a.id_asignatura AND d.id_paralelo = p.id_paralelo AND p.id_curso = c.id_curso AND d.id_paralelo = " . $this->id_paralelo . " AND d.id_asignatura = " . $this->id_asignatura . " AND es_retirado <> 'S' ORDER BY es_apellidos, es_nombres ASC"); //LIMIT $inicio, $cantidad_registros
+		$consulta = parent::consulta("SELECT e.id_estudiante, 
+										     c.id_curso, 
+											 d.id_paralelo, 
+											 d.id_asignatura, 
+											 e.es_apellidos, 
+											 e.es_nombres, 
+											 es_retirado, 
+											 as_nombre, 
+											 cu_nombre, 
+											 pa_nombre,
+											 a.id_tipo_asignatura 
+										FROM sw_distributivo d, 
+											 sw_estudiante_periodo_lectivo ep, 
+											 sw_estudiante e, 
+											 sw_asignatura a, 
+											 sw_curso c, 
+											 sw_paralelo p 
+									   WHERE d.id_paralelo = ep.id_paralelo 
+									     AND d.id_periodo_lectivo = ep.id_periodo_lectivo 
+										 AND ep.id_estudiante = e.id_estudiante 
+										 AND d.id_asignatura = a.id_asignatura 
+										 AND d.id_paralelo = p.id_paralelo 
+										 AND p.id_curso = c.id_curso 
+										 AND d.id_paralelo = " . $this->id_paralelo 
+									 . " AND d.id_asignatura = " . $this->id_asignatura 
+									 . " AND es_retirado <> 'S' ORDER BY es_apellidos, es_nombres ASC");
 		$num_total_registros = parent::num_rows($consulta);
 		$cadena = "<table id=\"tabla_calificaciones\" class=\"fuente8\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
 		if($num_total_registros>0)
@@ -2645,6 +2670,7 @@ class paralelos extends MySQL
 				$id_curso = $paralelos["id_curso"];
 				$id_paralelo = $paralelos["id_paralelo"];
 				$id_asignatura = $paralelos["id_asignatura"];
+				$id_tipo_asignatura = $paralelos["id_tipo_asignatura"];
 				$asignatura = $paralelos["as_nombre"];
 				$curso = $paralelos["cu_nombre"];
 				$paralelo = $paralelos["pa_nombre"];
@@ -2652,7 +2678,18 @@ class paralelos extends MySQL
 				$cadena .= "<td width=\"5%\">$id_estudiante</td>\n";	
 				$cadena .= "<td width=\"30%\" align=\"left\">".$apellidos." ".$nombres."</td>\n";
 				// Aqui se consultan las rubricas definidas para el aporte de evaluacion elegido
-				$rubrica_evaluacion = parent::consulta("SELECT id_rubrica_evaluacion, ap_tipo, ac.ap_estado FROM sw_rubrica_evaluacion r, sw_aporte_evaluacion a, sw_aporte_curso_cierre ac WHERE r.id_aporte_evaluacion = a.id_aporte_evaluacion AND r.id_aporte_evaluacion = ac.id_aporte_evaluacion AND a.id_aporte_evaluacion = ac.id_aporte_evaluacion AND r.id_aporte_evaluacion = ".$this->id_aporte_evaluacion." AND ac.id_curso = ".$this->id_curso);
+				$rubrica_evaluacion = parent::consulta("SELECT id_rubrica_evaluacion, 
+															   ap_tipo, 
+															   ac.ap_estado 
+														  FROM sw_rubrica_evaluacion r, 
+														  	   sw_aporte_evaluacion a, 
+															   sw_aporte_curso_cierre ac
+														 WHERE r.id_aporte_evaluacion = a.id_aporte_evaluacion 
+														   AND r.id_aporte_evaluacion = ac.id_aporte_evaluacion 
+														   AND a.id_aporte_evaluacion = ac.id_aporte_evaluacion 
+														   AND r.id_aporte_evaluacion = " . $this->id_aporte_evaluacion
+													   . " AND ac.id_curso = " . $this->id_curso
+													   . " AND r.id_tipo_asignatura = $id_tipo_asignatura");
 				$num_total_registros = parent::num_rows($rubrica_evaluacion);
 				if($num_total_registros>0)
 				{

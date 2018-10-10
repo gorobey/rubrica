@@ -353,12 +353,12 @@
 		);
 	}
 
-    function mostrarLeyendasRubricas(id_aporte_evaluacion){
+    function mostrarLeyendasRubricas(id_aporte_evaluacion, id_asignatura){
         
 		$.post("calificaciones/mostrar_leyendas_rubricas.php", 
 			{
 				id_aporte_evaluacion: id_aporte_evaluacion,
-				id_periodo_evaluacion: $("#cboPeriodosEvaluacion").val()
+				id_asignatura: id_asignatura
 			},
 			function(resultado){
 				$("#leyendas_rubricas").html(resultado);
@@ -366,7 +366,7 @@
         );
     }
 
-	function listarEstudiantesParalelo(id_curso, id_paralelo,id_asignatura)
+	function listarEstudiantesParalelo(id_curso, id_paralelo, id_asignatura)
 	{
 		var id_aporte_evaluacion = document.getElementById("id_aporte_evaluacion").value;
 		var id_periodo_evaluacion = document.getElementById("cboPeriodosEvaluacion").value;
@@ -409,7 +409,7 @@
 			$("#lista_estudiantes_paralelo").html("Debe elegir un aporte de evaluaci&oacute;n...");
 		} else {
 			mostrarEstadoRubrica(id_curso);
-            mostrarLeyendasRubricas(id_aporte_evaluacion);
+            mostrarLeyendasRubricas(id_aporte_evaluacion, id_asignatura);
 			$("#mensaje").html("");
 			document.getElementById("tituloNomina").innerHTML="NOMINA DE ESTUDIANTES [" + asignatura + " - " + curso + " " + paralelo + "]";
 			$("#lista_estudiantes_paralelo").removeClass("error");

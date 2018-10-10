@@ -14,6 +14,7 @@ class aportes_evaluacion extends MySQL
     var $ap_fecha_fin = "";
 	var $id_periodo_lectivo = "";
 	var $id_periodo_evaluacion = "";
+	var $id_asignatura = "";
 	
 	function existeAporteEvaluacion($nombre)
 	{
@@ -477,26 +478,32 @@ class aportes_evaluacion extends MySQL
 		}
 	}
 
-        function mostrarLeyendasRubricas($alineacion)
-        {
-            if(!isset($alineacion)) $alineacion = "center";
-            $consulta = parent::consulta("SELECT ru_nombre, ru_abreviatura FROM sw_rubrica_evaluacion WHERE id_aporte_evaluacion = " . $this->code);
-            $mensaje = "<table id=\"titulos_rubricas\" class=\"fuente8\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n";
-            $mensaje .= "<tr>\n";
-            $num_total_registros = parent::num_rows($consulta);
-            if($num_total_registros>0)
-            {
-                    while($rubrica = parent::fetch_assoc($consulta))
-                    {
-                        $mensaje .= "<td width=\"162px\" align=\"".$alineacion."\">" . $rubrica["ru_abreviatura"] . ": " . $rubrica["ru_nombre"] . ";</td>\n";
-                    }
-            }
-            $mensaje .= "<td width=\"150px\" align=\"".$alineacion."\">COMP: COMPORTAMIENTO</td>\n";
-            $mensaje .= "<td width=\"*\">&nbsp;</td>\n"; // Esto es para igualar el tama�o de las columnas
-            $mensaje .= "</tr>\n";
-            $mensaje .= "</table>\n";
-            return $mensaje;
-        }
+	function mostrarLeyendasRubricas($alineacion)
+	{
+		if(!isset($alineacion)) $alineacion = "center";
+		$consulta = parent::consulta("SELECT ru_nombre, 
+											 ru_abreviatura
+										FROM sw_rubrica_evaluacion r,
+										     sw_asignatura a
+									   WHERE r.id_tipo_asignatura = a.id_tipo_asignatura
+									     AND a.id_asignatura = " . $this->id_asignatura
+									  ." AND id_aporte_evaluacion = " . $this->code);
+		$mensaje = "<table id=\"titulos_rubricas\" class=\"fuente8\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n";
+		$mensaje .= "<tr>\n";
+		$num_total_registros = parent::num_rows($consulta);
+		if($num_total_registros>0)
+		{
+				while($rubrica = parent::fetch_assoc($consulta))
+				{
+					$mensaje .= "<td width=\"162px\" align=\"".$alineacion."\">" . $rubrica["ru_abreviatura"] . ": " . $rubrica["ru_nombre"] . ";</td>\n";
+				}
+		}
+		$mensaje .= "<td width=\"150px\" align=\"".$alineacion."\">COMP: COMPORTAMIENTO</td>\n";
+		$mensaje .= "<td width=\"*\">&nbsp;</td>\n"; // Esto es para igualar el tama�o de las columnas
+		$mensaje .= "</tr>\n";
+		$mensaje .= "</table>\n";
+		return $mensaje;
+	}
         
 	function mostrarTitulosRubricas($alineacion)
 	{

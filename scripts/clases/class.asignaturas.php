@@ -123,7 +123,26 @@ class asignaturas extends MySQL
 	function listarAsignaturasDocente($cantidad_registros, $numero_pagina)
 	{
 		$inicio = ($numero_pagina - 1) * $cantidad_registros;
-		$consulta = parent::consulta("SELECT c.id_curso, d.id_paralelo, d.id_asignatura, as_nombre, es_figura, cu_nombre, pa_nombre FROM sw_asignatura a, sw_distributivo d, sw_paralelo pa, sw_curso c, sw_especialidad e WHERE a.id_asignatura = d.id_asignatura AND d.id_paralelo = pa.id_paralelo AND pa.id_curso = c.id_curso AND c.id_especialidad = e.id_especialidad AND d.id_usuario = " . $this->id_usuario . " AND d.id_periodo_lectivo = " . $this->id_periodo_lectivo . " ORDER BY c.id_curso, pa.id_paralelo, as_nombre ASC LIMIT $inicio, $cantidad_registros");
+		$consulta = parent::consulta("SELECT c.id_curso, 
+											 d.id_paralelo, 
+											 d.id_asignatura, 
+											 as_nombre, 
+											 es_figura, 
+											 cu_nombre, 
+											 pa_nombre 
+										FROM sw_asignatura a, 
+											 sw_distributivo d, 
+											 sw_paralelo pa, 
+											 sw_curso c, 
+											 sw_especialidad e 
+									   WHERE a.id_asignatura = d.id_asignatura 
+									     AND d.id_paralelo = pa.id_paralelo 
+										 AND pa.id_curso = c.id_curso 
+										 AND c.id_especialidad = e.id_especialidad 
+										 AND d.id_usuario = " . $this->id_usuario 
+									 . " AND d.id_periodo_lectivo = " . $this->id_periodo_lectivo 
+									 . " AND as_curricular = 1"
+								. " ORDER BY c.id_curso, pa.id_paralelo, as_nombre ASC LIMIT $inicio, $cantidad_registros");
 		$num_total_registros = parent::num_rows($consulta);
 		$cadena = "<table class=\"fuente8\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
 		if($num_total_registros>0)
@@ -417,7 +436,12 @@ class asignaturas extends MySQL
 
 	function contarAsignaturasDocente()
 	{
-		$consulta = parent::consulta("SELECT COUNT(*) AS num_registros FROM sw_distributivo WHERE id_usuario = " . $this->id_usuario . " AND id_periodo_lectivo = " . $this->id_periodo_lectivo);
+		$consulta = parent::consulta("SELECT COUNT(*) AS num_registros 
+										FROM sw_distributivo di,
+										     sw_asignatura a 
+									   WHERE a.id_asignatura = di.id_asignatura
+										 AND id_usuario = " . $this->id_usuario . " AND id_periodo_lectivo = " . $this->id_periodo_lectivo
+									 . " AND as_curricular = 1");
 		return json_encode(parent::fetch_assoc($consulta));	
 	}
 	
