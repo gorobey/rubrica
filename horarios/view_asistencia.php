@@ -123,96 +123,95 @@
 
 	function seleccionarParalelo(id_curso, id_paralelo, id_asignatura, asignatura, curso, paralelo)
 	{
-            document.getElementById("id_asignatura").value = id_asignatura;
-            document.getElementById("id_paralelo").value = id_paralelo;
-            var fecha = document.getElementById("fecha_asistencia").value;
-            document.getElementById("cboHoraClase").disabled = true;
-            $("#ver_reporte").hide();
-            if (fecha == "") {
-                $("#lista_estudiantes_paralelo").addClass("error");
-                $("#lista_estudiantes_paralelo").html("Debe elegir una Fecha...");
-            } else {
-                $("#mensaje").html("");
-                document.getElementById("tituloNomina").innerHTML="NOMINA DE ESTUDIANTES [" + asignatura + " - " + curso + " " + paralelo + "]";
-                $("#lista_estudiantes_paralelo").removeClass("error");
-                $("#lista_estudiantes_paralelo").html("");
-                //Consultar el dia de la semana
-                var ds_ordinal = dia_semana(fecha);
-                console.log(ds_ordinal);
-                var id_periodo_lectivo = document.getElementById("id_periodo_lectivo").value;
-                $.post("horarios/consultar_id_dia_semana.php", 
-                    {
-                        ds_ordinal: ds_ordinal,
-                        id_periodo_lectivo: id_periodo_lectivo
-                    },
-                    function (resultado)
-                    {
-                        $("#lista_estudiantes_paralelo").html("<img src='./imagenes/ajax-loader-blue.GIF' alt='Procesando...'>");
-                        if (resultado == false) {
+        document.getElementById("id_asignatura").value = id_asignatura;
+        document.getElementById("id_paralelo").value = id_paralelo;
+        var fecha = document.getElementById("fecha_asistencia").value;
+        document.getElementById("cboHoraClase").disabled = true;
+        $("#ver_reporte").hide();
+        if (fecha == "") {
+            $("#lista_estudiantes_paralelo").addClass("error");
+            $("#lista_estudiantes_paralelo").html("Debe elegir una Fecha...");
+        } else {
+            $("#mensaje").html("");
+            document.getElementById("tituloNomina").innerHTML="NOMINA DE ESTUDIANTES [" + asignatura + " - " + curso + " " + paralelo + "]";
+            $("#lista_estudiantes_paralelo").removeClass("error");
+            $("#lista_estudiantes_paralelo").html("");
+            //Consultar el dia de la semana
+            var ds_ordinal = dia_semana(fecha);
+            /* console.log('Dia de la semana: '+ds_ordinal); */
+            var id_periodo_lectivo = document.getElementById("id_periodo_lectivo").value;
+            $.post("horarios/consultar_id_dia_semana.php", 
+                {
+                    ds_ordinal: ds_ordinal,
+                    id_periodo_lectivo: id_periodo_lectivo
+                },
+                function (resultado)
+                {
+                    $("#lista_estudiantes_paralelo").html("<img src='./imagenes/ajax-loader-blue.GIF' alt='Procesando...'>");
+                    if (resultado == false) {
+                        $("#lista_estudiantes_paralelo").addClass("error");
+                        $("#lista_estudiantes_paralelo").html("No se ha definido el D&iacute;a de la Semana...");
+                    } else {
+                        var JSONIdDiaSemana = eval('(' + resultado + ')');
+                        var id_dia_semana = JSONIdDiaSemana.id_dia_semana;
+                        document.getElementById("id_dia_semana").value = id_dia_semana;
+                        if(id_dia_semana==null) {
                             $("#lista_estudiantes_paralelo").addClass("error");
                             $("#lista_estudiantes_paralelo").html("No se ha definido el D&iacute;a de la Semana...");
                         } else {
-                            var JSONIdDiaSemana = eval('(' + resultado + ')');
-                            var id_dia_semana = JSONIdDiaSemana.id_dia_semana;
-                            document.getElementById("id_dia_semana").value = id_dia_semana;
-                            if(id_dia_semana==null) {
-                                $("#lista_estudiantes_paralelo").addClass("error");
-                                $("#lista_estudiantes_paralelo").html("No se ha definido el D&iacute;a de la Semana...");
-                            } else {
-                                $.post("horarios/consultar_horas_clase.php",
-                                    {
-                                        id_asignatura: id_asignatura,
-                                        id_paralelo: id_paralelo,
-                                        id_dia_semana: id_dia_semana
-                                    },
-                                    function (resultado)
-                                    {
-                                        document.getElementById("cboHoraClase").length = 1;
-                                        if (resultado == false) {
-                                            $("#lista_estudiantes_paralelo").addClass("error");
-                                            $("#lista_estudiantes_paralelo").html("No se han definido Horas Clase para este D&iacute;a de la Semana...");
-                                        } else {
-                                            console.log(resultado);
-                                            $("#cboHoraClase").append(resultado);
-                                            $("#lista_estudiantes_paralelo").html("");
-                                        }
+                            $.post("horarios/consultar_horas_clase.php",
+                                {
+                                    id_asignatura: id_asignatura,
+                                    id_paralelo: id_paralelo,
+                                    id_dia_semana: id_dia_semana
+                                },
+                                function (resultado)
+                                {
+                                    datos = JSON.parse(resultado);
+                                    document.getElementById("cboHoraClase").length = 1;
+                                    if (parseInt(datos.num_registros) == 0) {
+                                        alert("No se han definido Horas Clase para la Asignatura seleccionada...");
+                                    } else {
+                                        $("#cboHoraClase").append(datos.cadena);
                                     }
-                                );
-                            }
+                                    $("#lista_estudiantes_paralelo").html("");
+                                }
+                            );
                         }
                     }
-                );
-            }
-            document.getElementById("cboHoraClase").disabled = false;
-	}
-        
-        function cargarInasistencias() {
-            // Procedimiento para cargar las inasistencia de los estudiantes
-            var id_asignatura = document.getElementById("id_asignatura").value;
-            var id_paralelo = document.getElementById("id_paralelo").value;
-            var id_hora_clase = document.getElementById("cboHoraClase").value;
-            document.getElementById("id_hora_clase").value = id_hora_clase;
-            var ae_fecha = document.getElementById("fecha_asistencia").value;
-            document.getElementById("ae_fecha").value = ae_fecha;
-            
-            $("#lista_estudiantes_paralelo").html("<img src='./imagenes/ajax-loader-blue.GIF' alt='Procesando...'>");
-            $("#mensaje_asistencia").html("");
-            
-            $.post("horarios/listar_inasistencia_paralelo.php", 
-                { 
-                    id_paralelo: id_paralelo,
-                    id_asignatura: id_asignatura,
-                    id_hora_clase: id_hora_clase,
-                    ae_fecha: ae_fecha
-                },
-                function(resultado)
-                {
-                    //anadir el resultado al DOM
-                    $("#lista_estudiantes_paralelo").html(resultado);
-                    $("#ver_reporte").show();
                 }
             );
         }
+        document.getElementById("cboHoraClase").disabled = false;
+	}
+        
+    function cargarInasistencias() {
+        // Procedimiento para cargar las inasistencia de los estudiantes
+        var id_asignatura = document.getElementById("id_asignatura").value;
+        var id_paralelo = document.getElementById("id_paralelo").value;
+        var id_hora_clase = document.getElementById("cboHoraClase").value;
+        document.getElementById("id_hora_clase").value = id_hora_clase;
+        var ae_fecha = document.getElementById("fecha_asistencia").value;
+        document.getElementById("ae_fecha").value = ae_fecha;
+        
+        $("#lista_estudiantes_paralelo").html("<img src='./imagenes/ajax-loader-blue.GIF' alt='Procesando...'>");
+        $("#mensaje_asistencia").html("");
+        
+        $.post("horarios/listar_inasistencia_paralelo.php", 
+            { 
+                id_paralelo: id_paralelo,
+                id_asignatura: id_asignatura,
+                id_hora_clase: id_hora_clase,
+                ae_fecha: ae_fecha
+            },
+            function(resultado)
+            {
+                //anadir el resultado al DOM
+                $("#lista_estudiantes_paralelo").html(resultado);
+                $("#ver_reporte").show();
+            }
+        );
+    }
 
         function actualizar_asistencia(obj, id_estudiante) {
             // Procedimiento para insertar/actualizar las inasistencia de los estudiantes

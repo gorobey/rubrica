@@ -100,7 +100,12 @@ if($num_total_estudiantes > 0)
 	{
 		$nombreEstudiante = $estudiante["es_apellidos"]." ".$estudiante["es_nombres"];
 		// Consulta de las calificaciones correspondientes al aporte de evaluacion
-		$rubrica_evaluacion = $db->consulta("SELECT id_rubrica_evaluacion FROM sw_rubrica_evaluacion WHERE id_aporte_evaluacion = $id_aporte_evaluacion");
+		$rubrica_evaluacion = $db->consulta("SELECT id_rubrica_evaluacion 
+											   FROM sw_rubrica_evaluacion r,
+											   		sw_asignatura a
+											  WHERE r.id_tipo_asignatura = a.id_tipo_asignatura
+											    AND a.id_asignatura = $id_asignatura
+											    AND id_aporte_evaluacion = $id_aporte_evaluacion");
 		$num_total_registros = $db->num_rows($rubrica_evaluacion);
 		if($num_total_registros > 0)
 		{

@@ -172,7 +172,7 @@ class usuarios extends MySQL
 					$activo = ($usuarios["us_activo"]==1)?"Sí":"No";
 					$cadena .= "<td>$activo</td>\n";
 					$cadena .= "<td><button class='btn btn-block btn-warning' onclick=\"editarUsuario(".$code.")\">Editar</button></td>";
-					$cadena .= "<td><button class='btn btn-block btn-danger' onclick=\"eliminarUsuario(".$code.")\">Eliminar</button></td>";
+					//$cadena .= "<td><button class='btn btn-block btn-danger' onclick=\"eliminarUsuario(".$code.")\">Eliminar</button></td>";
 					$cadena .= "<td><button class='btn btn-block btn-secondary' onclick=\"desasociarUsuarioPerfil(".$code.")\">Des-Asociar</button></td>";
 					$cadena .= "</tr>\n";	
 				}

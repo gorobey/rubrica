@@ -279,7 +279,7 @@
 				}
 				else
 				{
-					console.log(resultado);
+					//console.log(resultado);
 					$("#lista_asignaturas").html(resultado);
 				}
 			}
@@ -383,11 +383,10 @@
 			function(resultado)
 			{
 				$("#img_loader_estudiantes").html("");
+				//console.log(resultado);
 				//anadir el resultado al DOM
-				//$("#lista_estudiantes_paralelo").append(resultado);
 				$("#lista_estudiantes_paralelo").html(resultado);
 				document.getElementById("mensaje_rubrica").innerHTML="";
-				//var frmFormulario = document.forms["formulario_rubrica"];
 			}
 		);
 	}

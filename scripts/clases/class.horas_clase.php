@@ -125,24 +125,24 @@ class horas_clase extends MySQL
     function obtenerHorasClase()
 	{
 		$consulta = parent::consulta("SELECT hc.id_hora_clase,
-                                                     hc_nombre,
-                                                     DATE_FORMAT(hc_hora_inicio,'%H:%i') AS hora_inicio,
-                                                     DATE_FORMAT(hc_hora_fin,'%H:%i') AS hora_fin,
-                                                     ds_nombre
-                                                FROM sw_hora_clase hc,
-													 sw_hora_dia hd,
-                                                     sw_horario ho,
-                                                     sw_dia_semana di
-                                               WHERE hc.id_hora_clase = hd.id_hora_clase
-											     AND hc.id_hora_clase = ho.id_hora_clase
-                                                 AND di.id_dia_semana = hd.id_dia_semana
-                                                 AND ho.id_asignatura = " . $this->id_asignatura .
-                                               " AND ho.id_paralelo = " . $this->id_paralelo .
-											   " AND ho.id_dia_semana = " . $this->id_dia_semana .
-											   " AND hd.id_dia_semana = " . $this->id_dia_semana .
-                                               " ORDER BY hc.hc_ordinal");
-                $cadena = "";
-                $num_total_registros = parent::num_rows($consulta);
+                                             hc_nombre,
+                                             DATE_FORMAT(hc_hora_inicio,'%H:%i') AS hora_inicio,
+                                             DATE_FORMAT(hc_hora_fin,'%H:%i') AS hora_fin,
+                                             ds_nombre
+                                        FROM sw_hora_clase hc,
+											 sw_hora_dia hd,
+											 sw_horario ho,
+											 sw_dia_semana di
+									   WHERE hc.id_hora_clase = hd.id_hora_clase
+										 AND hc.id_hora_clase = ho.id_hora_clase
+										 AND di.id_dia_semana = hd.id_dia_semana
+										 AND ho.id_asignatura = " . $this->id_asignatura .
+									   " AND ho.id_paralelo = " . $this->id_paralelo .
+									   " AND ho.id_dia_semana = " . $this->id_dia_semana .
+									   " AND hd.id_dia_semana = " . $this->id_dia_semana .
+									   " ORDER BY hc.hc_ordinal");
+		$cadena = "";
+		$num_total_registros = parent::num_rows($consulta);
 		if($num_total_registros>0)
 		{
 			while($hora_clase = parent::fetch_assoc($consulta))
@@ -152,7 +152,11 @@ class horas_clase extends MySQL
 				$cadena .= "<option value=\"$code\">$name</option>";
 			}
 		}
-		return $cadena;
+		$datos = array(
+			'num_registros' => $num_total_registros,
+			'cadena' => $cadena
+		);
+		return json_encode($datos);
 	}
 }
 ?>

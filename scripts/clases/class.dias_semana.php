@@ -177,11 +177,11 @@ class dias_semana extends MySQL
 		return json_encode(parent::fetch_assoc($consulta));
 	}
 	
-        function obtenerIdDiaSemana()
+    function obtenerIdDiaSemana()
 	{
-            $consulta = parent::consulta("SELECT id_dia_semana FROM sw_dia_semana WHERE id_periodo_lectivo = " . $this->id_periodo_lectivo .
-                                         " AND ds_ordinal = " . $this->ds_ordinal);
-            return json_encode(parent::fetch_assoc($consulta));
+		$consulta = parent::consulta("SELECT id_dia_semana FROM sw_dia_semana WHERE id_periodo_lectivo = " . $this->id_periodo_lectivo .
+										" AND ds_ordinal = " . $this->ds_ordinal);
+		return json_encode(parent::fetch_assoc($consulta));
 	}
         
 	function actualizarDiaSemana()
