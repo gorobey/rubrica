@@ -73,7 +73,9 @@ $numAsignaturas = $paralelo->contarAsignaturas($id_paralelo);
 switch ($numAsignaturas) {
     case 6: $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 1); break;
     case 7: $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 1); break;
+    case 8: $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 1); break;
     case 9: $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 1); break;
+    case 10: $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 1); break;
     case 12: $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 2); break;
     case 13: $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 2); break;
     case 14: $nombreCurso = $cursos->obtenerNombreCurso($id_curso, 2); break;
@@ -99,7 +101,7 @@ $objPHPExcel->getActiveSheet()->setTitle('NOMINA DE MATRICULADOS');
 // Aquí va el código para desplegar la nomina de estudiantes
 
 $db = new MySQL();
-$estudiantes = $db->consulta("SELECT e.id_estudiante, es_apellidos, es_nombres, es_retirado, es_nro_matricula FROM sw_estudiante e, sw_estudiante_periodo_lectivo p WHERE e.id_estudiante = p.id_estudiante AND p.id_paralelo = $id_paralelo ORDER BY es_apellidos, es_nombres");
+$estudiantes = $db->consulta("SELECT e.id_estudiante, es_cedula, es_apellidos, es_nombres, es_retirado, es_nro_matricula FROM sw_estudiante e, sw_estudiante_periodo_lectivo p WHERE e.id_estudiante = p.id_estudiante AND p.id_paralelo = $id_paralelo ORDER BY es_apellidos, es_nombres");
 $num_total_estudiantes = $db->num_rows($estudiantes);
 if ($num_total_estudiantes > 0) {
     $row = 13; // fila base 
@@ -109,9 +111,11 @@ if ($num_total_estudiantes > 0) {
         $nombres = $estudiante["es_nombres"];
         $retirado = $estudiante["es_retirado"];
         $nro_matricula = $estudiante["es_nro_matricula"];
+        $cedula = $estudiante["es_cedula"];
 
         $objPHPExcel->getActiveSheet()->setCellValue('B' . $row, $apellidos . " " . $nombres);
         $objPHPExcel->getActiveSheet()->setCellValue('C' . $row, $nro_matricula);
+        //$objPHPExcel->getActiveSheet()->setCellValue('D' . $row, $cedula);
         
         // Aca desplego la observacion de retirado si fuere el caso
         
