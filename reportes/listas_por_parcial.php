@@ -63,7 +63,7 @@
 	$pdf->Cell(90,6,"NOMINA",1,0,'C');
 	// Aqui imprimo las cabeceras de cada rubrica de evaluacion
 	$db = new MySQL();
-	$consulta = $db->consulta("SELECT ru_abreviatura FROM sw_rubrica_evaluacion r, sw_asignatura a WHERE r.id_tipo_asignatura = a.id_asignatura AND id_asignatura = $id_asignatura AND id_aporte_evaluacion = $id_aporte_evaluacion");
+	$consulta = $db->consulta("SELECT ru_abreviatura FROM sw_rubrica_evaluacion r, sw_asignatura a WHERE r.id_tipo_asignatura = a.id_tipo_asignatura AND id_asignatura = $id_asignatura AND id_aporte_evaluacion = $id_aporte_evaluacion");
 	$num_total_registros = $db->num_rows($consulta);
 	if($num_total_registros>0)
 	{

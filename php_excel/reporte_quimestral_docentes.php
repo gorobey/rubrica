@@ -110,7 +110,7 @@ if($num_total_estudiantes > 0)
 			{
 				$id_aporte_evaluacion = $aporte["id_aporte_evaluacion"];
 
-				$rubrica_evaluacion = $db->consulta("SELECT id_rubrica_evaluacion FROM sw_rubrica_evaluacion WHERE id_aporte_evaluacion = " . $aporte["id_aporte_evaluacion"]);
+				$rubrica_evaluacion = $db->consulta("SELECT id_rubrica_evaluacion FROM sw_rubrica_evaluacion r, sw_asignatura a WHERE r.id_tipo_asignatura = a.id_tipo_asignatura AND id_asignatura = $id_asignatura AND id_aporte_evaluacion = " . $aporte["id_aporte_evaluacion"]);
 				$total_rubricas = $db->num_rows($rubrica_evaluacion);
 				if($total_rubricas > 0)
 				{
@@ -138,7 +138,7 @@ if($num_total_estudiantes > 0)
 				else 
 					$examen_quimestral = $promedio;
 
-				$objPHPExcel->getActiveSheet()->setCellValue($colAportes[$contador_aportes].$row, $paralelo->truncateFloat($promedio,2));
+				$objPHPExcel->getActiveSheet()->setCellValue($colAportes[$contador_aportes].$row, $paralelo->truncar($promedio,2));
 				$contador_aportes++;
 			}
 		}
