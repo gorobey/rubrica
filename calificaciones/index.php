@@ -418,12 +418,10 @@
 		}
 	}
 
-	function truncateFloat(number,digitos) {
-		var raiz = 10;
-		var multiplicador = Math.pow (raiz,digitos);
+	function truncateFloat(number, digitos) {
+		var multiplicador = Math.pow (10, digitos);
 		var resultado = (parseInt(number * multiplicador)) / multiplicador;
 		return resultado;
-		//return Math.round(resultado * 100) / 100;
 	}
 
 	function editarCalificacion(obj,id_estudiante,id_paralelo,id_asignatura,id_rubrica_personalizada,tipo_aporte)
@@ -547,7 +545,55 @@
 			);
 		}	
 	}
-	
+
+	function editarCalificacionCualitativa(obj,id_estudiante,id_paralelo,id_asignatura,id_aporte_evaluacion)
+	{
+		var str = obj.value;
+		var id = obj.id;
+		var fila = id.substr(id.indexOf("_")+1);
+		str = str.toUpperCase();
+		//Validacion de la calificacion
+		str = eliminaEspacios(str);
+		var permitidos = ['EX', 'MB', 'B', 'R'];
+		var idx = permitidos.indexOf(str);
+		//alert(str);
+		if(str != '') { 
+			if(idx == -1) {
+				alert("La calificacion debe estar en el conjunto EX MB B R");
+				obj.value = "";
+			} else {
+				$.post("docentes/editar_calificacion_cualitativa.php",
+					{
+						id_estudiante: id_estudiante,
+						id_paralelo: id_paralelo,
+						id_asignatura: id_asignatura,
+						id_aporte_evaluacion: id_aporte_evaluacion,
+						rc_calificacion: str
+					},
+					function(resultado)
+					{
+						//alert(resultado);
+						$("#mensaje_rubrica").html(resultado);
+					}
+				);
+			}
+		} else {
+			$.post("docentes/eliminar_calificacion_cualitativa.php",
+				{
+					id_estudiante: id_estudiante,
+					id_paralelo: id_paralelo,
+					id_asignatura: id_asignatura,
+					id_aporte_evaluacion: id_aporte_evaluacion
+				},
+				function(resultado)
+				{
+					//alert(resultado);
+					$("#mensaje_rubrica").html(resultado);
+				}
+			);
+		}
+	}
+
 </script>
 </head>
 

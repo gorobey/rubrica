@@ -25,11 +25,10 @@
  * @version    ##VERSION##, ##DATE##
  */
 
-function truncateFloat($number, $digitos) {
-	$raiz = 10;
-	$multiplicador = pow ($raiz,$digitos);
-	$resultado = ((int)($number * $multiplicador)) / $multiplicador;
-	return $resultado;
+function truncar($numero, $digitos)
+{
+    $truncar = pow(10,$digitos);
+    return intval($numero * $truncar) / $truncar;
 }
 
 /* Error reporting */

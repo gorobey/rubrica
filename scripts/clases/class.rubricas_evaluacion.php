@@ -63,6 +63,13 @@ class rubricas_evaluacion extends MySQL
 		return($num_total_registros > 0);
 	}
 
+	function existeRubricaCualitativa()
+	{
+		$consulta = parent::consulta("SELECT * FROM sw_rubrica_cualitativa WHERE id_estudiante = " . $this->id_estudiante . " AND id_paralelo = " . $this->id_paralelo . " AND id_asignatura = " . $this->id_asignatura . " AND id_aporte_evaluacion = " . $this->id_aporte_evaluacion);
+		$num_total_registros = parent::num_rows($consulta);
+		return($num_total_registros > 0);
+	}
+
 	function obtenerIdRubricaEvaluacion($nombre)
 	{
 		$consulta = parent::consulta("SELECT id_rubrica_evaluacion FROM sw_rubrica_evaluacion WHERE ru_nombre = '$nombre'");
@@ -391,6 +398,23 @@ class rubricas_evaluacion extends MySQL
 		}
 	}
 
+	function insertarRubricaCualitativa()
+	{
+		$qry = "INSERT INTO sw_rubrica_cualitativa SET ";
+		$qry .= "id_estudiante = " . $this->id_estudiante . ",";
+		$qry .= "id_paralelo = " . $this->id_paralelo . ",";
+		$qry .= "id_asignatura = " . $this->id_asignatura . ",";
+		$qry .= "id_aporte_evaluacion = " . $this->id_aporte_evaluacion . ",";
+		$qry .= "rc_calificacion = '" . $this->calificacion . "'";
+		$consulta = parent::consulta($qry);
+		$mensaje = "Calificaci&oacute;n cualitativa insertada exitosamente...";
+		if (!$consulta)
+		{
+			$mensaje = "No se pudo realizar la inserci&oacute;n... Error: " . mysql_error();
+		}
+		return $mensaje;
+	}
+
 	function actualizarRubricaEstudiante()
 	{
 		$qry = "UPDATE sw_rubrica_estudiante SET ";
@@ -432,7 +456,22 @@ class rubricas_evaluacion extends MySQL
 		if (!$consulta)
 		{
 			$mensaje = "No se pudo realizar la eliminaci&oacute;n... Error: " . mysql_error();
-			return $mensaje;
+		}
+		return $mensaje;
+	}
+
+	function eliminarRubricaCualitativa()
+	{
+		$qry = "DELETE FROM sw_rubrica_cualitativa ";
+		$qry .= " WHERE id_estudiante = " . $this->id_estudiante;
+		$qry .= " AND id_paralelo = " . $this->id_paralelo;
+		$qry .= " AND id_asignatura = " . $this->id_asignatura;
+		$qry .= " AND id_aporte_evaluacion = " . $this->id_aporte_evaluacion;
+		$consulta = parent::consulta($qry);
+		$mensaje = "Calificaci&oacute;n cualitativa eliminada exitosamente...";
+		if (!$consulta)
+		{
+			$mensaje = "No se pudo realizar la eliminaci&oacute;n... Error: " . mysql_error();
 		}
 		return $mensaje;
 	}
@@ -484,6 +523,23 @@ class rubricas_evaluacion extends MySQL
 				}
 			}
 		}
+	}
+
+	function actualizarRubricaCualitativa()
+	{
+		$qry = "UPDATE sw_rubrica_cualitativa SET ";
+		$qry .= "rc_calificacion = '" . $this->calificacion . "'";
+		$qry .= " WHERE id_estudiante = " . $this->id_estudiante;
+		$qry .= " AND id_paralelo = " . $this->id_paralelo;
+		$qry .= " AND id_asignatura = " . $this->id_asignatura;
+		$qry .= " AND id_aporte_evaluacion = " . $this->id_aporte_evaluacion;
+		$consulta = parent::consulta($qry);
+		$mensaje = "Calificaci&oacute;n cualitativa actualizada exitosamente...";
+		if (!$consulta)
+		{
+			$mensaje = "No se pudo realizar la actualizaci&oacute;n... Error: " . mysql_error();
+		}
+		return $mensaje;
 	}
 
 	function actualizarRubricaPersonalizada()

@@ -517,21 +517,24 @@ class aportes_evaluacion extends MySQL
 
 		if($tipo_aporte==1)
 		{
-			$consulta = parent::consulta("SELECT ru_abreviatura 
+			$consulta = parent::consulta("SELECT ru_abreviatura,
+												 a.id_tipo_asignatura 
 											FROM sw_rubrica_evaluacion r,
 											     sw_asignatura a
 										   WHERE r.id_tipo_asignatura = a.id_tipo_asignatura
 										     AND a.id_asignatura = " . $this->id_asignatura
 									     . " AND id_aporte_evaluacion = " . $this->code);
 			$num_total_registros = parent::num_rows($consulta);
-			if($num_total_registros>0)
+			if($num_total_registros > 0)
 			{
 				while($titulo_rubrica = parent::fetch_assoc($consulta))
 				{
+					$id_tipo_asignatura = $titulo_rubrica["id_tipo_asignatura"];
 					$mensaje .= "<td width=\"60px\" align=\"".$alineacion."\">" . $titulo_rubrica["ru_abreviatura"] . "</td>\n";
 				}
+				if($id_tipo_asignatura==1)
+					$mensaje .= "<td width=\"60px\" align=\"".$alineacion."\">PROM</td>\n";
 			}
-			$mensaje .= "<td width=\"60px\" align=\"".$alineacion."\">PROM</td>\n";
 			$mensaje .= "<td width=\"60px\" align=\"".$alineacion."\">COMP</td>\n";
 		}
 		else if($tipo_aporte==2) {
