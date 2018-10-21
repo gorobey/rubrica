@@ -1,13 +1,88 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>R&uacute;brica Web 2.0</title>
+<div id="pagina">
+	<div id="titulo_pagina">
+    	<?php echo $_SESSION['titulo_pagina'] ?>
+    </div>
+    <div id="frmVisor">
+      <table id="tabla_navegacion" border="0" cellpadding="0" cellspacing="0">
+      	 <tr>
+           <td class="fuente9" valign="top">&nbsp;</td>
+           <td colspan="3"><span class="fuente9">&nbsp;Paralelos:&nbsp;</span>
+           <select id="cboParalelos" class="fuente9"> <option value="0"> Seleccione... </option> </select> </td>
+           <td class="fuente9" valign="top">&nbsp;</td>
+           <td valign="top"><div id="asociar" class="boton" style="display:block"> <a href="#"> Asociar </a> </div></td>
+           <td width="*">&nbsp;  </td> <!-- Esto es para igualar las columnas -->
+         </tr>
+         <tr>
+           <td class="fuente9" valign="top">&nbsp;</td>
+           <td><span class="fuente9">&nbsp;D&iacute;as:</span></td>
+           <td class="fuente9" valign="top">&nbsp;</td>
+           <td><span class="fuente9">&nbsp;Horas Clase:</span></td>
+           <td class="fuente9" valign="top">&nbsp;</td>
+           <td><span class="fuente9">&nbsp;Asignaturas:</span></td>
+           <td width="*">&nbsp;  </td>  <!-- Esto es para igualar las columnas -->
+         </tr>
+         <tr>
+            <td class="fuente9" valign="top">&nbsp;</td>
+            <td> <select id="lstDiasSemana" class="fuente9" multiple size="7"> </select> </td>
+            <td class="fuente9" valign="top">&nbsp;</td>
+            <td> <select id="lstHorasClase" class="fuente9" multiple size="7"> </select> </td>
+            <td class="fuente9" valign="top">&nbsp;</td>
+            <td valign="top"><select id="lstAsignaturas" class="fuente9" multiple size="7"> </select></td>
+            <td width="*">&nbsp;  </td>  <!-- Esto es para igualar las columnas -->
+         </tr>
+      </table>
+    </div>
+    <div id="mensaje" class="error"></div>
+    <div id="pag_asociacion">
+      <!-- Aqui va la paginacion del horario semanal del paralelo elegido -->
+      <div id="titulo_dia" class="header2" style="margin-top:2px;"> HORARIO DIARIO </div>
+      <div id="tabla" class="table-responsive">
+        <table class="table">
+			<thead>
+				<tr>
+					<th width="15%"><button type="button" name="delete_all" id="delete_all" class="btn btn-danger btn-xs">Delete</button></th>
+					<th width="15%" align="left">Hora Clase</th>
+					<th width="70%" align="left">Asignatura</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td colspan="3" class="text-center">Debe seleccionar un paralelo... </td>
+				</tr>
+			</tbody>
+        </table>
+	  </div>
+   </div>
+</div>
 <script type="text/javascript" src="js/funciones.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		cargar_paralelos();
 		cargarDiasSemana();
+		$('#delete_all').click(function(){
+			var checkbox = $('.delete_checkbox:checked');
+			if(checkbox.length > 0)
+			{
+				var checkbox_value = [];
+				$(checkbox).each(function(){
+					checkbox_value.push($(this).val());
+				});
+
+				$.ajax({
+					url:"horarios/eliminar_asociacion.php",
+					method:"POST",
+					data:{checkbox_value:checkbox_value},
+					success:function()
+					{
+						listar_asignaturas_asociadas();
+					}
+				});
+			}
+			else
+			{
+				alert("Seleccione al menos un registro");
+			}
+		});
 		$("#cboParalelos").change(function(e){
 			e.preventDefault();
 			cargar_asignaturas_asociadas();
@@ -110,8 +185,8 @@
 				},
 				function(resultado)
 				{
-					if (!iDesplegar) $("#mensaje").html("");
-					$("#lista_horario_diario").html(resultado);
+					$("#mensaje").html("");
+					$("#tabla tbody").html(resultado);
 				}
 			);
 		}
@@ -181,61 +256,5 @@
 				  }
 			});			
 		}	
-	}
-	
-</script>	
-</head>
-
-<body>
-<div id="pagina">
-	<div id="titulo_pagina">
-    	<?php echo $_SESSION['titulo_pagina'] ?>
-    </div>
-    <div id="frmVisor">
-      <table id="tabla_navegacion" border="0" cellpadding="0" cellspacing="0">
-      	 <tr>
-           <td class="fuente9" valign="top">&nbsp;</td>
-           <td colspan="3"><span class="fuente9">&nbsp;Paralelos:&nbsp;</span>
-           <select id="cboParalelos" class="fuente9"> <option value="0"> Seleccione... </option> </select> </td>
-           <td class="fuente9" valign="top">&nbsp;</td>
-           <td valign="top"><div id="asociar" class="boton" style="display:block"> <a href="#"> Asociar </a> </div></td>
-           <td width="*">&nbsp;  </td> <!-- Esto es para igualar las columnas -->
-         </tr>
-         <tr>
-           <td class="fuente9" valign="top">&nbsp;</td>
-           <td><span class="fuente9">&nbsp;D&iacute;as:</span></td>
-           <td class="fuente9" valign="top">&nbsp;</td>
-           <td><span class="fuente9">&nbsp;Horas Clase:</span></td>
-           <td class="fuente9" valign="top">&nbsp;</td>
-           <td><span class="fuente9">&nbsp;Asignaturas:</span></td>
-           <td width="*">&nbsp;  </td>  <!-- Esto es para igualar las columnas -->
-         </tr>
-         <tr>
-            <td class="fuente9" valign="top">&nbsp;</td>
-            <td> <select id="lstDiasSemana" class="fuente9" multiple size="7"> </select> </td>
-            <td class="fuente9" valign="top">&nbsp;</td>
-            <td> <select id="lstHorasClase" class="fuente9" multiple size="7"> </select> </td>
-            <td class="fuente9" valign="top">&nbsp;</td>
-            <td valign="top"><select id="lstAsignaturas" class="fuente9" multiple size="7"> </select></td>
-            <td width="*">&nbsp;  </td>  <!-- Esto es para igualar las columnas -->
-         </tr>
-      </table>
-    </div>
-    <div id="mensaje" class="error"></div>
-    <div id="pag_asociacion">
-      <!-- Aqui va la paginacion del horario semanal del paralelo elegido -->
-      <div id="titulo_dia" class="header2" style="margin-top:2px;"> HORARIO DIARIO </div>
-      <div class="cabeceraTabla">
-        <table class="fuente8" width="100%" cellspacing=0 cellpadding=0 border=0>
-            <tr class="cabeceraTabla">
-                <td width="15%" align="left">Hora Clase</td>
-                <td width="70%" align="left">Asignatura</td>
-                <td width="15%">Acciones</td>
-            </tr>
-        </table>
-	  </div>
-      <div id="lista_horario_diario" style="text-align:center"> Debe seleccionar un paralelo... </div>
-   </div>
-</div>
-</body>
-</html>
+	}	
+</script>

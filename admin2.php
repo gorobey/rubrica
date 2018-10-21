@@ -81,6 +81,11 @@
 		.negrita {
 			font-weight: bold;
 		}
+		.removeRow
+		{
+			background-color: #FF0000;
+			color:#FFFFFF;
+		}
 	</style>
 </head>
 <body>

@@ -79,23 +79,16 @@ class horarios extends MySQL
 				$num_total_registros = parent::num_rows($consulta2);
 				if($num_total_registros > 0)
 				{
-					$contador = 0;
 					while($horario = parent::fetch_assoc($consulta2))
 					{
-						$contador += 1;
-						$fondolinea = ($contador % 2 == 0) ? "itemParTabla" : "itemImparTabla";
-						$cadena .= "<tr class=\"$fondolinea\" onmouseover=\"className='itemEncimaTabla'\" onmouseout=\"className='$fondolinea'\">\n";
+						$cadena .= "<tr>\n";
 						$code = $horario["id_horario"];
 						$name = $horario["hc_nombre"] . " (" . $horario["hora_inicio"] . " - " . $horario["hora_fin"] . ")";
 						$id_asignatura = $horario["id_asignatura"];
 						$asignatura = $horario["as_nombre"];
-						$cadena .= "<td width=\"15%\" align=\"left\">$name</td>\n";
-						$cadena .= "<td width=\"35%\" align=\"left\">$asignatura</td>\n";
-						$consulta3 = parent::consulta("SELECT us_titulo, us_apellidos, us_nombres FROM sw_usuario u, sw_paralelo_asignatura p WHERE u.id_usuario = p.id_usuario AND p.id_asignatura = $id_asignatura AND p.id_paralelo = $id_paralelo");
-						$docente = parent::fetch_assoc($consulta3);
-						$nom_docente = $docente["us_titulo"] . " " . $docente["us_apellidos"] . " " . $docente["us_nombres"];
-						$cadena .= "<td width=\"35%\" align=\"left\">$nom_docente</td>\n";
-						$cadena .= "<td width=\"15%\" class=\"link_table\"><a href=\"#\" onclick=\"eliminarHorario(".$code.")\">eliminar</a></td>\n";
+						$cadena .= "<td><input type='checkbox' class='delete_checkbox' value='$code'></td>\n";
+						$cadena .= "<td>$name</td>\n";
+						$cadena .= "<td>$asignatura</td>\n";
 						$cadena .= "</tr>\n";
 					}
 				}
