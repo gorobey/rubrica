@@ -306,7 +306,7 @@ class asignaturas extends MySQL
 			while($estudiante = parent::fetch_assoc($estudiantes))
 			{
 				// Consulta de las calificaciones correspondientes al aporte de evaluacion					
-				$rubrica_evaluacion = parent::consulta("SELECT id_rubrica_evaluacion FROM sw_rubrica_evaluacion WHERE id_aporte_evaluacion = $id_aporte_evaluacion");
+				$rubrica_evaluacion = parent::consulta("SELECT id_rubrica_evaluacion FROM sw_rubrica_evaluacion r, sw_asignatura a WHERE r.id_tipo_asignatura = a.id_tipo_asignatura AND id_asignatura = $id_asignatura AND id_aporte_evaluacion = $id_aporte_evaluacion");
 				$num_total_registros = parent::num_rows($rubrica_evaluacion);
 				if($num_total_registros>0)
 				{

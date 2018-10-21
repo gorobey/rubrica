@@ -69,6 +69,7 @@ $nombrePeriodoLectivo = $periodo_lectivo->obtenerNombrePeriodoLectivo($id_period
 $paralelo = new paralelos();
 $id_curso = $paralelo->obtenerIdCurso($id_paralelo);
 $nombreParalelo = $paralelo->obtenerNomParalelo($id_paralelo);
+$nombreCurso = $paralelo->obtenerNombreParalelo($id_paralelo);
 //$tipoEducacion = $paralelo->obtenerTipoEducacion($id_paralelo); // 0: Educacion Basica Superior  1: Bachillerato
 
 $cursos = new cursos();
@@ -97,22 +98,22 @@ $colAsignaturas = array('C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', '
 
 // Columna para escribir el promedio de las asignaturas
 switch ($numAsignaturas) {
-    case 6: $colPromedio = 'I'; $colNomPerLectivo = 'F'; $colComportamiento = 'J'; $colNomParalelo = 'I'; $nombreCurso = $paralelo->getNombreCurso($id_paralelo); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
-    case 7: $colPromedio = 'J'; $colNomPerLectivo = 'F'; $colComportamiento = 'K'; $colNomParalelo = 'J'; $nombreCurso = $paralelo->getNombreCurso($id_paralelo); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
-    case 8: $colPromedio = 'K'; $colNomPerLectivo = 'F'; $colComportamiento = 'M'; $colNomParalelo = 'K'; $nombreCurso = $paralelo->getNombreCurso($id_paralelo); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
-    case 9: $colPromedio = 'L'; $colNomPerLectivo = 'F'; $colComportamiento = 'M'; $colNomParalelo = 'L'; $nombreCurso = $paralelo->getNombreCurso($id_paralelo); $colNomRector = 'D61'; $colNomSecre = 'O61'; break;
-    case 10: $colPromedio = 'M'; $colNomPerLectivo = 'F'; $colComportamiento = 'O'; $colNomParalelo = 'M'; $nombreCurso = $paralelo->getNombreCurso($id_paralelo); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
-    case 11: $colPromedio = 'N'; $colNomPerLectivo = 'F'; $colComportamiento = 'P'; $colNomParalelo = 'N'; $nombreCurso = $paralelo->getNombreCurso($id_paralelo); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
-    case 12: $colPromedio = 'O'; $colNomPerLectivo = 'F'; $colComportamiento = 'P'; $colNomParalelo = 'O'; $nombreCurso = $paralelo->getNombreCurso($id_paralelo); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
-    case 13: $colPromedio = 'P'; $colNomPerLectivo = 'F'; $colComportamiento = 'Q'; $colNomParalelo = 'P'; $nombreCurso = $paralelo->getNombreCurso($id_paralelo); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
-    case 14: $colPromedio = 'Q'; $colNomPerLectivo = 'F'; $colComportamiento = 'R'; $colNomParalelo = 'Q'; $nombreCurso = $paralelo->getNombreCurso($id_paralelo); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
-    case 15: $colPromedio = 'R'; $colNomPerLectivo = 'I'; $colComportamiento = 'S'; $colNomParalelo = 'R'; $nombreCurso = $paralelo->getNombreCurso($id_paralelo); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
-    case 16: $colPromedio = 'S'; $colNomPerLectivo = 'I'; $colComportamiento = 'T'; $colNomParalelo = 'S'; $nombreCurso = $paralelo->getNombreCurso($id_paralelo); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
-    case 17: $colPromedio = 'T'; $colNomPerLectivo = 'F'; $colComportamiento = 'V'; $colNomParalelo = 'T'; $nombreCurso = $paralelo->getNombreCurso($id_paralelo); $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 6: $colPromedio = 'I'; $colComportamiento = 'J'; $colNomParalelo = 'I'; $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 7: $colPromedio = 'J'; $colComportamiento = 'K'; $colNomParalelo = 'J'; $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 8: $colPromedio = 'K'; $colComportamiento = 'M'; $colNomParalelo = 'K'; $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 9: $colPromedio = 'L'; $colComportamiento = 'M'; $colNomParalelo = 'L'; $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 10: $colPromedio = 'M'; $colComportamiento = 'O'; $colNomParalelo = 'M'; $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 11: $colPromedio = 'N'; $colComportamiento = 'P'; $colNomParalelo = 'N'; $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 12: $colPromedio = 'O'; $colComportamiento = 'P'; $colNomParalelo = 'O'; $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 13: $colPromedio = 'P'; $colComportamiento = 'Q'; $colNomParalelo = 'P'; $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 14: $colPromedio = 'Q'; $colComportamiento = 'R'; $colNomParalelo = 'Q'; $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 15: $colPromedio = 'R'; $colComportamiento = 'S'; $colNomParalelo = 'R'; $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 16: $colPromedio = 'S'; $colComportamiento = 'T'; $colNomParalelo = 'S'; $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
+    case 17: $colPromedio = 'T'; $colComportamiento = 'V'; $colNomParalelo = 'T'; $colNomRector = 'B67'; $colNomSecre = 'F67'; break;
 }
 
 $objPHPExcel->getActiveSheet()->setCellValue('A10', $nombreCurso);
-$objPHPExcel->getActiveSheet()->setCellValue($colNomPerLectivo.'9', $nombrePeriodoLectivo);
+$objPHPExcel->getActiveSheet()->setCellValue('F9', $nombrePeriodoLectivo);
 $objPHPExcel->getActiveSheet()->setCellValue($colNomParalelo.'12', 'PARALELO '.str_replace('"','',$nombreParalelo));
 
 $objPHPExcel->getActiveSheet()->setCellValue($colNomRector, $nombreRector);
@@ -180,35 +181,10 @@ if($num_total_estudiantes > 0)
 			
             // Calculo e impresion del promedio de comportamiento
 			$promedioComportamiento = $sumaComportamiento / $total_asignaturas;
-			$promedio_comp = ceil($promedioComportamiento);
+			$promedio_comportamiento = ceil($promedioComportamiento);
 
-			// Calculo del comportamiento por parte del inspector
-			$aportes_evaluacion = $db->consulta("SELECT id_aporte_evaluacion FROM sw_aporte_evaluacion WHERE id_periodo_evaluacion = $id_periodo_evaluacion AND ap_tipo = 1");
-
-			$suma_comportamiento_inspector = 0; $contador_aportes_evaluacion = 0;
-			while($aporte_evaluacion = $db->fetch_assoc($aportes_evaluacion))
-			{
-				$contador_aportes_evaluacion++;
-				$id_aporte_evaluacion = $aporte_evaluacion["id_aporte_evaluacion"];
-				$query = $db->consulta("SELECT co_calificacion FROM sw_comportamiento_inspector WHERE id_paralelo = $id_paralelo AND id_estudiante = $id_estudiante AND id_aporte_evaluacion = $id_aporte_evaluacion");
-				$inspectores = $db->fetch_assoc($query);
-				$promedio_inspector = $inspectores["co_calificacion"];
-				if ($promedio_inspector=="") {
-					$promedio_cuantitativo = 0;
-				} else {
-					$query = $db->consulta("SELECT ec_correlativa FROM sw_escala_comportamiento WHERE ec_equivalencia = '$promedio_inspector'");
-					$equivalencia = $db->fetch_assoc($query);
-					$promedio_cuantitativo = $equivalencia["ec_correlativa"];
-				}
-				$suma_comportamiento_inspector += $promedio_cuantitativo; 
-			}
-
-			$comportamiento_inspector = ceil($suma_comportamiento_inspector / $contador_aportes_evaluacion);
-
-			$promedio_comportamiento = ceil(($promedio_comp + $comportamiento_inspector) / 2.0);
 			$query = $db->consulta("SELECT ec_equivalencia FROM sw_escala_comportamiento WHERE ec_correlativa = $promedio_comportamiento");
 			$equivalencia = $db->fetch_assoc($query);
-			
 			$objPHPExcel->getActiveSheet()->setCellValue($colComportamiento.$row, $equivalencia['ec_equivalencia']);
                         
 			if($bol_proyectos==0) 
@@ -256,7 +232,8 @@ $docentes = $db->consulta("SELECT us_titulo,
 							  AND a.id_asignatura = di.id_asignatura
 							  AND ac.id_asignatura = di.id_asignatura
 							  AND ac.id_curso = $id_curso 
-							  AND id_paralelo = $id_paralelo");
+							  AND id_paralelo = $id_paralelo
+							ORDER BY ac_orden");
 $num_total_docentes = $db->num_rows($docentes);
 if ($num_total_docentes > 0) {
 	$row = 4;
