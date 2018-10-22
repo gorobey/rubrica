@@ -32,8 +32,6 @@
 			if ($(this).val() == 0) {
 				$("#lista_estudiantes_paralelo").html("Debe seleccionar un aporte de evaluaci&oacute;n...");
 			} else {
-				$("#cboAsignaturas").val("0");
-				mostrarTitulosRubricas($(this).val());
 				$("#lista_estudiantes_paralelo").html("Debe seleccionar una asignatura...");
 			}
 		});

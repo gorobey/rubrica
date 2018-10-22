@@ -2567,27 +2567,26 @@ class paralelos extends MySQL
 	function listarCalificacionesAsignatura()
 	{
 		$consulta = parent::consulta("SELECT e.id_estudiante, 
-											 pa.id_paralelo, 
-											 pa.id_asignatura, 
+											 di.id_paralelo, 
+											 di.id_asignatura, 
 											 e.es_apellidos, 
 											 e.es_nombres, 
 											 as_nombre, 
 											 cu_nombre, 
 											 pa_nombre 
-									    FROM sw_paralelo_asignatura pa, 
+									    FROM sw_distributivo di, 
 											 sw_estudiante_periodo_lectivo ep, 
 											 sw_estudiante e, 
 											 sw_asignatura a, 
 											 sw_curso c, 
 											 sw_paralelo p 
-									   WHERE pa.id_paralelo = ep.id_paralelo 
-									     AND pa.id_periodo_lectivo = ep.id_periodo_lectivo 
+									   WHERE di.id_paralelo = ep.id_paralelo 
 										 AND ep.id_estudiante = e.id_estudiante 
-										 AND pa.id_asignatura = a.id_asignatura 
-										 AND pa.id_paralelo = p.id_paralelo 
+										 AND di.id_asignatura = a.id_asignatura 
+										 AND di.id_paralelo = p.id_paralelo 
 										 AND p.id_curso = c.id_curso 
-										 AND pa.id_paralelo = " . $this->id_paralelo 
-									 . " AND pa.id_asignatura = " . $this->id_asignatura 
+										 AND di.id_paralelo = " . $this->id_paralelo 
+									 . " AND di.id_asignatura = " . $this->id_asignatura 
 									 . " AND es_retirado = 'N' ORDER BY es_apellidos, es_nombres ASC"); //LIMIT $inicio, $cantidad_registros
 		$num_total_registros = parent::num_rows($consulta);
 		$cadena = "<table id=\"tabla_calificaciones\" class=\"fuente8\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
@@ -2611,7 +2610,16 @@ class paralelos extends MySQL
 				$cadena .= "<td width=\"5%\">$id_estudiante</td>\n";	
 				$cadena .= "<td width=\"30%\" align=\"left\">".$apellidos." ".$nombres."</td>\n";
 				// Aqui se consultan las rubricas definidas para el aporte de evaluacion elegido
-				$rubrica_evaluacion = parent::consulta("SELECT id_rubrica_evaluacion, ap_tipo, ap_estado FROM sw_rubrica_evaluacion r, sw_aporte_evaluacion a WHERE r.id_aporte_evaluacion = a.id_aporte_evaluacion AND r.id_aporte_evaluacion = ".$this->id_aporte_evaluacion);
+				$rubrica_evaluacion = parent::consulta("SELECT id_rubrica_evaluacion, 
+															   ap_tipo, 
+															   ap_estado 
+														  FROM sw_rubrica_evaluacion r, 
+														  	   sw_aporte_evaluacion a,
+															   sw_asignatura asi
+														 WHERE r.id_aporte_evaluacion = a.id_aporte_evaluacion 
+														   AND r.id_tipo_asignatura = asi.id_tipo_asignatura
+														   AND asi.id_asignatura = $id_asignatura
+														   AND r.id_aporte_evaluacion = ".$this->id_aporte_evaluacion);
 				$num_total_registros = parent::num_rows($rubrica_evaluacion);
 				if($num_total_registros>0)
 				{
