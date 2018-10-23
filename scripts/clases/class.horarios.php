@@ -75,7 +75,21 @@ class horarios extends MySQL
 			while($hora_clase = parent::fetch_assoc($consulta1))
 			{
 				$id_hora_clase = $hora_clase["id_hora_clase"];
-				$consulta2 = parent::consulta("SELECT id_horario, ho.id_hora_clase, hc_nombre, DATE_FORMAT(hc_hora_inicio,'%H:%i') AS hora_inicio, DATE_FORMAT(hc_hora_fin,'%H:%i') AS hora_fin, as_nombre, a.id_asignatura FROM sw_horario ho, sw_hora_clase hc, sw_asignatura a WHERE ho.id_hora_clase = hc.id_hora_clase AND ho.id_asignatura = a.id_asignatura AND ho.id_dia_semana = $id_dia_semana AND ho.id_hora_clase = $id_hora_clase AND id_paralelo = $id_paralelo");
+				$consulta2 = parent::consulta("SELECT id_horario, 
+													  ho.id_hora_clase, 
+													  hc_nombre, 
+													  DATE_FORMAT(hc_hora_inicio,'%H:%i') AS hora_inicio, 
+													  DATE_FORMAT(hc_hora_fin,'%H:%i') AS hora_fin, 
+													  as_nombre, 
+													  a.id_asignatura
+												 FROM sw_horario ho, 
+												      sw_hora_clase hc, 
+													  sw_asignatura a
+												WHERE ho.id_hora_clase = hc.id_hora_clase 
+												  AND ho.id_asignatura = a.id_asignatura 
+												  AND ho.id_dia_semana = $id_dia_semana 
+												  AND ho.id_hora_clase = $id_hora_clase 
+												  AND id_paralelo = $id_paralelo");
 				$num_total_registros = parent::num_rows($consulta2);
 				if($num_total_registros > 0)
 				{
@@ -89,6 +103,18 @@ class horarios extends MySQL
 						$cadena .= "<td><input type='checkbox' class='delete_checkbox' value='$code'></td>\n";
 						$cadena .= "<td>$name</td>\n";
 						$cadena .= "<td>$asignatura</td>\n";
+						// Obtengo el docente que imparte esta asignatura
+						$query = parent::consulta("SELECT CONCAT(us_titulo,' ',us_apellidos,' ',us_nombres) AS docente 
+													 FROM sw_asignatura a, 
+													 	  sw_distributivo d,
+														  sw_usuario u 
+													WHERE a.id_asignatura = d.id_asignatura
+													  AND u.id_usuario = d.id_usuario
+													  AND d.id_asignatura = $id_asignatura 
+													  AND d.id_paralelo = $id_paralelo");
+						$obj = parent::fetch_object($query);
+						$docente = $obj->docente;
+						$cadena .= "<td>$docente</td>\n";
 						$cadena .= "</tr>\n";
 					}
 				}

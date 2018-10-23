@@ -40,9 +40,10 @@
         <table class="table">
 			<thead>
 				<tr>
-					<th width="15%"><button type="button" name="delete_all" id="delete_all" class="btn btn-danger btn-xs">Delete</button></th>
+					<th width="15%" align="center"><button type="button" name="delete_all" id="delete_all" class="btn btn-danger btn-xs">Eliminar</button></th>
 					<th width="15%" align="left">Hora Clase</th>
-					<th width="70%" align="left">Asignatura</th>
+					<th width="35%" align="left">Asignatura</th>
+					<th width="35%" align="left">Docente</th>
 				</tr>
 			</thead>
 			<tbody>
