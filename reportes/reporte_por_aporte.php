@@ -63,7 +63,7 @@
 	$pdf->Cell(90,6,"NOMINA",1,0,'C');
 	// Aqui imprimo las cabeceras de cada rubrica de evaluacion
 	$db = new MySQL();
-	$consulta = $db->consulta("SELECT ru_abreviatura FROM sw_rubrica_evaluacion WHERE id_aporte_evaluacion = $id_aporte_evaluacion");
+	$consulta = $db->consulta("SELECT ru_abreviatura FROM sw_rubrica_evaluacion r, sw_asignatura a WHERE r.id_tipo_asignatura = a.id_tipo_asignatura AND a.id_asignatura = $id_asignatura AND id_aporte_evaluacion = $id_aporte_evaluacion");
 	$num_total_registros = $db->num_rows($consulta);
 	$calificaciones_validas = 0;
 	if($num_total_registros>0)
@@ -89,7 +89,7 @@
 			$nombre_completo = utf8_decode($paralelo["es_apellidos"])." ".utf8_decode($paralelo["es_nombres"]);
 			$pdf->Cell(90,6,$nombre_completo,1,0,'L');
 			// Consulta de las calificaciones correspondientes al aporte de evaluacion
-			$rubrica_evaluacion = $db->consulta("SELECT id_rubrica_evaluacion FROM sw_rubrica_evaluacion WHERE id_aporte_evaluacion = $id_aporte_evaluacion");
+			$rubrica_evaluacion = $db->consulta("SELECT id_rubrica_evaluacion FROM sw_rubrica_evaluacion r, sw_asignatura a WHERE r.id_tipo_asignatura = a.id_tipo_asignatura AND a.id_asignatura = $id_asignatura AND id_aporte_evaluacion = $id_aporte_evaluacion");
 			$num_total_registros = $db->num_rows($rubrica_evaluacion);
 			if($num_total_registros>0)
 			{
@@ -125,6 +125,6 @@
 	$pdf->Ln(2);
 	$pdf->Cell(10,6,"Prof.: ",0,0,'L');
 	$pdf->Cell(90,6,$nombreUsuario,0,0,'L');
-	$pdf->Cell(30,6,"f.)___________________________",0,0,'L');
+	$pdf->Cell(30,6,"f.)____________________",0,0,'L');
 	$pdf->Output();
 ?>
