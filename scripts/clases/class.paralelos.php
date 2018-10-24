@@ -2567,27 +2567,31 @@ class paralelos extends MySQL
 	function listarCalificacionesAsignatura()
 	{
 		$consulta = parent::consulta("SELECT e.id_estudiante, 
-											 di.id_paralelo, 
-											 di.id_asignatura, 
+										     c.id_curso, 
+											 d.id_paralelo, 
+											 d.id_asignatura, 
 											 e.es_apellidos, 
 											 e.es_nombres, 
+											 es_retirado, 
 											 as_nombre, 
 											 cu_nombre, 
-											 pa_nombre 
-									    FROM sw_distributivo di, 
+											 pa_nombre,
+											 id_tipo_asignatura 
+										FROM sw_distributivo d, 
 											 sw_estudiante_periodo_lectivo ep, 
 											 sw_estudiante e, 
 											 sw_asignatura a, 
 											 sw_curso c, 
 											 sw_paralelo p 
-									   WHERE di.id_paralelo = ep.id_paralelo 
+									   WHERE d.id_paralelo = ep.id_paralelo 
+									     AND d.id_periodo_lectivo = ep.id_periodo_lectivo 
 										 AND ep.id_estudiante = e.id_estudiante 
-										 AND di.id_asignatura = a.id_asignatura 
-										 AND di.id_paralelo = p.id_paralelo 
+										 AND d.id_asignatura = a.id_asignatura 
+										 AND d.id_paralelo = p.id_paralelo 
 										 AND p.id_curso = c.id_curso 
-										 AND di.id_paralelo = " . $this->id_paralelo 
-									 . " AND di.id_asignatura = " . $this->id_asignatura 
-									 . " AND es_retirado = 'N' ORDER BY es_apellidos, es_nombres ASC"); //LIMIT $inicio, $cantidad_registros
+										 AND d.id_paralelo = " . $this->id_paralelo 
+									 . " AND d.id_asignatura = " . $this->id_asignatura 
+									 . " AND es_retirado <> 'S' ORDER BY es_apellidos, es_nombres ASC");
 		$num_total_registros = parent::num_rows($consulta);
 		$cadena = "<table id=\"tabla_calificaciones\" class=\"fuente8\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
 		if($num_total_registros>0)
@@ -2601,66 +2605,99 @@ class paralelos extends MySQL
 				$id_estudiante = $paralelos["id_estudiante"];
 				$apellidos = $paralelos["es_apellidos"];
 				$nombres = $paralelos["es_nombres"];
+				$retirado = $paralelos["es_retirado"];
+				$id_curso = $paralelos["id_curso"];
 				$id_paralelo = $paralelos["id_paralelo"];
 				$id_asignatura = $paralelos["id_asignatura"];
+				$id_tipo_asignatura = $paralelos["id_tipo_asignatura"];
 				$asignatura = $paralelos["as_nombre"];
 				$curso = $paralelos["cu_nombre"];
 				$paralelo = $paralelos["pa_nombre"];
 				$cadena .= "<td width=\"5%\">$contador</td>\n";	
 				$cadena .= "<td width=\"5%\">$id_estudiante</td>\n";	
 				$cadena .= "<td width=\"30%\" align=\"left\">".$apellidos." ".$nombres."</td>\n";
-				// Aqui se consultan las rubricas definidas para el aporte de evaluacion elegido
-				$rubrica_evaluacion = parent::consulta("SELECT id_rubrica_evaluacion, 
-															   ap_tipo, 
-															   ap_estado 
-														  FROM sw_rubrica_evaluacion r, 
-														  	   sw_aporte_evaluacion a,
-															   sw_asignatura asi
-														 WHERE r.id_aporte_evaluacion = a.id_aporte_evaluacion 
-														   AND r.id_tipo_asignatura = asi.id_tipo_asignatura
-														   AND asi.id_asignatura = $id_asignatura
-														   AND r.id_aporte_evaluacion = ".$this->id_aporte_evaluacion);
-				$num_total_registros = parent::num_rows($rubrica_evaluacion);
-				if($num_total_registros>0)
-				{
-					$suma_rubricas = 0; $contador_rubricas = 0;
-					while($rubricas = parent::fetch_assoc($rubrica_evaluacion))
+				//Aca vamos a obtener el estado del aporte de evaluacion
+				$query = parent::consulta("SELECT ac.ap_estado
+											 FROM sw_aporte_evaluacion a,
+												  sw_aporte_curso_cierre ac,
+												  sw_curso c,
+												  sw_paralelo p
+											WHERE a.id_aporte_evaluacion = ac.id_aporte_evaluacion
+											  AND c.id_curso = p.id_curso
+											  AND ac.id_curso = p.id_curso
+											  AND p.id_paralelo = " . $this->id_paralelo .
+											" AND a.id_aporte_evaluacion = ". $this->id_aporte_evaluacion);
+				$estado_aporte = parent::fetch_object($query)->ap_estado;
+				//Aqui vamos a diferenciar asignaturas CUANTITATIVAS de CUALITATIVAS
+				if($id_tipo_asignatura==1){ //CUANTITATIVA
+					// Aqui se consultan las rubricas definidas para el aporte de evaluacion elegido
+					$rubrica_evaluacion = parent::consulta("SELECT id_rubrica_evaluacion, 
+																   ap_tipo, 
+																   ac.ap_estado 
+															  FROM sw_rubrica_evaluacion r, 
+															       sw_aporte_evaluacion a, 
+																   sw_aporte_curso_cierre ac,
+																   sw_asignatura asignatura
+															 WHERE r.id_aporte_evaluacion = a.id_aporte_evaluacion 
+															   AND r.id_aporte_evaluacion = ac.id_aporte_evaluacion 
+															   AND a.id_aporte_evaluacion = ac.id_aporte_evaluacion 
+															   AND r.id_tipo_asignatura = asignatura.id_tipo_asignatura
+															   AND asignatura.id_asignatura = $id_asignatura
+															   AND r.id_aporte_evaluacion = " . $this->id_aporte_evaluacion
+														   . " AND ac.id_curso = " . $this->id_curso);
+					$num_total_registros = parent::num_rows($rubrica_evaluacion);
+					if($num_total_registros>0)
 					{
-						$contador_rubricas++;
-						$id_rubrica_evaluacion = $rubricas["id_rubrica_evaluacion"];
-						$tipo_aporte = $rubricas["ap_tipo"];
-						$estado_aporte = $rubricas["ap_estado"];
-						$qry = parent::consulta("SELECT re_calificacion FROM sw_rubrica_estudiante WHERE id_estudiante = ".$paralelos["id_estudiante"]." AND id_paralelo = ".$this->id_paralelo." AND id_asignatura = ".$this->id_asignatura. " AND id_rubrica_personalizada = ".$id_rubrica_evaluacion);
-						$num_total_registros = parent::num_rows($qry);
-						$rubrica_estudiante = parent::fetch_assoc($qry);
-						if($num_total_registros>0) {
-							$calificacion = $rubrica_estudiante["re_calificacion"];
-						} else {
-							$calificacion = 0;
+						$suma_rubricas = 0; $contador_rubricas = 0;
+						while($rubricas = parent::fetch_assoc($rubrica_evaluacion))
+						{
+							$contador_rubricas++;
+							$id_rubrica_evaluacion = $rubricas["id_rubrica_evaluacion"];
+							$tipo_aporte = $rubricas["ap_tipo"];
+							$estado_aporte = $rubricas["ap_estado"];
+							$qry = parent::consulta("SELECT re_calificacion FROM sw_rubrica_estudiante WHERE id_estudiante = ".$paralelos["id_estudiante"]." AND id_paralelo = ".$this->id_paralelo." AND id_asignatura = ".$this->id_asignatura. " AND id_rubrica_personalizada = ".$id_rubrica_evaluacion);
+							$num_total_registros = parent::num_rows($qry);
+							$rubrica_estudiante = parent::fetch_assoc($qry);
+							if($num_total_registros>0) {
+								$calificacion = $rubrica_estudiante["re_calificacion"];
+							} else {
+								$calificacion = 0;
+							}
+							$suma_rubricas += $calificacion;
+							$cadena .= "<td width=\"60px\" align=\"left\"><input type=\"text\" class=\"inputPequenio\" value=\"".number_format($calificacion,2)."\" disabled /></td>\n";
 						}
-						$suma_rubricas += $calificacion;
-						$cadena .= "<td width=\"60px\" align=\"right\">".number_format($calificacion,2)."</td>\n";
+						$promedio = $this->truncar($suma_rubricas / $contador_rubricas,2);
+						$cadena .= "<td width=\"60px\" align=\"left\"><input type=\"text\" class=\"inputPequenio\" id=\"promedio_".$contador."\" disabled value=\"".number_format($promedio,2)."\" style=\"color:#666;\" /></td>\n";
+					} else {
+						$cadena .= "<tr>\n";	
+						$cadena .= "<td>No se han definido r&uacute;bricas para este aporte de evaluaci&oacute;n...</td>\n";
+						$cadena .= "</tr>\n";
 					}
-					$promedio = $suma_rubricas / $contador_rubricas;
-					$cadena .= "<td width=\"60px\" align=\"right\">".number_format($promedio,2)."</td>\n";
-					//Comportamiento asignado por el docente en el parcial
-					// Aqui va el codigo para obtener el comportamiento
-					$qry = parent::consulta("SELECT co_cualitativa FROM sw_calificacion_comportamiento WHERE id_estudiante = ".$paralelos["id_estudiante"]." AND id_paralelo = ".$this->id_paralelo." AND id_asignatura = ".$this->id_asignatura. " AND id_aporte_evaluacion = ".$this->id_aporte_evaluacion);
+				}else{ //CUALITATIVA
+					// Aqui va el codigo para obtener la calificacion cualitativa
+					$qry = parent::consulta("SELECT rc_calificacion FROM sw_rubrica_cualitativa WHERE id_estudiante = ".$paralelos["id_estudiante"]." AND id_paralelo = ".$this->id_paralelo." AND id_asignatura = ".$this->id_asignatura. " AND id_aporte_evaluacion = ".$this->id_aporte_evaluacion);
 					$num_total_registros = parent::num_rows($qry);
-					$comportamiento = parent::fetch_assoc($qry);
+					$cualitativa = parent::fetch_assoc($qry);
 					if($num_total_registros>0) {
-						$calificacion = $comportamiento["co_cualitativa"];
+						$calificacion = $cualitativa["rc_calificacion"];
 					} else {
 						$calificacion = '';
 					}
-					$cadena .= "<td width=\"60px\" align=\"right\">".$calificacion."</td>\n";
-					$cadena .= "<td width=\"*\">&nbsp;</td>\n"; // Esto es para igualar el espaciado entre columnas
-					$cadena .= "</tr>\n";	
-				} else {
-					$cadena .= "<tr>\n";	
-					$cadena .= "<td>No se han definido r&uacute;bricas para este aporte de evaluaci&oacute;n...</td>\n";
-					$cadena .= "</tr>\n";
+					$cadena .= "<td width=\"60px\" align=\"left\"><input type=\"text\" class=\"inputPequenio\" value=\"".$calificacion."\" disabled /></td>\n";
 				}
+				
+				// Aqui va el codigo para obtener el comportamiento
+				$qry = parent::consulta("SELECT co_cualitativa FROM sw_calificacion_comportamiento WHERE id_estudiante = ".$paralelos["id_estudiante"]." AND id_paralelo = ".$this->id_paralelo." AND id_asignatura = ".$this->id_asignatura. " AND id_aporte_evaluacion = ".$this->id_aporte_evaluacion);
+				$num_total_registros = parent::num_rows($qry);
+				$comportamiento = parent::fetch_assoc($qry);
+				if($num_total_registros>0) {
+					$calificacion = $comportamiento["co_cualitativa"];
+				} else {
+					$calificacion = '';
+				}
+				$cadena .= "<td width=\"60px\" align=\"left\"><input type=\"text\" class=\"inputPequenio\" value=\"".$calificacion."\" disabled /></td>\n";
+				$cadena .= "<td width=\"*\">&nbsp;</td>\n"; // Esto es para igualar el espaciado entre columnas
+				$cadena .= "</tr>\n";
 			}
 		}
 		else {

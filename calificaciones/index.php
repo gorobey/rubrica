@@ -681,11 +681,6 @@
      </table>
    </div>
    <div id="lista_calificaciones_erroneas" style="text-align:center"> </div>
-   <!-- <div id="mensaje_slideToggle" class="paginacion">
-       <div id="mostrar_ocultar_asignaturas" class="link_form" style="text-align:right;padding-right:2px;">
-            <a href="#">Ocultar la lista de asignaturas</a>
-       </div>
-   </div> -->
    <div id="pag_asignaturas">
       <!-- Aqui va la paginacion de las asignaturas asociadas al docente -->
       <div id="total_registros" class="paginacion">
@@ -741,7 +736,6 @@
                 <td width="5%">Id.</td>
                 <td width="30%" align="left">N&oacute;mina</td>
                 <td width="60%" align="left"><div id="txt_rubricas">Calificaciones</div></td>
-                <!-- <td width="18%" align="center">Acciones</td> -->
             </tr>
         </table>
 	  </div>

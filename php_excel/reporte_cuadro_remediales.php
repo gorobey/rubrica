@@ -147,7 +147,7 @@ if ($num_total_estudiantes > 0) {
                     $calificacion = $db->fetch_assoc($query);
                     $promedio_anual = $calificacion["promedio"];
 
-                    $promedio_anual_truncado = truncateFloat($promedio_anual, 2);
+                    $promedio_anual_truncado = truncar($promedio_anual, 2);
 
                     $objPHPExcel->getActiveSheet()->setCellValue($colAsignaturas[$contAsignatura].$row, $promedio_anual_truncado);
                     

@@ -38,6 +38,7 @@
 		
 		$("#cboAsignaturas").change(function(e) {
 			e.preventDefault();
+			mostrarTitulosRubricas("center", $(this).val());
 			listarEstudiantesParalelo();
 		});
 
@@ -191,30 +192,50 @@
 		$("#mensaje").html("");
 		$("#img_loader").show();
 		$("#lista_estudiantes_paralelo").hide();
-		$.post("tutores/listar_estudiantes_paralelo.php", 
-			{ 
-				id_paralelo: id_paralelo,
-				id_asignatura: id_asignatura,
-				id_aporte_evaluacion: id_aporte_evaluacion,
-				id_periodo_evaluacion: id_periodo_evaluacion
+		// Primero obtengo el id_curso asociado al id_paralelo actual
+		$.ajax({
+			url: "tutores/obtener_id_curso.php",
+			method: "post",
+			data:
+				{
+					id_paralelo: id_paralelo
+				},
+			type: "json",
+			success: function(resultado){
+				// Obtengo el id_curso en formato json
+				var id_curso = JSON.parse(resultado).id_curso;
+				$.post("calificaciones/listar_estudiantes_paralelo_tutor.php", 
+					{ 
+						id_curso: id_curso,
+						id_paralelo: id_paralelo,
+						id_asignatura: id_asignatura,
+						id_aporte_evaluacion: id_aporte_evaluacion,
+						id_periodo_evaluacion: id_periodo_evaluacion
+					},
+					function(resultado)
+					{
+						$("#img_loader").hide();
+						$("#lista_estudiantes_paralelo").show();
+						$("#lista_estudiantes_paralelo").html(resultado);
+					}
+				);
 			},
-			function(resultado)
-			{
-				$("#img_loader").hide();
-				$("#lista_estudiantes_paralelo").show();
-				$("#lista_estudiantes_paralelo").html(resultado);
-			}
-		);
+            error: function(xhr, status, error) {
+                alert(xhr.responseText);
+            }
+		});
 	}
 
-	function mostrarTitulosRubricas(id_aporte_evaluacion)
+	function mostrarTitulosRubricas(alineacion, id_asignatura)
 	{
-		var id_periodo_evaluacion = $("#cboPeriodosEvaluacion").find(":selected").val();
+		var id_periodo_evaluacion = $("#cboPeriodosEvaluacion").val();
+		var id_aporte_evaluacion = $("#cboAportesEvaluacion").val();
 		$.post("calificaciones/mostrar_titulos_rubricas.php", 
 			{
 				id_periodo_evaluacion: id_periodo_evaluacion,
 				id_aporte_evaluacion: id_aporte_evaluacion,
-				alineacion: "right"
+				alineacion: alineacion,
+				id_asignatura: id_asignatura
 			},
 			function(resultado)
 			{
