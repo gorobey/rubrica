@@ -1068,10 +1068,23 @@ class paralelos extends MySQL
 	
 	function listarCalificacionesSupletoriosParalelo($id_paralelo, $id_asignatura, $id_periodo_lectivo, $tipo_supletorio)
 	{
-		$consulta = parent::consulta("SELECT e.id_estudiante, es_apellidos, es_nombres, c.id_curso FROM sw_estudiante e, sw_estudiante_periodo_lectivo p, sw_curso c, sw_paralelo pa WHERE c.id_curso = pa.id_curso AND pa.id_paralelo = $id_paralelo AND e.id_estudiante = p.id_estudiante AND p.id_paralelo = $id_paralelo AND es_retirado = 'N' ORDER BY es_apellidos, es_nombres ASC");
+		$consulta = parent::consulta("SELECT e.id_estudiante, 
+											 es_apellidos, 
+											 es_nombres, 
+											 c.id_curso 
+										FROM sw_estudiante e, 
+											 sw_estudiante_periodo_lectivo p, 
+											 sw_curso c, 
+											 sw_paralelo pa 
+									   WHERE c.id_curso = pa.id_curso 
+									     AND pa.id_paralelo = $id_paralelo 
+										 AND e.id_estudiante = p.id_estudiante 
+										 AND p.id_paralelo = $id_paralelo 
+										 AND es_retirado = 'N' 
+									ORDER BY es_apellidos, es_nombres ASC");
 		$num_total_registros = parent::num_rows($consulta);
 		$cadena = "<table id=\"tabla_calificaciones\" class=\"fuente8\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
-		if($num_total_registros>0)
+		if($num_total_registros > 0)
 		{
 			$contador = 0; 
 			while($paralelo = parent::fetch_assoc($consulta))
@@ -1087,9 +1100,12 @@ class paralelos extends MySQL
 				$calificacion = parent::fetch_assoc($resultado);
 				$calificacion_anual = $calificacion["promedio"];
 				
-				$periodo_evaluacion = parent::consulta("SELECT id_periodo_evaluacion FROM sw_periodo_evaluacion WHERE id_periodo_lectivo = $id_periodo_lectivo AND pe_principal = 1");
+				$periodo_evaluacion = parent::consulta("SELECT id_periodo_evaluacion 
+														  FROM sw_periodo_evaluacion 
+														 WHERE id_periodo_lectivo = $id_periodo_lectivo 
+														   AND pe_principal = 1");
 				$num_total_registros = parent::num_rows($periodo_evaluacion);
-				if($num_total_registros>0)
+				if($num_total_registros > 0)
 				{
 					$suma_periodos = 0; $contador_periodos = 0; 
 					$cadena1 = ""; $cadena2 = "";
@@ -1245,7 +1261,7 @@ class paralelos extends MySQL
 							while($aporte = parent::fetch_assoc($aporte_evaluacion))
 							{
 								$contador_aportes++;
-								$rubrica_evaluacion = parent::consulta("SELECT id_rubrica_evaluacion FROM sw_rubrica_evaluacion WHERE id_aporte_evaluacion = " . $aporte["id_aporte_evaluacion"]);
+								$rubrica_evaluacion = parent::consulta("SELECT id_rubrica_evaluacion FROM sw_rubrica_evaluacion r, sw_asignatura a WHERE r.id_tipo_asignatura = a.id_tipo_asignatura AND a.id_asignatura = $id_asignatura AND id_aporte_evaluacion = " . $aporte["id_aporte_evaluacion"]);
 								$total_rubricas = parent::num_rows($rubrica_evaluacion);
 								if($total_rubricas>0)
 								{

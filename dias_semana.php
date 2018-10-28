@@ -9,8 +9,8 @@ echo date('d/n/Y', strtotime('01/01 +' . ($week - 1) . ' weeks first day +' . ($
 date_default_timezone_set("America/Guayaquil");
 
 $fecha1 = strtotime("2018-09-03");
-//$fecha2 = strtotime(date("Y-m-d"));
-$fecha2 = strtotime("2019-07-5");
+$fecha2 = strtotime(date("Y-m-d"));
+//$fecha2 = strtotime("2019-07-5");
 $cont_dias = 0; 
 $feriados = array('2018-10-08','2018-11-01','2018-11-02','2018-12-06','2018-12-24',
                 '2018-12-25','2018-12-26','2018-12-27','2018-12-28','2018-12-31',

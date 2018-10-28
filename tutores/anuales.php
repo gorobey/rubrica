@@ -56,7 +56,7 @@
 							}
 							else
 							{
-									$("#titulo_pagina").html("ANUALES DE " + resultado);
+								$("#titulo_pagina").html("ANUALES DE " + resultado);
 							}
 						}
 					);
