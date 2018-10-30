@@ -131,7 +131,7 @@
         <!-- /.content-wrapper -->
         <footer class="main-footer">
             <div class="pull-right hidden-xs">
-                <b>Version</b> 1.0.0
+                <b>Version</b> 2.0.0
             </div>
             <strong><?php echo date("  Y"); ?> &copy; <a href="http://colegionocturnosalamanca.com" target="_blank">Unidad Educativa PCEI Fiscal Salamanca</a>.</strong> Todos los derechos reservados.
         </footer>
