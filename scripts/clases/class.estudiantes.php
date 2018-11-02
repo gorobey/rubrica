@@ -433,7 +433,7 @@ class estudiantes extends MySQL
 		// Segundo debo consultar las asignaturas del estudiante
 		$paralelo = parent::fetch_assoc($consulta);
 		$id_paralelo = $paralelo["id_paralelo"];
-		$asignaturas = parent::consulta("SELECT as_nombre, a.id_asignatura FROM sw_asignatura a, sw_asignatura_curso ac, sw_paralelo p WHERE a.id_asignatura = ac.id_asignatura AND p.id_curso = ac.id_curso AND p.id_paralelo = $id_paralelo ORDER BY ac_orden");
+		$asignaturas = parent::consulta("SELECT as_nombre, a.id_asignatura FROM sw_asignatura a, sw_asignatura_curso ac, sw_paralelo p WHERE a.id_asignatura = ac.id_asignatura AND p.id_curso = ac.id_curso AND id_tipo_asignatura = 1 AND p.id_paralelo = $id_paralelo ORDER BY ac_orden");
 		$cadena = "<table class=\"fuente8\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
 		$contador = 0;
 		while($asignatura = parent::fetch_assoc($asignaturas))
@@ -468,7 +468,7 @@ class estudiantes extends MySQL
 						while($aporte = parent::fetch_assoc($aporte_evaluacion))
 						{
 							$contador_aportes++;
-							$rubrica_evaluacion = parent::consulta("SELECT id_rubrica_evaluacion FROM sw_rubrica_evaluacion WHERE id_aporte_evaluacion = " . $aporte["id_aporte_evaluacion"]);
+							$rubrica_evaluacion = parent::consulta("SELECT id_rubrica_evaluacion FROM sw_rubrica_evaluacion WHERE id_tipo_asignatura = 1 AND id_aporte_evaluacion = " . $aporte["id_aporte_evaluacion"]);
 							$total_rubricas = parent::num_rows($rubrica_evaluacion);
 							if($total_rubricas>0)
 							{
@@ -710,7 +710,7 @@ class estudiantes extends MySQL
 		// Segundo debo consultar las asignaturas del estudiante
 		$paralelo = parent::fetch_assoc($consulta);
 		$id_paralelo = $paralelo["id_paralelo"];
-		$asignaturas = parent::consulta("SELECT as_nombre, a.id_asignatura FROM sw_asignatura a, sw_asignatura_curso ac, sw_paralelo p WHERE a.id_asignatura = ac.id_asignatura AND p.id_curso = ac.id_curso AND p.id_paralelo = $id_paralelo ORDER BY ac_orden");
+		$asignaturas = parent::consulta("SELECT as_nombre, a.id_asignatura FROM sw_asignatura a, sw_asignatura_curso ac, sw_paralelo p WHERE a.id_asignatura = ac.id_asignatura AND p.id_curso = ac.id_curso AND a.id_tipo_asignatura = 1 AND p.id_paralelo = $id_paralelo ORDER BY ac_orden");
 		$cadena = "<table class=\"fuente8\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
 		$contador = 0;
 		while($asignatura = parent::fetch_assoc($asignaturas))
@@ -733,7 +733,7 @@ class estudiantes extends MySQL
 					while($aporte = parent::fetch_assoc($aporte_evaluacion))
 					{
 						$contador_aportes++;
-						$rubrica_evaluacion = parent::consulta("SELECT id_rubrica_evaluacion FROM sw_rubrica_evaluacion WHERE id_aporte_evaluacion = " . $aporte["id_aporte_evaluacion"]);
+						$rubrica_evaluacion = parent::consulta("SELECT id_rubrica_evaluacion FROM sw_rubrica_evaluacion r, sw_asignatura a WHERE r.id_tipo_asignatura = a.id_tipo_asignatura AND a.id_asignatura = $id_asignatura AND id_aporte_evaluacion = " . $aporte["id_aporte_evaluacion"]);
 						$total_rubricas = parent::num_rows($rubrica_evaluacion);
 						if($total_rubricas>0)
 						{
@@ -848,7 +848,7 @@ class estudiantes extends MySQL
 		$paralelo = parent::fetch_object($consulta);
 		$tipoEducacion = $paralelo->te_bachillerato;
 		// Segundo debo consultar las asignaturas del estudiante
-		$asignaturas = parent::consulta("SELECT as_nombre, a.id_asignatura FROM sw_asignatura a, sw_asignatura_curso ac, sw_paralelo p WHERE a.id_asignatura = ac.id_asignatura AND p.id_curso = ac.id_curso AND p.id_paralelo = $id_paralelo ORDER BY ac_orden");
+		$asignaturas = parent::consulta("SELECT as_nombre, a.id_asignatura FROM sw_asignatura a, sw_asignatura_curso ac, sw_paralelo p WHERE a.id_asignatura = ac.id_asignatura AND p.id_curso = ac.id_curso AND a.id_tipo_asignatura = 1 AND p.id_paralelo = $id_paralelo ORDER BY ac_orden");
 		$cadena = "<table class=\"fuente8\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
 		$contador = 0;
 		while($asignatura = parent::fetch_assoc($asignaturas))
@@ -861,7 +861,7 @@ class estudiantes extends MySQL
 			$cadena .= "<td width=\"5%\">$contador</td>\n";
 			$cadena .= "<td width=\"35%\" align=\"left\">$nom_asignatura</td>\n";
 				// Aqui se consultan las rubricas definidas para el aporte de evaluacion elegido
-				$rubrica_evaluacion = parent::consulta("SELECT id_rubrica_evaluacion FROM sw_rubrica_evaluacion WHERE id_aporte_evaluacion = $id_aporte_evaluacion");
+				$rubrica_evaluacion = parent::consulta("SELECT id_rubrica_evaluacion FROM sw_rubrica_evaluacion r, sw_asignatura a WHERE r.id_tipo_asignatura = a.id_tipo_asignatura AND a.id_asignatura = $id_asignatura AND id_aporte_evaluacion = $id_aporte_evaluacion");
 				$num_total_registros = parent::num_rows($rubrica_evaluacion);
 				if($num_total_registros>0)
 				{

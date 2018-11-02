@@ -84,18 +84,16 @@ switch ($numAsignaturas) {
 
 $objReader = PHPExcel_IOFactory::createReader('Excel5');
 
-$objPHPExcel = $objReader->load("../templates/NOMINA MATRICULADOS.xls");
+$objPHPExcel = $objReader->load("../templates/PADRON ELECTORAL.xls");
 
 $objPHPExcel->setActiveSheetIndex(0);
 $objPHPExcel->getActiveSheet()->setCellValue('A7', $nombreInstitucion)
                               ->setCellValue('A10', $nombreCurso)
                               ->setCellValue('C9', $nombrePeriodoLectivo)
-                              ->setCellValue('D11', 'PARALELO '.$nomParalelo)
-                              ->setCellValue('B66', $nombreRector)
-                              ->setCellValue('D66', $nombreSecretario);
+                              ->setCellValue('D11', 'PARALELO '.$nomParalelo);
 
 // Renombrar la hoja de calculo
-$objPHPExcel->getActiveSheet()->setTitle('NOMINA DE MATRICULADOS');
+$objPHPExcel->getActiveSheet()->setTitle('PADRON ELECTORAL');
 
 // Aquí va el código para desplegar la nomina de estudiantes
 
@@ -113,14 +111,8 @@ if ($num_total_estudiantes > 0) {
         $cedula = $estudiante["es_cedula"];
 
         $objPHPExcel->getActiveSheet()->setCellValue('B' . $row, $apellidos . " " . $nombres);
-        $objPHPExcel->getActiveSheet()->setCellValue('C' . $row, $nro_matricula);
-        
-        // Aca desplego la observacion de retirado si fuere el caso
-        
-        if ($retirado == "S") {
-            $objPHPExcel->getActiveSheet()->setCellValue('D' . $row, "RETIRADO");
-        }
-    
+        $objPHPExcel->getActiveSheet()->setCellValue('C' . $row, $cedula);
+            
         $row++;
     }
 
@@ -129,7 +121,7 @@ if ($num_total_estudiantes > 0) {
 // fin del código para calcular los promedios anuales, supletorios y finales de cada estudiante
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-$objWriter->save("NOMINA DE MATRICULADOS DE " . str_replace('"','',$nombreParalelo) . " " . $nombrePeriodoLectivo . ".xls");
+$objWriter->save("PADRON ELECTORAL DE " . str_replace('"','',$nombreParalelo) . " " . $nombrePeriodoLectivo . ".xls");
 
 // Codigo para abrir la caja de dialogo Abrir o Guardar Archivo
 
@@ -138,7 +130,7 @@ header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
 header ("Cache-Control: no-cache, must-revalidate");  
 header ("Pragma: no-cache");  
 header ("Content-type: application/x-msexcel");
-header ("Content-Disposition: attachment; filename=\"" . "NOMINA DE MATRICULADOS DE " . str_replace('"','',$nombreParalelo) . " " . $nombrePeriodoLectivo . ".xls" . "\"" );
-readfile("NOMINA DE MATRICULADOS DE " . str_replace('"','',$nombreParalelo) . " " . $nombrePeriodoLectivo . ".xls");
+header ("Content-Disposition: attachment; filename=\"" . "PADRON ELECTORAL DE " . str_replace('"','',$nombreParalelo) . " " . $nombrePeriodoLectivo . ".xls" . "\"" );
+readfile("PADRON ELECTORAL DE " . str_replace('"','',$nombreParalelo) . " " . $nombrePeriodoLectivo . ".xls");
 
 ?>

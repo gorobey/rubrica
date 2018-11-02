@@ -587,7 +587,7 @@ class rubricas_evaluacion extends MySQL
 	function mostrarTitulosRubricas($alineacion)
 	{
 		if(!isset($alineacion)) $alineacion = "center";
-		$consulta = parent::consulta("SELECT ru_abreviatura FROM sw_rubrica_evaluacion WHERE id_aporte_evaluacion = " . $this->id_aporte_evaluacion);
+		$consulta = parent::consulta("SELECT ru_abreviatura FROM sw_rubrica_evaluacion WHERE id_tipo_asignatura = 1 AND id_aporte_evaluacion = " . $this->id_aporte_evaluacion);
 		
 		$mensaje = "<table id=\"titulos_rubricas\" class=\"fuente8\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n";
 		$mensaje .= "<tr>\n";

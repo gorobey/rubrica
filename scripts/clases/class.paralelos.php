@@ -2832,8 +2832,8 @@ class paralelos extends MySQL
 								$cadena .= " disabled /></td>\n";
 							}
 						}
-						$promedio = $this->truncar($suma_rubricas / $contador_rubricas,2);
-						$cadena .= "<td width=\"60px\" align=\"left\"><input type=\"text\" class=\"inputPequenio\" id=\"promedio_".$contador."\" disabled value=\"".number_format($promedio,2)."\" style=\"color:#666;\" /></td>\n";
+						$promedio = $suma_rubricas / $contador_rubricas;
+						$cadena .= "<td width=\"60px\" align=\"left\"><input type=\"text\" class=\"inputPequenio\" id=\"promedio_".$contador."\" disabled value=\"".$this->truncar($promedio,2)."\" style=\"color:#666;\" /></td>\n";
 					} else {
 						$cadena .= "<tr>\n";	
 						$cadena .= "<td>No se han definido r&uacute;bricas para este aporte de evaluaci&oacute;n...</td>\n";
