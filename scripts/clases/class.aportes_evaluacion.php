@@ -15,6 +15,7 @@ class aportes_evaluacion extends MySQL
 	var $id_periodo_lectivo = "";
 	var $id_periodo_evaluacion = "";
 	var $id_asignatura = "";
+	var $id_tipo_asignatura = "";
 	
 	function existeAporteEvaluacion($nombre)
 	{
@@ -504,7 +505,28 @@ class aportes_evaluacion extends MySQL
 		$mensaje .= "</table>\n";
 		return $mensaje;
 	}
-        
+
+	function mostrarTitulosRubricasEstudiante()
+	{
+		$mensaje = "<table id=\"titulos_rubricas\" class=\"fuente8\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n";
+		$mensaje .= "<tr>\n";
+		$consulta = parent::consulta("SELECT ru_abreviatura,
+											 ru_nombre
+										FROM sw_rubrica_evaluacion
+									   WHERE id_tipo_asignatura = 1
+									     AND id_aporte_evaluacion = " . $this->code);
+		$num_total_registros = parent::num_rows($consulta);
+		if($num_total_registros > 0)
+		{
+			while($titulo_rubrica = parent::fetch_assoc($consulta))
+			{
+				$mensaje .= "<td width=\"120px\" align=\"center\">" . $titulo_rubrica["ru_abreviatura"] . ": " . $titulo_rubrica["ru_nombre"] . "</td>\n";
+			}
+			$mensaje .= "<td width=\"120px\" align=\"center\">PROM.: PROMEDIO</td>\n";
+		}
+		return $mensaje;
+	}
+
 	function mostrarTitulosRubricas($alineacion)
 	{
 		// Consulto el tipo de aporte (1: aporte parcial; 2: examen quimestral; 3: supletorio/remedial/de gracia)

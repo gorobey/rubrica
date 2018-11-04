@@ -240,6 +240,19 @@
 		});	
 	}
 
+    function mostrarLeyendasRubricas(id_aporte_evaluacion){
+        
+		$.post("mostrar_leyendas_rubricas.php", 
+			{
+				id_aporte_evaluacion: id_aporte_evaluacion,
+				id_tipo_asignatura: 1
+			},
+			function(resultado){
+				$("#leyendas_rubricas").html(resultado);
+			}
+        );
+    }
+
 	function mostrarTitulosPeriodosEvaluacion()
 	{
 		$.post("../scripts/mostrar_titulos_periodos_evaluacion.php", 
@@ -302,53 +315,6 @@
 				}
 			}
 		);
-	}
-
-	function limpiarBusqueda()
-	{
-		$("input").val("");
-		$("#pag_estudiantes").hide();
-		$("#pag_comentarios").hide();
-		$("#lista_calificaciones").html("Debe ingresar los apellidos del estudiante...");
-		$("#txt_apellidos").focus();
-	}
-	
-	function soloLetras(elEvento) { // 1
-		//var digitos = "0123456789";
-		var caracteres = " abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
-		var teclas_especiales = [8, 9, 37, 39, 46];
-		// 8 = BackSpace, 9 = Tab, 46 = Supr, 37 = flecha izquierda, 39 = flecha derecha
-		//if (tecla==109) return true; // menos
-			//if (tecla==110) return true; // punto
-		//if (tecla==189) return true; // guion
-//		if (e.ctrlKey && tecla==86) { return true}; //Ctrl v
-//		if (e.ctrlKey && tecla==67) { return true}; //Ctrl c
-//		if (e.ctrlKey && tecla==88) { return true}; //Ctrl x
-//		if (tecla>=96 && tecla<=105) { return true;} //numpad
-
-		// Obtener la tecla pulsada 
-		var evento = elEvento || window.event;
-		var codigoCaracter = evento.charCode || evento.keyCode;
-		var caracter = String.fromCharCode(codigoCaracter);
-
-		// Comprobar si la tecla pulsada es alguna de las teclas especiales
-		// (teclas de borrado y flechas horizontales)
-		var tecla_especial = false;
-		for(var i in teclas_especiales) {
-			if(codigoCaracter == teclas_especiales[i]) {
-				tecla_especial = true;
-				break;
-			}
-		}
-	
-		// Comprobar si la tecla pulsada se encuentra en los caracteres permitidos
-		// o si es una tecla especial
-		return caracteres.indexOf(caracter) != -1 || tecla_especial;
-		 
-//		patron = /[0-9]/; // patron
-//		 
-//		te = String.fromCharCode(tecla);
-//		return patron.test(te); // prueba
 	}
 
 	function consultarEstudiante()
@@ -461,6 +427,7 @@
 	
 			$("#img_loader").show();
 			$("#lista_calificaciones").html("");
+			mostrarLeyendasRubricas(id_aporte_evaluacion);
 			mostrarTitulosRubricasEvaluacion(id_aporte_evaluacion);
 			$.post("obtener_curso_paralelo_aporte_evaluacion.php",
 				{ 
@@ -592,6 +559,9 @@
                      	<!-- Aqui va el mensaje de error -->
                      </div>
                      <div id="titulo" class="header2"> CALIFICACIONES DEL ESTUDIANTE </div>
+					 <div id="leyendas_rubricas" class="paginacion">
+						<!-- Aqui van las leyendas de las rubricas de evaluacion -->
+					 </div>
                      <div class="cabeceraTabla">
                         <table width="100%" cellspacing=0 cellpadding=0 border=0>
                            <tr class="fuente8">

@@ -848,6 +848,7 @@ class estudiantes extends MySQL
 		$paralelo = parent::fetch_object($consulta);
 		$tipoEducacion = $paralelo->te_bachillerato;
 		// Segundo debo consultar las asignaturas del estudiante
+		// Primero las asignaturas cuantitativas
 		$asignaturas = parent::consulta("SELECT as_nombre, a.id_asignatura FROM sw_asignatura a, sw_asignatura_curso ac, sw_paralelo p WHERE a.id_asignatura = ac.id_asignatura AND p.id_curso = ac.id_curso AND a.id_tipo_asignatura = 1 AND p.id_paralelo = $id_paralelo ORDER BY ac_orden");
 		$cadena = "<table class=\"fuente8\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
 		$contador = 0;
@@ -860,80 +861,113 @@ class estudiantes extends MySQL
 			$nom_asignatura = $asignatura["as_nombre"];
 			$cadena .= "<td width=\"5%\">$contador</td>\n";
 			$cadena .= "<td width=\"35%\" align=\"left\">$nom_asignatura</td>\n";
-				// Aqui se consultan las rubricas definidas para el aporte de evaluacion elegido
+			// Aqui se consultan las rubricas de las asignaturas cuantitativas definidas para el aporte de evaluacion elegido
+			$rubrica_evaluacion = parent::consulta("SELECT id_rubrica_evaluacion FROM sw_rubrica_evaluacion r, sw_asignatura a WHERE r.id_tipo_asignatura = a.id_tipo_asignatura AND a.id_asignatura = $id_asignatura AND id_aporte_evaluacion = $id_aporte_evaluacion");
+			$num_total_registros = parent::num_rows($rubrica_evaluacion);
+			if($num_total_registros>0)
+			{
+				$suma_rubricas = 0; $contador_rubricas = 0;
+				while($rubricas = parent::fetch_assoc($rubrica_evaluacion))
+				{
+					$contador_rubricas++;
+					$id_rubrica_evaluacion = $rubricas["id_rubrica_evaluacion"];
+					$qry = parent::consulta("SELECT re_calificacion FROM sw_rubrica_estudiante WHERE id_estudiante = $id_estudiante AND id_paralelo = $id_paralelo AND id_asignatura = $id_asignatura AND id_rubrica_personalizada = $id_rubrica_evaluacion");
+					$num_total_registros = parent::num_rows($qry);
+					$rubrica_estudiante = parent::fetch_assoc($qry);
+					if($num_total_registros>0) {
+						$calificacion = $rubrica_estudiante["re_calificacion"];
+					} else {
+						$calificacion = 0;
+					}
+					$suma_rubricas += $calificacion;
+					$cadena .= "<td width=\"60px\" align=\"right\">".number_format($calificacion,2)."</td>\n";
+				}
+				$promedio = $suma_rubricas / $contador_rubricas;
+				$cadena .= "<td width=\"60px\" align=\"right\">".number_format($promedio,2)."</td>\n";
+				$cadena .= "<td width=\"*\">&nbsp;</td>\n"; // Esto es para igualar el espaciado entre columnas
+				$cadena .= "</tr>\n";	
+			} else {
+				$cadena .= "<tr>\n";	
+				$cadena .= "<td>No se han definido r&uacute;bricas para este aporte de evaluaci&oacute;n...</td>\n";
+				$cadena .= "</tr>\n";
+			}
+			$cadena .= "</tr>\n";
+		}
+		$cadena .= "</table>\n";
+		// Luego las asignaturas cualitativas
+		$asignaturas = parent::consulta("SELECT as_nombre, a.id_asignatura FROM sw_asignatura a, sw_asignatura_curso ac, sw_paralelo p WHERE a.id_asignatura = ac.id_asignatura AND p.id_curso = ac.id_curso AND a.id_tipo_asignatura = 2 AND p.id_paralelo = $id_paralelo ORDER BY ac_orden");
+		$num_registros = parent::num_rows($asignaturas);
+		if($num_registros > 0) {
+			$cadena .= "<div id='titulo2' class='header2'> ASIGNATURAS CUALITATIVAS </div>\n";
+			$consulta = parent::consulta("SELECT ru_abreviatura, ru_nombre FROM sw_rubrica_evaluacion WHERE id_tipo_asignatura = 2 AND id_aporte_evaluacion = $id_aporte_evaluacion");
+			$mensaje = "<table id=\"titulos_rubricas\" class=\"fuente8\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n";
+			$mensaje .= "<tr>\n";
+			while($titulo_rubrica = parent::fetch_assoc($consulta)) {
+				$mensaje .= "<td width=\"150px\" align=\"center\">" . $titulo_rubrica["ru_abreviatura"] . ": " . $titulo_rubrica["ru_nombre"] . "</td>\n";
+			}
+			$mensaje .= "</tr></table>\n";
+			$cadena .= "<div id='leyendas_rubricas_2' class='paginacion'>$mensaje</div>\n";
+			$cadena .= "<div class='cabeceraTabla'>\n";
+			$cadena .= "<table width='100%' cellspacing=0 cellpadding=0 border=0>\n";
+			$cadena .= "<tr class='fuente8'>\n";
+			$cadena .= "<td width='5%' align='left'>Nro.</td>\n";
+			$cadena .= "<td width='35%' align='left'>Asignatura</td>\n";
+			$cadena .= "<td width='60%' align='left'>\n";
+			//Obtener las abreviaturas de las asignaturas cualitativas
+			$consulta = parent::consulta("SELECT ru_abreviatura FROM sw_rubrica_evaluacion WHERE id_tipo_asignatura = 2 AND id_aporte_evaluacion = $id_aporte_evaluacion");
+			$mensaje = "<table id=\"titulos_rubricas\" class=\"fuente8\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n";
+			$mensaje .= "<tr>\n";
+			while($titulo_rubrica = parent::fetch_assoc($consulta)) {
+				$mensaje .= "<td width=\"60px\" align=\"right\">" . $titulo_rubrica["ru_abreviatura"] . "</td>\n";
+			}
+			$mensaje .= "</tr></table>\n";
+			$cadena .= "<div>$mensaje</div>\n";
+			$cadena .= "</td>\n";
+			$cadena .= "</tr>\n";
+			$cadena .= "</table>\n";
+			$cadena .= "</div>\n";
+			//Obtener las asignaturas cualitativas con sus respectivas calificaciones
+			$asignaturas = parent::consulta("SELECT as_nombre, a.id_asignatura FROM sw_asignatura a, sw_asignatura_curso ac, sw_paralelo p WHERE a.id_asignatura = ac.id_asignatura AND p.id_curso = ac.id_curso AND a.id_tipo_asignatura = 2 AND p.id_paralelo = $id_paralelo ORDER BY ac_orden");
+			$mensaje = "<table class=\"fuente8\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
+			$contador = 0;
+			while($asignatura = parent::fetch_assoc($asignaturas))
+			{
+				$contador++;
+				$fondolinea = ($contador % 2 == 0) ? "itemParTabla" : "itemImparTabla";
+				$mensaje .= "<tr class=\"$fondolinea\" onmouseover=\"className='itemEncimaTabla'\" onmouseout=\"className='$fondolinea'\">\n";
+				$mensaje .= "<td width=\"5%\">$contador</td>\n";
+				$mensaje .= "<td width=\"35%\" align=\"left\">".$asignatura["as_nombre"]."</td>\n";
+				//Finalmente obtengo la calificacion cualitativa
+				$id_asignatura = $asignatura["id_asignatura"];
 				$rubrica_evaluacion = parent::consulta("SELECT id_rubrica_evaluacion FROM sw_rubrica_evaluacion r, sw_asignatura a WHERE r.id_tipo_asignatura = a.id_tipo_asignatura AND a.id_asignatura = $id_asignatura AND id_aporte_evaluacion = $id_aporte_evaluacion");
 				$num_total_registros = parent::num_rows($rubrica_evaluacion);
 				if($num_total_registros>0)
 				{
-					$suma_rubricas = 0; $contador_rubricas = 0;
 					while($rubricas = parent::fetch_assoc($rubrica_evaluacion))
 					{
-						$contador_rubricas++;
 						$id_rubrica_evaluacion = $rubricas["id_rubrica_evaluacion"];
-						$qry = parent::consulta("SELECT re_calificacion FROM sw_rubrica_estudiante WHERE id_estudiante = $id_estudiante AND id_paralelo = $id_paralelo AND id_asignatura = $id_asignatura AND id_rubrica_personalizada = $id_rubrica_evaluacion");
+						$qry = parent::consulta("SELECT rc_calificacion FROM sw_rubrica_cualitativa WHERE id_estudiante = $id_estudiante AND id_paralelo = $id_paralelo AND id_asignatura = $id_asignatura AND id_aporte_evaluacion = $id_aporte_evaluacion");
 						$num_total_registros = parent::num_rows($qry);
 						$rubrica_estudiante = parent::fetch_assoc($qry);
 						if($num_total_registros>0) {
-							$calificacion = $rubrica_estudiante["re_calificacion"];
+							$calificacion = $rubrica_estudiante["rc_calificacion"];
 						} else {
-							$calificacion = 0;
+							$calificacion = " ";
 						}
-						$suma_rubricas += $calificacion;
-						$cadena .= "<td width=\"60px\" align=\"right\">".number_format($calificacion,2)."</td>\n";
+						$mensaje .= "<td width=\"60px\" align=\"right\">".$calificacion."</td>\n";
 					}
-					$promedio = $suma_rubricas / $contador_rubricas;
-					$cadena .= "<td width=\"60px\" align=\"right\">".number_format($promedio,2)."</td>\n";
-					$cadena .= "<td width=\"*\">&nbsp;</td>\n"; // Esto es para igualar el espaciado entre columnas
-					$cadena .= "</tr>\n";	
+					$mensaje .= "<td width=\"*\">&nbsp;</td>\n"; // Esto es para igualar el espaciado entre columnas
+					$mensaje .= "</tr>\n";	
 				} else {
-					$cadena .= "<tr>\n";	
-					$cadena .= "<td>No se han definido r&uacute;bricas para este aporte de evaluaci&oacute;n...</td>\n";
-					$cadena .= "</tr>\n";
+					$mensaje .= "<tr>\n";	
+					$mensaje .= "<td>No se han definido r&uacute;bricas para este aporte de evaluaci&oacute;n...</td>\n";
+					$mensaje .= "</tr>\n";
 				}
-			$cadena .= "</tr>\n";
-		}
-		if($tipoEducacion==0) 
-		{
-			// Aqui obtengo el id_club del estudiante
-			$qry = parent::consulta("SELECT ec.id_club, cl_nombre FROM sw_club c, sw_estudiante_club ec WHERE ec.id_club = c.id_club AND id_estudiante = $id_estudiante AND id_periodo_lectivo = $id_periodo_lectivo");
-			$total_registros = parent::num_rows($qry);
-			if($total_registros > 0) {
-				$registro = parent::fetch_assoc($qry);
-				$id_club = $registro["id_club"];
-				$cl_nombre = $registro["cl_nombre"];
-				
-				// Aca calculo el promedio parcial del club al que pertenece el estudiante
-				$query = parent::consulta("SELECT calcular_promedio_aporte_club($id_aporte_evaluacion, $id_estudiante, $id_club) AS promedio");
-				$calificacion = parent::fetch_assoc($query);
-				$promedio_parcial = $calificacion["promedio"];
-
-				// Aqui obtengo la equivalencia cualitativa para el promedio parcial de clubes
-				$qry = parent::consulta("SELECT ec_equivalencia FROM sw_escala_proyectos WHERE ec_nota_minima <= $promedio_parcial AND ec_nota_maxima >= $promedio_parcial");
-				$registro = parent::fetch_assoc($qry);
-				$equivalencia = $registro["ec_equivalencia"];
-
-				$contador++;
-				$fondolinea = ($contador % 2 == 0) ? "itemParTabla" : "itemImparTabla";
-				$cadena .= "<tr class=\"$fondolinea\" onmouseover=\"className='itemEncimaTabla'\" onmouseout=\"className='$fondolinea'\">\n";
-
-				$cadena .= "<td width=\"5%\">$contador</td>\n";
-				$cadena .= "<td width=\"35%\" align=\"left\">$cl_nombre</td>\n";
-				
-				$contador_auxiliar = $contador_rubricas;
-				
-				while ($contador_auxiliar > 0)
-				{
-					$cadena .= "<td width=\"60px\" align=\"right\">&nbsp;</td>\n";
-					$contador_auxiliar--;
-				}
-				
-				$cadena .= "<td width=\"60px\" align=\"right\">$equivalencia</td>\n";
-				$cadena .= "<td width=\"*\">&nbsp;</td>\n"; // Esto es para igualar el espaciado entre columnas
-
-				$cadena .= "</tr>\n";
+				$mensaje .= "</tr>\n";
 			}
+			$mensaje .= "</table>\n";
+			$cadena .= "<div id='lista_calificaciones' style='text-align:center; overflow:auto'>$mensaje</div>\n";
 		}
-		$cadena .= "</table>\n";
 		return $cadena;
 	}
 	
