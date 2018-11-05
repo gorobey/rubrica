@@ -122,32 +122,54 @@ if($num_total_estudiantes > 0)
 
 		$objPHPExcel->getActiveSheet()->setCellValue('B'.$row, $apellidos." ".$nombres);
 		
-		$asignaturas = $db->consulta("SELECT a.id_asignatura, as_nombre FROM sw_asignatura_curso ac, sw_paralelo p, sw_asignatura a WHERE ac.id_curso = p.id_curso AND ac.id_asignatura = a.id_asignatura AND id_paralelo = $id_paralelo ORDER BY ac_orden");
+		$asignaturas = $db->consulta("SELECT a.id_asignatura, a.id_tipo_asignatura, as_nombre FROM sw_asignatura_curso ac, sw_paralelo p, sw_asignatura a WHERE ac.id_curso = p.id_curso AND ac.id_asignatura = a.id_asignatura AND id_paralelo = $id_paralelo ORDER BY ac_orden");
 		$total_asignaturas = $db->num_rows($asignaturas);
 		if($total_asignaturas > 0)
 		{
-			$rowAsignatura = 6; $contAsignatura = 0; $sumaPromedios = 0;
+			$rowAsignatura = 6; $contAsignatura = 0; $sumaPromedios = 0; $cuantitativas = 0;
 			while ($asignatura = $db->fetch_assoc($asignaturas))
 			{
 				// Aqui proceso los promedios de cada asignatura
 				$id_asignatura = $asignatura["id_asignatura"];
+				$id_tipo_asignatura = $asignatura["id_tipo_asignatura"];
 				$asignatura = $asignatura["as_nombre"];
 				
 				$objPHPExcel->getActiveSheet()->setCellValue($colAsignaturas[$contAsignatura].$rowAsignatura, $asignatura);
 				
-				// Aca voy a llamar a una funcion almacenada que calcula el promedio quimestral de la asignatura
-				$query = $db->consulta("SELECT calcular_promedio_aporte($id_aporte_evaluacion, $id_estudiante, $id_paralelo, $id_asignatura) AS promedio");
-				$calificacion = $db->fetch_assoc($query);
-				$promedio_quimestral = $calificacion["promedio"];
-				$sumaPromedios += $promedio_quimestral;
-				
-				$objPHPExcel->getActiveSheet()->setCellValue($colAsignaturas[$contAsignatura].$row, truncar($promedio_quimestral,2));
+				if($id_tipo_asignatura==1) // Se trata de una asignatura CUANTITATIVA
+				{
+					// Aca voy a llamar a una funcion almacenada que calcula el promedio parcial de la asignatura
+					$query = $db->consulta("SELECT calcular_promedio_aporte($id_aporte_evaluacion, $id_estudiante, $id_paralelo, $id_asignatura) AS promedio");
+					$calificacion = $db->fetch_assoc($query);
+					$promedio_parcial = $calificacion["promedio"];
+					$sumaPromedios += $promedio_parcial;
+					
+					$objPHPExcel->getActiveSheet()->setCellValue($colAsignaturas[$contAsignatura].$row, truncar($promedio_parcial,2));
+					$cuantitativas++;
+				}
+				else
+				{
+					// Aca obtengo la calificacion cualitativa de la asignatura
+					$query = $db->consulta("SELECT rc_calificacion FROM sw_rubrica_cualitativa WHERE id_aporte_evaluacion = $id_aporte_evaluacion AND id_estudiante = $id_estudiante AND id_paralelo = $id_paralelo AND id_asignatura = $id_asignatura");
+					$total_registros = $db->num_rows($query);
+					if($total_registros > 0)
+					{
+						$registro = $db->fetch_assoc($query);
+						$calificacion = $registro["rc_calificacion"];
+					}
+					else
+					{
+						$calificacion = " ";
+					}
 
+					$objPHPExcel->getActiveSheet()->setCellValue($colAsignaturas[$contAsignatura].$row, $calificacion);
+				}
+				
 				$contAsignatura++;
 			} // fin while $asignatura
 			
 			// Calculo e impresion del promedio de asignaturas
-			$promedioAsignaturas = $sumaPromedios / $total_asignaturas;
+			$promedioAsignaturas = $sumaPromedios / $cuantitativas;
 			$objPHPExcel->getActiveSheet()->setCellValue($colPromedio.$row, truncar($promedioAsignaturas,2));
 
 		} // fin if $total_asignatura
