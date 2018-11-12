@@ -89,7 +89,38 @@ class aportes_evaluacion extends MySQL
 		}
 		else {
 			$cadena .= "<tr>\n";	
-			$cadena .= "<td>No se han definido Cierres para los Aportes de Evaluaci&oacute;n...</td>\n";
+			$cadena .= "<td>No se han definido Parciales para el Quimestre seleccionado...</td>\n";
+			$cadena .= "</tr>\n";	
+		}
+		$cadena .= "</table>";	
+		return $cadena;
+	}
+
+	function listarAportesEvaluacionSecretaria()
+	{
+		$consulta = parent::consulta("SELECT id_aporte_evaluacion, ap_nombre FROM sw_aporte_evaluacion WHERE id_periodo_evaluacion = " . $this->id_periodo_evaluacion);
+		$num_total_registros = parent::num_rows($consulta);
+		$cadena = "<table class=\"fuente8\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
+		if($num_total_registros>0)
+		{
+			$contador = 0;
+			while($aportes_evaluacion = parent::fetch_assoc($consulta))
+			{
+				$contador ++;
+				$fondolinea = ($contador % 2 == 0) ? "itemParTabla" : "itemImparTabla";
+				$cadena .= "<tr class=\"$fondolinea\" onmouseover=\"className='itemEncimaTabla'\" onmouseout=\"className='$fondolinea'\">\n";
+				$code = $aportes_evaluacion["id_aporte_evaluacion"];
+				$name = $aportes_evaluacion["ap_nombre"];
+				$cadena .= "<td width=\"5%\">$contador</td>\n";	
+				$cadena .= "<td width=\"5%\">$code</td>\n";
+				$cadena .= "<td width=\"72%\" align=\"left\">$name</td>\n";
+				$cadena .= "<td width=\"18%\" class=\"link_table\"><a href=\"#\" onclick=\"seleccionarAporteEvaluacion(".$code.")\">seleccionar</a></td>\n";
+				$cadena .= "</tr>\n";	
+			}
+		}
+		else {
+			$cadena .= "<tr>\n";	
+			$cadena .= "<td>No se han definido Parciales para el Quimestre seleccionado...</td>\n";
 			$cadena .= "</tr>\n";	
 		}
 		$cadena .= "</table>";	

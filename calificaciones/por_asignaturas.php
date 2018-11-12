@@ -87,7 +87,7 @@
 	function listarAportesEvaluacion()
 	{
 		var id_periodo_evaluacion = document.getElementById("cboPeriodosEvaluacion").value;
-		$.post("scripts/listado_aportes_evaluacion.php", { id_periodo_evaluacion: id_periodo_evaluacion },
+		$.post("calificaciones/listado_aportes_evaluacion.php", { id_periodo_evaluacion: id_periodo_evaluacion },
 			function(resultado)
 			{
 				if(resultado == false)
@@ -130,11 +130,13 @@
 	function mostrarTitulosRubricas(id_aporte_evaluacion)
 	{
 		var id_periodo_evaluacion = $("#cboPeriodosEvaluacion").val();
+		var id_asignatura = $("#cboAsignaturas").val();
 		$.post("calificaciones/mostrar_titulos_rubricas.php", 
 			{
 				id_periodo_evaluacion: id_periodo_evaluacion,
 				id_aporte_evaluacion: id_aporte_evaluacion,
-				alineacion: "right"
+				alineacion: "right",
+				id_asignatura: id_asignatura
 			},
 			function(resultado)
 			{
@@ -183,20 +185,38 @@
 		$("#mensaje").html("");
 		$("#img_loader").show();
 		$("#lista_estudiantes_paralelo").hide();
-		$.post("scripts/listar_estudiantes_paralelo.php", 
-			{ 
-				id_paralelo: id_paralelo,
-				id_asignatura: id_asignatura,
-				id_aporte_evaluacion: id_aporte_evaluacion,
-				id_periodo_evaluacion: id_periodo_evaluacion
+		// Primero obtengo el id_curso asociado al id_paralelo actual
+		$.ajax({
+			url: "tutores/obtener_id_curso.php",
+			method: "post",
+			data:
+				{
+					id_paralelo: id_paralelo
+				},
+			type: "json",
+			success: function(resultado){
+				// Obtengo el id_curso en formato json
+				var id_curso = JSON.parse(resultado).id_curso;
+				$.post("calificaciones/listar_estudiantes_paralelo_tutor.php", 
+					{ 
+						id_curso: id_curso,
+						id_paralelo: id_paralelo,
+						id_asignatura: id_asignatura,
+						id_aporte_evaluacion: id_aporte_evaluacion,
+						id_periodo_evaluacion: id_periodo_evaluacion
+					},
+					function(resultado)
+					{
+						$("#img_loader").hide();
+						$("#lista_estudiantes_paralelo").show();
+						$("#lista_estudiantes_paralelo").html(resultado);
+					}
+				);
 			},
-			function(resultado)
-			{
-				$("#img_loader").hide();
-				$("#lista_estudiantes_paralelo").show();
-				$("#lista_estudiantes_paralelo").html(resultado);
-			}
-		);
+            error: function(xhr, status, error) {
+                alert(xhr.responseText);
+            }
+		});
 	}
 	
 </script>
