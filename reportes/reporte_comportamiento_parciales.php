@@ -80,9 +80,10 @@
 	
 	// Impresion de los titulos de cabecera
 	$pdf->Ln(10);
+	$pdf->SetX(81);
 	$pdf->SetFont('Arial','',8);
 	$pdf->Cell(8,6,"Nro.",1,0,'C');
-	$pdf->Cell(72,6,"NOMINA",1,0,'C');
+	$pdf->Cell(74,6,"NOMINA",1,0,'C');
 	
 	// Aqui imprimo las cabeceras de cada asignatura
 	$db = new MySQL();
@@ -108,9 +109,10 @@
 			if($contador % 25 == 0) {
 				$pdf->AddPage(); 
 				$pdf->Ln(10);
+				$pdf->SetX(81);
 				$pdf->SetFont('Arial','',8);
 				$pdf->Cell(8,6,"Nro.",1,0,'C');
-				$pdf->Cell(72,6,"NOMINA",1,0,'C');
+				$pdf->Cell(74,6,"NOMINA",1,0,'C');
 				
 				// Aqui imprimo las cabeceras de cada asignatura
 				$db = new MySQL();
@@ -121,9 +123,10 @@
 				$pdf->Ln();
 			}
 
+			$pdf->SetX(81);
 			$pdf->Cell(8,6,$contador,1,0,'C');
 			$nombre_completo = utf8_decode($paralelo["es_apellidos"])." ".utf8_decode($paralelo["es_nombres"]);
-			$pdf->Cell(72,6,$nombre_completo,1,0,'L');
+			$pdf->Cell(74,6,$nombre_completo,1,0,'L');
 
 			// Aqui se calcula el promedio del comportamiento asignado por los docentes
 

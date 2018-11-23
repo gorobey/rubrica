@@ -46,8 +46,10 @@ $nombreFiguraProfesional = $especialidad->obtenerNombreFiguraProfesional($id_par
 $nombreEstudiante = $registro["es_apellidos"] . " " . $registro["es_nombres"];
 
 $html =
-  '<html>
+  '<!DOCTYPE html>
+  <html lang="es">
   <head>
+  <meta charset="UTF-8">
   <style>
     .titulo1 {
 	  font-family: Helvetica, Arial, serif;
@@ -86,9 +88,9 @@ $html =
   	<table class="fuente8" width="100%" cellspacing="0" cellpadding="0" border="0">
 	  <tr>
 		<td width="5%" align="left">NRO.</td>
-		<td width="35%" align="left">ASIGNATURA</td>';
+		<td width="35%" align="left">ASIGNATURAS CUANTITATIVAS</td>';
 
-	$consulta = $db->consulta("SELECT ru_abreviatura FROM sw_rubrica_evaluacion WHERE id_aporte_evaluacion = $id_aporte_evaluacion");
+	$consulta = $db->consulta("SELECT ru_abreviatura FROM sw_rubrica_evaluacion WHERE id_aporte_evaluacion = $id_aporte_evaluacion AND id_tipo_asignatura = 1");
 
 	$num_total_registros = $db->num_rows($consulta);
 	if($num_total_registros>0)
@@ -105,8 +107,8 @@ $html .= '</tr>
   </div>
   <div>';
 
-	// Segundo debo consultar las asignaturas del estudiante
-	$asignaturas = $db->consulta("SELECT as_nombre, a.id_asignatura FROM sw_asignatura a, sw_asignatura_curso ac, sw_paralelo p WHERE a.id_asignatura = ac.id_asignatura AND p.id_curso = ac.id_curso AND p.id_paralelo = $id_paralelo ORDER BY ac_orden");
+	// Segundo consultar las asignaturas cuantitativas del estudiante
+	$asignaturas = $db->consulta("SELECT as_nombre, a.id_asignatura FROM sw_asignatura a, sw_asignatura_curso ac, sw_paralelo p WHERE a.id_asignatura = ac.id_asignatura AND p.id_curso = ac.id_curso AND p.id_paralelo = $id_paralelo AND a.id_tipo_asignatura = 1 ORDER BY ac_orden");
 
 	$html .= '<table class="fuente8" width="100%" cellspacing="0" cellpadding="0" border="0">';
 	$contador = 0;
@@ -124,7 +126,7 @@ $html .= '</tr>
 		//*************************************************************************************
 		
 		// Aqui se consultan las rubricas definidas para el aporte de evaluacion elegido
-		$rubrica_evaluacion = $db->consulta("SELECT id_rubrica_evaluacion FROM sw_rubrica_evaluacion WHERE id_aporte_evaluacion = $id_aporte_evaluacion");
+		$rubrica_evaluacion = $db->consulta("SELECT id_rubrica_evaluacion FROM sw_rubrica_evaluacion WHERE id_aporte_evaluacion = $id_aporte_evaluacion AND id_tipo_asignatura = 1");
 		$num_total_registros = $db->num_rows($rubrica_evaluacion);
 		if($num_total_registros>0)
 		{
@@ -152,9 +154,65 @@ $html .= '</tr>
 		//*************************************************************************************
 		$html .= '</tr>';
 	}
-	$html .= '</table>';
-$html .= '</div>
-  <div>
+	$html .= '</table>
+	  </div>
+	  <div class="cabeceraTabla">
+  	  <table class="fuente8" width="100%" cellspacing="0" cellpadding="0" border="0">
+	    <tr>
+		  <td width="10%" align="left">NRO.</td>
+		  <td width="35%" align="left">ASIGNATURAS CUALITATIVAS</td>';
+
+	      $consulta = $db->consulta("SELECT ru_nombre FROM sw_rubrica_evaluacion WHERE id_aporte_evaluacion = $id_aporte_evaluacion AND id_tipo_asignatura = 2");
+
+	      $num_total_registros = $db->num_rows($consulta);
+	      if($num_total_registros > 0)
+	      {
+			 $registro = $db->fetch_assoc($consulta);
+			 $html .= '<td width="55%" align="left">' . $registro["ru_nombre"] . '</td>';
+	      }
+	$html .= '</tr>	
+	  </table>
+	  </div>
+	  <div>';
+
+	// Segundo consultar las asignaturas cualitativas del estudiante
+	$asignaturas = $db->consulta("SELECT as_nombre, a.id_asignatura FROM sw_asignatura a, sw_asignatura_curso ac, sw_paralelo p WHERE a.id_asignatura = ac.id_asignatura AND p.id_curso = ac.id_curso AND p.id_paralelo = $id_paralelo AND a.id_tipo_asignatura = 2 ORDER BY ac_orden");
+
+	$html .= '<table class="fuente8" width="100%" cellspacing="0" cellpadding="0" border="0">';
+	$contador = 0;
+	while($asignatura = $db->fetch_assoc($asignaturas))
+	{
+		$contador++; $contador_sin_examen = 0;
+		$fondolinea = ($contador % 2 == 0) ? "#ccc" : "#f5f5f5";
+		$html .= '<tr bgcolor="'.$fondolinea.'">';
+
+		$id_asignatura = $asignatura["id_asignatura"];
+		$nom_asignatura = $asignatura["as_nombre"];
+		$html .= '<td width="10%" align="left">'.$contador.'</td>';
+		$html .= '<td width="35%" align="left">'.$nom_asignatura.'</td>';
+		
+		//*************************************************************************************
+		
+		// Aqui se consulta la calificacion de la asignatura cualitativa
+		$rubrica_evaluacion = $db->consulta("SELECT rc_calificacion FROM sw_rubrica_cualitativa WHERE id_aporte_evaluacion = $id_aporte_evaluacion AND id_asignatura = $id_asignatura AND id_estudiante = $id_estudiante AND id_paralelo = $id_paralelo");
+		$num_total_registros = $db->num_rows($rubrica_evaluacion);
+		if($num_total_registros>0)
+		{
+			$registro = $db->fetch_assoc($rubrica_evaluacion);
+			$calificacion = $registro["rc_calificacion"];
+		} else {
+			$calificacion = " ";
+		}
+		
+		$html .= '<td width="55%" align="left">' . $calificacion . '</td>';
+		
+		//*************************************************************************************
+		$html .= '</tr>';
+	}
+	$html .= '</table>
+	  </div>';
+	
+$html .= '<div>
   <table class="fuente8" border="0">
   <tr>
   <td>
