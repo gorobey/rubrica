@@ -53,10 +53,10 @@ include_once("../funciones/funciones_sitio.php");
 			captcha=eliminaEspacios(captcha);
 
 			// Valido con una expresion regular el contenido de lo que el usuario ingresa
-			var reg=/(^[0-9]{10,10}$)/;
+			var reg=/(^[0-9]{5,10}$)/;
 			if(!reg.test(cedula))
 			{
-				var mensaje = "Debes ingresar tu n&uacute;mero de c&eacute;dula (S&oacute;lo caracteres num&eacute;ricos)";
+				var mensaje = "Debes ingresar al menos 5 caracteres num&eacute;ricos";
 				$("#mensaje").html(mensaje);
 				document.getElementById("txt_cedula").focus();
 			}
