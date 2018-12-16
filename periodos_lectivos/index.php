@@ -3,7 +3,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>R&uacute;brica Web 2.0</title>
+<link href="calendario/calendar-blue.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/funciones.js"></script>
+<script type="text/JavaScript" language="javascript" src="calendario/calendar.js"></script>
+<script type="text/JavaScript" language="javascript" src="calendario/lang/calendar-sp.js"></script>
+<script type="text/JavaScript" language="javascript" src="calendario/calendar-setup.js"></script>
 <script type="text/javascript" src="js/keypress.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -62,6 +66,7 @@
 					document.getElementById("id_periodo_lectivo").value=JSONPeriodoLectivo.id_periodo_lectivo;
 					document.getElementById("pe_anio_inicio").value=JSONPeriodoLectivo.pe_anio_inicio;
 					document.getElementById("pe_anio_fin").value=JSONPeriodoLectivo.pe_anio_fin;
+					document.getElementById("pe_fec_ini").value=JSONPeriodoLectivo.pe_fecha_inicio;
 					$("#formulario_nuevo").css("display", "block");
 					document.getElementById("pe_anio_inicio").focus();
 			  }
@@ -74,6 +79,7 @@
 		var id_periodo_lectivo = $("#id_periodo_lectivo").val();
 		var anio_inicio = $("#pe_anio_inicio").val();
 		var anio_fin = $("#pe_anio_fin").val();
+		var fec_ini = $("#pe_fec_ini").val();
 		
 		anio_inicio = eliminaEspacios(anio_inicio);
 		anio_fin = eliminaEspacios(anio_fin);
@@ -104,7 +110,8 @@
 				{ 
 					id_periodo_lectivo: id_periodo_lectivo,
 					anio_inicial: anio_inicio,
-					anio_final: anio_fin
+					anio_final: anio_fin,
+					fecha_inicio: fec_ini
 				},
 				function(resultado)
 				{
@@ -136,6 +143,7 @@
 		//Procedimiento para ingresar un nuevo periodo lectivo
 		var anio_inicio = $("#pe_anio_inicio").val();
 		var anio_fin = $("#pe_anio_fin").val();
+		var fec_ini = $("#pe_fec_ini").val();
 		
 		anio_inicio = eliminaEspacios(anio_inicio);
 		anio_fin = eliminaEspacios(anio_fin);
@@ -162,7 +170,8 @@
 			$.post("periodos_lectivos/insertar_periodo_lectivo.php", 
 				{ 
 					anio_inicial: anio_inicio,
-					anio_final: anio_fin
+					anio_final: anio_fin,
+					fecha_inicial: fec_ini
 				},
 				function(resultado)
 				{
@@ -225,6 +234,22 @@
                      <input id="pe_anio_fin" type="text" class="cajaPequenia" name="pe_anio_fin" maxlength="40" onkeypress="return permite(event,'num')" />
                   </td>
                </tr>
+					<tr>
+						<td width="15%" align="right">Fecha de Inicio:</td>
+						<td width="*">
+							<input id="pe_fec_ini" type="text" class="cajaPequenia" name="pe_fec_ini" maxlength="10" />
+							<img src="imagenes/calendario.png" id="calendario" name="calendario" width="16px" height="16px" title="calendario" alt="calendario" onmouseover="style.cursor=cursor" />
+							<script type="text/javascript">
+								Calendar.setup(
+									{
+										inputField : "pe_fec_ini",
+										ifFormat   : "%Y-%m-%d",
+										button     : "calendario"
+									}
+								);
+							</script>
+						</td>
+					</tr>
                <tr>
                   <td colspan="2">
                      <table id="botones_nuevo" cellpadding="0" cellspacing="0" border="0" width="100%">

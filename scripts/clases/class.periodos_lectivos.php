@@ -74,18 +74,18 @@ class periodos_lectivos extends MySQL
 		return $periodo_lectivo->pe_anio_inicio . " - " . $periodo_lectivo->pe_anio_fin;
 	}
 
-	function insertarPeriodoLectivo($anio_inicial, $anio_final)
+	function insertarPeriodoLectivo($anio_inicial, $anio_final, $fecha_inicial)
 	{
-		$consulta = parent::consulta("call sp_insertar_periodo_lectivo($anio_inicial,$anio_final)");
+		$consulta = parent::consulta("call sp_insertar_periodo_lectivo($anio_inicial,$anio_final,$fecha_inicial)");
 		$mensaje = "Per&iacute;odo Lectivo insertado exitosamente.";
 		if (!$consulta)
 			$mensaje = "No se pudo insertar el per&iacute;odo lectivo. Error: " . mysql_error();
 		return $mensaje;
 	}
 
-	function actualizarPeriodoLectivo($id_periodo_lectivo, $anio_inicial, $anio_final)
+	function actualizarPeriodoLectivo($id_periodo_lectivo, $anio_inicial, $anio_final, $fecha_inicial)
 	{
-		$consulta = parent::consulta("call sp_actualizar_periodo_lectivo($id_periodo_lectivo,$anio_inicial,$anio_final)");
+		$consulta = parent::consulta("call sp_actualizar_periodo_lectivo($id_periodo_lectivo,$anio_inicial,$anio_final,$fecha_inicial)");
 		$mensaje = "Per&iacute;odo Lectivo actualizado exitosamente.";
 		if (!$consulta)
 			$mensaje = "No se pudo actualizar el per&iacute;odo lectivo. Error: " . mysql_error();
